@@ -1,21 +1,13 @@
-
 import 'package:flutter/material.dart';
-import 'package:loading_indicator/loading_indicator.dart';
+import 'package:studion_mobile/widget/common/loader.dart';
+import 'package:studion_mobile/widget/common/navigation_bar.dart';
 
 class LoaderScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: SizedBox(
-          child: LoadingIndicator(
-            indicatorType: Indicator.ballClipRotate,
-          ),
-          width: 50,
-        ),
-      ),
+    return Scaffold(
+      body: Loader(),
+      bottomNavigationBar: NavigationBar(),
     );
   }
-
 }
