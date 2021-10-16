@@ -11,43 +11,55 @@ class StudioCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: SizedBox(
-        height: 220,
-        child: Column(
+        height: 200,
+        child: Stack(
           children: [
-            Container(
-              height: 160,
-              color: Colors.black12,
-            ),
-            Container(
-              height: 60,
-              color: Colors.grey,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        child: Text(
-                          studio.name,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+            studio.imageUrl != null
+                ? SizedBox(
+                    height: 200,
+                    width: double.infinity,
+                    child: Image.network(
+                      studio.imageUrl!,
+                      fit: BoxFit.fill,
+                    ),
+                  )
+                : Container(
+                    height: 200,
+                    color: Colors.black12,
+                  ),
+            Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Container(
+                height: 40,
+                color: Colors.grey.withOpacity(0.5),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          child: Text(
+                            studio.name,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          margin: const EdgeInsets.only(
+                            left: 15,
+                            top: 10,
                           ),
                         ),
-                        margin: const EdgeInsets.only(
-                          left: 15,
-                          top: 5,
+                        Container(
+                          margin: const EdgeInsets.only(
+                            right: 15,
+                            top: 5,
+                          ),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                          right: 15,
-                          top: 5,
-                        ),
-                      ),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  ),
-                ],
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
