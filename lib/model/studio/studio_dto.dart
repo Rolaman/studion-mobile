@@ -1,5 +1,8 @@
 class StudioListRequest {
-  final String cityId = 'moscow';
+  final String? cityId;
+  final String? text;
+
+  StudioListRequest({this.cityId, this.text});
 }
 
 class StudioListResponse {
