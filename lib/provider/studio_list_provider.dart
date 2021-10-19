@@ -4,25 +4,42 @@ import 'package:studion_mobile/model/studio_dto.dart';
 
 class StudioListProvider with ChangeNotifier {
   List<StudioItem> _items = [];
+  List<StudioItem> _allItems = [];
 
   Future<void> get(StudioListRequest request) async {
-    CollectionReference studios =
-        FirebaseFirestore.instance.collection('studios');
-    QuerySnapshot<Object?> snapshot = await studios.get();
-    List<StudioItem> items = snapshot.docs.map((e) {
-      Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
-      return StudioItem(firestoreData['name'], firestoreData['imageUrl']);
-    }).where((e) {
+    if (_allItems.isEmpty) {
+      await _fetchAll();
+    }
+    _items = _allItems.where((e) {
       if (request.text == null) {
         return true;
       }
       return e.name.contains(request.text!);
     }).toList();
-    _items = items;
-    notifyListeners();
+  }
+
+  Future<void> _fetchAll() async {
+    CollectionReference studios =
+        FirebaseFirestore.instance.collection('studios');
+    QuerySnapshot<Object?> snapshot = await studios.get();
+    _allItems = snapshot.docs.map((e) {
+      Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
+      List<String> images = firestoreData['imageUrls'].cast<String>();
+      return StudioItem(
+        e.id,
+        firestoreData['name'],
+        firestoreData['imageUrl'],
+        images,
+        firestoreData['description'],
+      );
+    }).toList();
   }
 
   List<StudioItem> get items {
     return [..._items];
+  }
+
+  StudioItem getOne(String id) {
+    return _allItems.firstWhere((e) => id == e.id);
   }
 }

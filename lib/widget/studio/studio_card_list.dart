@@ -46,7 +46,6 @@ class _StudioCardListState extends State<StudioCardList> {
                 ),
               );
       },
-
     );
   }
 }
