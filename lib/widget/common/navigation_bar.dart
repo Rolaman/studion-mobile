@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
 import 'package:studion_mobile/screen/room_list_screen.dart';
 import 'package:studion_mobile/screen/studio_list_screen.dart';
 
@@ -8,7 +10,6 @@ class NavigationBar extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationBar> {
-  int _selectedIndex = 0;
 
   final List<BottomNavigationBarItem> navigationItems = [
     const BottomNavigationBarItem(
@@ -19,11 +20,6 @@ class _NavigationBarState extends State<NavigationBar> {
       icon: Icon(Icons.business),
       label: 'Залы',
     ),
-    // TODO: next version
-    // BottomNavigationBarItem(
-    //   icon: Icon(Icons.book),
-    //   label: 'Брони',
-    // ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.account_box),
       label: 'Профиль',
@@ -37,21 +33,22 @@ class _NavigationBarState extends State<NavigationBar> {
   };
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    Provider.of<BottomNavigationIndexProvider>(context, listen: false)
+        .change(index);
     Navigator.of(context).pushReplacementNamed(navigationRules[index]!);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      items: navigationItems,
-      currentIndex: _selectedIndex,
-      selectedItemColor: Colors.indigo,
-      unselectedItemColor: Colors.black45,
-      onTap: _onItemTapped,
-    );
+    return Consumer<BottomNavigationIndexProvider>(builder: (_, provider, ch) {
+      return BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: navigationItems,
+        currentIndex: provider.selectedIndex,
+        selectedItemColor: Colors.indigo,
+        unselectedItemColor: Colors.black45,
+        onTap: _onItemTapped,
+      );
+    });
   }
 }

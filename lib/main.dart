@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/appdata_provider.dart';
+import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/screen/loader_screen.dart';
@@ -25,6 +26,9 @@ class App extends StatelessWidget {
           ChangeNotifierProvider(
             create: (_) => RoomListProvider(),
           ),
+          ChangeNotifierProvider(
+            create: (_) => BottomNavigationIndexProvider(),
+          )
         ],
         child: Consumer<AppDataProvider>(
           builder: (ctx, data, _) {
