@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studion_mobile/model/studio/studio_dto.dart';
+import 'package:studion_mobile/model/studio_dto.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/widget/common/loader.dart';
 import 'package:studion_mobile/widget/studio/studio_card.dart';

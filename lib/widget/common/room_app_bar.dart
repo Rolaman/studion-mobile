@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studion_mobile/model/studio/studio_dto.dart';
-import 'package:studion_mobile/provider/studio_list_provider.dart';
+import 'package:studion_mobile/model/room_dto.dart';
+import 'package:studion_mobile/provider/room_list_provider.dart';
 
-AppBar studioAppBar() {
+AppBar roomAppBar() {
   return AppBar(
     title: Container(
       height: 40,
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(5)),
       child: Center(
-        child: SearchField(),
+        child: RoomSearchField(),
       ),
     ),
   );
 }
 
-class SearchField extends StatefulWidget {
+class RoomSearchField extends StatefulWidget {
 
   @override
   _SearchFieldState createState() => _SearchFieldState();
 }
 
-class _SearchFieldState extends State<SearchField> {
+class _SearchFieldState extends State<RoomSearchField> {
 
   final textController = TextEditingController();
 
@@ -30,7 +30,7 @@ class _SearchFieldState extends State<SearchField> {
   Widget build(BuildContext context) {
     return TextField(
       onSubmitted: (text) {
-        Provider.of<StudioListProvider>(context, listen: false).get(StudioListRequest(
+        Provider.of<RoomListProvider>(context, listen: false).get(RoomListRequest(
           text: text,
         ));
       },
@@ -41,7 +41,7 @@ class _SearchFieldState extends State<SearchField> {
           suffixIcon: IconButton(
             icon: const Icon(Icons.clear),
             onPressed: () {
-              Provider.of<StudioListProvider>(context, listen: false).get(StudioListRequest());
+              Provider.of<RoomListProvider>(context, listen: false).get(RoomListRequest());
               textController.clear();
             },
           ),

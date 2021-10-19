@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:studion_mobile/model/studio_dto.dart';
+import 'package:studion_mobile/model/room_dto.dart';
 
-class StudioListProvider with ChangeNotifier {
-  List<StudioItem> _items = [];
+class RoomListProvider with ChangeNotifier {
+  List<RoomItem> _items = [];
 
-  Future<void> get(StudioListRequest request) async {
+  Future<void> get(RoomListRequest request) async {
     CollectionReference studios =
-        FirebaseFirestore.instance.collection('studios');
+        FirebaseFirestore.instance.collection('rooms');
     QuerySnapshot<Object?> snapshot = await studios.get();
-    List<StudioItem> items = snapshot.docs.map((e) {
+    List<RoomItem> items = snapshot.docs.map((e) {
       Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
-      return StudioItem(firestoreData['name'], firestoreData['imageUrl']);
+      return RoomItem(firestoreData['name'], firestoreData['imageUrl'],
+          firestoreData['studioId']);
     }).where((e) {
       if (request.text == null) {
         return true;
@@ -22,7 +23,7 @@ class StudioListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<StudioItem> get items {
+  List<RoomItem> get items {
     return [..._items];
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/appdata_provider.dart';
+import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/screen/loader_screen.dart';
+import 'package:studion_mobile/screen/room_list_screen.dart';
 import 'package:studion_mobile/screen/studio_list_screen.dart';
 
 void main() {
@@ -19,6 +21,9 @@ class App extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => StudioListProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => RoomListProvider(),
           ),
         ],
         child: Consumer<AppDataProvider>(
@@ -38,6 +43,10 @@ class App extends StatelessWidget {
                   return StudioListScreen();
                 },
               ),
+              routes: {
+                RoomListScreen.routeName: (ctx) => RoomListScreen(),
+                StudioListScreen.routeName: (ctx) => StudioListScreen(),
+              },
             );
           },
         ));

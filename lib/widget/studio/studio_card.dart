@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studion_mobile/model/studio/studio_dto.dart';
+import 'package:studion_mobile/model/studio_dto.dart';
 
 class StudioCard extends StatelessWidget {
   final StudioItem studio;
