@@ -11,40 +11,27 @@ class StudioCardList extends StatefulWidget {
 }
 
 class _StudioCardListState extends State<StudioCardList> {
-
-  var _isLoading = false;
-  var _isInit = true;
-
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
-      Provider.of<StudioListProvider>(context).get(StudioListRequest()).then((_) {
-        setState(() {
-          _isLoading = false;
-        });
-      });
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<StudioListProvider>(
       builder: (_, provider, ch) {
-        return _isLoading ? Center(
-          child: Loader(),
-        ) :SizedBox.expand(
+        return FutureBuilder(
+            future: provider.get(StudioListRequest()),
+            builder: (ctx, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: Loader(),
+                );
+              }
+              return SizedBox.expand(
                 child: ListView.builder(
                   padding: const EdgeInsets.all(3),
                   itemCount: provider.items.length,
-                  itemBuilder: (ctx, i) => StudioCard(provider.items[i],
-                      Key(provider.items[i].name)),
+                  itemBuilder: (ctx, i) => StudioCard(
+                      provider.items[i], Key(provider.items[i].name)),
                 ),
               );
+            });
       },
     );
   }

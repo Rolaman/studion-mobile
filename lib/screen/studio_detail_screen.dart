@@ -1,9 +1,16 @@
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:studion_mobile/model/room_dto.dart';
+import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
+import 'package:studion_mobile/widget/common/helper.dart';
 import 'package:studion_mobile/widget/common/image_carousel.dart';
+import 'package:studion_mobile/widget/common/loader.dart';
 import 'package:studion_mobile/widget/common/navigation_bar.dart';
+import 'package:studion_mobile/widget/studio/studio_detail_room_list.dart';
+import 'package:studion_mobile/widget/studio/address_block.dart';
+import 'package:studion_mobile/widget/studio/equipments_block.dart';
 
 class StudioDetailScreen extends StatelessWidget {
   static const routeName = '/studio';
@@ -14,24 +21,44 @@ class StudioDetailScreen extends StatelessWidget {
     final studio = Provider.of<StudioListProvider>(context).getOne(studioId);
 
     return Scaffold(
-      body: Column(
-        children: [
-          imageCarousel(studio.imageUrls),
-          const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-          studio.description != null
-              ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: ExpandableText(
-                    studio.description!,
-                    expandText: 'Подробнее',
-                    collapseText: 'Свернуть',
-                    maxLines: 5,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            imageCarousel(studio.imageUrls),
+            AddressBlock(studio.address),
+            const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+            studio.description != null
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: ExpandableText(
+                      formatText(studio.description!),
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                      expandText: 'Подробнее',
+                      collapseText: 'Свернуть',
+                      maxLines: 5,
+                    ),
+                  )
+                : const SizedBox(
+                    height: 1,
                   ),
-              )
-              : const SizedBox(
-                  height: 1,
-                )
-        ],
+            EquipmentList(studio.equipments),
+            Consumer<RoomListProvider>(
+              builder: (_, provider, ch) {
+                return FutureBuilder(
+                  future: provider.getByStudioId(studioId),
+                  builder: (ctx, AsyncSnapshot<List<RoomItem>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const StudioDetailRoomList(null);
+                    }
+                    return StudioDetailRoomList(snapshot.data!);
+                  },
+                );
+              },
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: NavigationBar(),
       appBar: AppBar(

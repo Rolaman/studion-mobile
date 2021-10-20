@@ -20,12 +20,24 @@ class RoomListProvider with ChangeNotifier {
 
   Future<void> _fetchAll() async {
     CollectionReference studios =
-    FirebaseFirestore.instance.collection('rooms');
+        FirebaseFirestore.instance.collection('rooms');
     QuerySnapshot<Object?> snapshot = await studios.get();
     _allItems = snapshot.docs.map((e) {
       Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
       return RoomItem(firestoreData['name'], firestoreData['imageUrl'],
           (firestoreData['studioId'] as DocumentReference).id);
+    }).toList();
+  }
+
+  Future<List<RoomItem>> getByStudioId(String studioId) async {
+    if (_allItems.isEmpty) {
+      await _fetchAll();
+    }
+    return _allItems.where((e) {
+      if (e.studioId == studioId) {
+        return true;
+      }
+      return false;
     }).toList();
   }
 

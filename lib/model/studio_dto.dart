@@ -17,6 +17,8 @@ class StudioItem {
   final String? imageUrl;
   final List<String> imageUrls;
   final String? description;
+  final String address;
+  final List<String> equipments;
 
   StudioItem(
     this.id,
@@ -24,5 +26,7 @@ class StudioItem {
     this.imageUrl,
     this.imageUrls,
     this.description,
+    this.address,
+    this.equipments,
   );
 }

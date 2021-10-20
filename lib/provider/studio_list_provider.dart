@@ -5,6 +5,7 @@ import 'package:studion_mobile/model/studio_dto.dart';
 class StudioListProvider with ChangeNotifier {
   List<StudioItem> _items = [];
   List<StudioItem> _allItems = [];
+  bool loading = true;
 
   Future<void> get(StudioListRequest request) async {
     if (_allItems.isEmpty) {
@@ -25,13 +26,15 @@ class StudioListProvider with ChangeNotifier {
     _allItems = snapshot.docs.map((e) {
       Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
       List<String> images = firestoreData['imageUrls'].cast<String>();
+      List<String> equipments = firestoreData['equipments'].cast<String>();
       return StudioItem(
-        e.id,
-        firestoreData['name'],
-        firestoreData['imageUrl'],
-        images,
-        firestoreData['description'],
-      );
+          e.id,
+          firestoreData['name'],
+          firestoreData['imageUrl'],
+          images,
+          firestoreData['description'],
+          firestoreData['address'],
+          equipments);
     }).toList();
   }
 
