@@ -12,9 +12,23 @@ class RoomListResponse {
 }
 
 class RoomItem {
+  final String id;
   final String name;
   final String? imageUrl;
   final String studioId;
+  final List<String> imageUrls;
+  final String? description;
+  final int area;
+  final int height;
 
-  RoomItem(this.name, this.imageUrl, this.studioId);
+  RoomItem(
+    this.id,
+    this.name,
+    this.imageUrl,
+    this.studioId,
+    this.imageUrls,
+    this.description,
+    this.area,
+    this.height,
+  );
 }

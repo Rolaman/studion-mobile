@@ -8,9 +8,10 @@ class EquipmentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 5,
-        vertical: 10,
+      padding: const EdgeInsets.only(
+        left: 5,
+        right: 5,
+        top: 10,
       ),
       child: Column(
         children: [

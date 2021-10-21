@@ -10,7 +10,6 @@ class NavigationBar extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationBar> {
-
   final List<BottomNavigationBarItem> navigationItems = [
     const BottomNavigationBarItem(
       icon: Icon(Icons.place),
@@ -42,13 +41,18 @@ class _NavigationBarState extends State<NavigationBar> {
   Widget build(BuildContext context) {
     return Consumer<BottomNavigationIndexProvider>(builder: (_, provider, ch) {
       return BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: navigationItems,
-        currentIndex: provider.selectedIndex,
-        selectedItemColor: Colors.indigo,
-        unselectedItemColor: Colors.black45,
-        onTap: _onItemTapped,
-      );
+          type: BottomNavigationBarType.fixed,
+          items: navigationItems,
+          currentIndex: provider.selectedIndex,
+          selectedItemColor: Colors.indigo,
+          unselectedItemColor: Colors.black45,
+          onTap: _onItemTapped,
+          selectedIconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+          selectedLabelStyle: TextStyle(
+            color: Colors.black,
+          ));
     });
   }
 }

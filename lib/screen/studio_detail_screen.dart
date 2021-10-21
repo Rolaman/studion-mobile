@@ -6,7 +6,6 @@ import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/widget/common/helper.dart';
 import 'package:studion_mobile/widget/common/image_carousel.dart';
-import 'package:studion_mobile/widget/common/loader.dart';
 import 'package:studion_mobile/widget/common/navigation_bar.dart';
 import 'package:studion_mobile/widget/studio/studio_detail_room_list.dart';
 import 'package:studion_mobile/widget/studio/address_block.dart';

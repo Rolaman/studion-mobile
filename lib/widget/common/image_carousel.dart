@@ -16,7 +16,8 @@ Widget imageCarousel(List<String> imageUrls) {
   return CarouselSlider.builder(
     itemCount: imageUrls.length,
     itemBuilder: (ctx, item, page) {
-      return SizedBox(
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 3),
         height: 200,
         width: double.infinity,
         child: Image.network(

@@ -17,6 +17,7 @@ class CarouselWithPoints extends StatelessWidget {
           return widgets[index];
         },
         pagination: const SwiperPagination(),
+        viewportFraction: 0.85,
       ),
     );
   }

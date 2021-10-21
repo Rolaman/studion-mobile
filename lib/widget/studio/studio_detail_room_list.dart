@@ -15,7 +15,6 @@ class StudioDetailRoomList extends StatelessWidget {
     }
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 5,
         vertical: 10,
       ),
       child: Column(
@@ -23,6 +22,11 @@ class StudioDetailRoomList extends StatelessWidget {
         children: [
           Container(
             alignment: AlignmentDirectional.topStart,
+            padding: const EdgeInsets.only(
+              bottom: 5,
+              left: 5,
+              right: 5,
+            ),
             child: const Text(
               'Залы',
               style: TextStyle(
@@ -48,15 +52,36 @@ class StudioDetailRoomItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 3),
       alignment: AlignmentDirectional.topStart,
       child: Stack(
         children: [
-          SizedBox(
-            width: double.infinity,
-            child: Image.network(
-              room.imageUrl!,
-              fit: BoxFit.fill,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: SizedBox(
+              width: double.infinity,
+              child: Image.network(
+                room.imageUrl!,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          Container(
+            alignment: AlignmentDirectional.topEnd,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.black87,
+                borderRadius: BorderRadius.circular(3),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(room.name,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
           ),
         ],

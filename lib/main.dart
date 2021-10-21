@@ -5,6 +5,7 @@ import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/screen/loader_screen.dart';
+import 'package:studion_mobile/screen/room_detail_screen.dart';
 import 'package:studion_mobile/screen/room_list_screen.dart';
 import 'package:studion_mobile/screen/studio_detail_screen.dart';
 import 'package:studion_mobile/screen/studio_list_screen.dart';
@@ -38,6 +39,9 @@ class App extends StatelessWidget {
               theme: ThemeData(
                 primarySwatch: Colors.blue,
                 visualDensity: VisualDensity.adaptivePlatformDensity,
+                appBarTheme: const AppBarTheme(
+                  backgroundColor: Colors.black87,
+                )
               ),
               home: FutureBuilder(
                 future: data.fetch(),
@@ -52,6 +56,7 @@ class App extends StatelessWidget {
                 RoomListScreen.routeName: (ctx) => RoomListScreen(),
                 StudioListScreen.routeName: (ctx) => StudioListScreen(),
                 StudioDetailScreen.routeName: (ctx) => StudioDetailScreen(),
+                RoomDetailScreen.routeName: (ctx) => RoomDetailScreen(),
               },
             );
           },

@@ -24,8 +24,17 @@ class RoomListProvider with ChangeNotifier {
     QuerySnapshot<Object?> snapshot = await studios.get();
     _allItems = snapshot.docs.map((e) {
       Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
-      return RoomItem(firestoreData['name'], firestoreData['imageUrl'],
-          (firestoreData['studioId'] as DocumentReference).id);
+      List<String> images = firestoreData['imageUrls'].cast<String>();
+      return RoomItem(
+        e.id,
+        firestoreData['name'],
+        firestoreData['imageUrl'],
+        (firestoreData['studioId'] as DocumentReference).id,
+        images,
+        firestoreData['description'],
+        firestoreData['area'],
+        firestoreData['height'],
+      );
     }).toList();
   }
 
@@ -39,6 +48,10 @@ class RoomListProvider with ChangeNotifier {
       }
       return false;
     }).toList();
+  }
+
+  RoomItem getOne(String id) {
+    return _allItems.firstWhere((e) => e.id == id);
   }
 
   List<RoomItem> get items {
