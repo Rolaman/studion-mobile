@@ -9,9 +9,13 @@ class StudioListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StudioCardList(),
+      body: CustomScrollView(
+        slivers: [
+          searchAppBar(),
+          // StudioCardList(),
+        ],
+      ),
       bottomNavigationBar: NavigationBar(),
-      appBar: studioAppBar(),
     );
   }
 }

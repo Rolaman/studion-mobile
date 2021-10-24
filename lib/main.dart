@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/appdata_provider.dart';
 import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
+import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
+import 'package:studion_mobile/provider/room_studio_selector_bar_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/screen/loader_screen.dart';
 import 'package:studion_mobile/screen/room_detail_screen.dart';
@@ -30,6 +32,12 @@ class App extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => BottomNavigationIndexProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => CityProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => RoomStudioSelectorBarProvider(),
           )
         ],
         child: Consumer<AppDataProvider>(
@@ -37,12 +45,9 @@ class App extends StatelessWidget {
             return MaterialApp(
               title: 'StudiON',
               theme: ThemeData(
-                primarySwatch: Colors.blue,
-                visualDensity: VisualDensity.adaptivePlatformDensity,
-                appBarTheme: const AppBarTheme(
-                  backgroundColor: Colors.black87,
-                )
-              ),
+                  primarySwatch: Colors.blueGrey,
+                  visualDensity: VisualDensity.adaptivePlatformDensity,
+                  ),
               home: FutureBuilder(
                 future: data.fetch(),
                 builder: (ctx, snapshot) {
