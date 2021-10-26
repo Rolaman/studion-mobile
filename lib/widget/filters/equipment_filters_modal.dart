@@ -18,8 +18,9 @@ class _EquipmentFiltersModalState extends State<EquipmentFiltersModal> {
   void didChangeDependencies() {
     if (!_inited) {
       setState(() {
-        _checked =
-            Provider.of<FiltersProvider>(context).getEquipmentFilters().toSet();
+        _checked = Provider.of<FiltersProvider>(context, listen: false)
+            .getEquipmentFilterIds()
+            .toSet();
         _inited = true;
       });
     }
@@ -41,7 +42,7 @@ class _EquipmentFiltersModalState extends State<EquipmentFiltersModal> {
           return Container(
             alignment: AlignmentDirectional.topCenter,
             margin: const EdgeInsets.symmetric(
-              horizontal: 15,
+              horizontal: 20,
             ),
             child: GroupedListView<EquipmentItem, String>(
               elements: snapshot.data!,
@@ -78,13 +79,15 @@ class _EquipmentFiltersModalState extends State<EquipmentFiltersModal> {
                         child: Checkbox(
                           value: _checked.contains(e.id),
                           onChanged: (state) {
-                            if (state!) {
-                              _checked.add(e.id);
-                            } else {
-                              _checked.remove(e.id);
-                            }
+                            setState(() {
+                              if (state!) {
+                                _checked.add(e.id);
+                              } else {
+                                _checked.remove(e.id);
+                              }
+                            });
                             Provider.of<FiltersProvider>(context, listen: false)
-                                .changeEquipment(e, state);
+                                .changeEquipment(e, state!);
                           },
                         ))
                   ],

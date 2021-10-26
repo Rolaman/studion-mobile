@@ -11,12 +11,16 @@ class RoomFiltersScreen extends StatelessWidget {
         title: const Text('Фильтры'),
       ),
       body: Container(
-        margin: const EdgeInsets.symmetric(
-          horizontal: 10,
+        margin: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: 10,
         ),
         child: ListView(
           children: const [
             EquipmentFilterItem(),
+            InteriorFilterItem(),
+            CharacteristicsFilterItem(),
           ],
         ),
       ),

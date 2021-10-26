@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/appdata_provider.dart';
 import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
+import 'package:studion_mobile/provider/characteristics_provider.dart';
 import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/equipment_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
+import 'package:studion_mobile/provider/interior_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/room_studio_selector_bar_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
@@ -44,6 +46,12 @@ class App extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => EquipmentProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => InteriorProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => CharacteristicProvider(),
           ),
           ChangeNotifierProvider(
             create: (_) => FiltersProvider(),

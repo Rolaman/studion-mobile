@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
@@ -12,15 +13,15 @@ class NavigationBar extends StatefulWidget {
 class _NavigationBarState extends State<NavigationBar> {
   final List<BottomNavigationBarItem> navigationItems = [
     const BottomNavigationBarItem(
-      icon: Icon(Icons.place),
+      icon: Icon(CupertinoIcons.placemark),
       label: 'Студии',
     ),
     const BottomNavigationBarItem(
-      icon: Icon(Icons.business),
+      icon: Icon(CupertinoIcons.building_2_fill),
       label: 'Залы',
     ),
     const BottomNavigationBarItem(
-      icon: Icon(Icons.account_box),
+      icon: Icon(CupertinoIcons.profile_circled),
       label: 'Профиль',
     ),
   ];
