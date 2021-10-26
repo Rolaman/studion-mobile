@@ -6,7 +6,7 @@ class EquipmentProvider extends ChangeNotifier {
   List<EquipmentItem> _items = [];
   final Map<String, EquipmentGroup> _groups = {};
 
-  Future<List<EquipmentGroup>> get() async {
+  Future<List<EquipmentItem>> get() async {
     if (_groups.isEmpty) {
       CollectionReference studios =
           FirebaseFirestore.instance.collection('equipments');
@@ -30,6 +30,6 @@ class EquipmentProvider extends ChangeNotifier {
         _groups[e.type]!.items.add(e);
       }
     }
-    return _groups.values.toList();
+    return [..._items];
   }
 }

@@ -4,8 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/studio_dto.dart';
 import 'package:studion_mobile/provider/room_studio_selector_bar_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
+import 'package:studion_mobile/screen/room_filters_screen.dart';
 import 'package:studion_mobile/widget/common/city_selector.dart';
-import 'package:studion_mobile/widget/common/equipment_search_filters.dart';
+import 'package:studion_mobile/widget/filters/equipment_filters_modal.dart';
 
 Widget searchAppBar() {
   return SliverAppBar(
@@ -180,22 +181,9 @@ class _StudioSearchFieldState extends State<StudioSearchField> {
 }
 
 void showRoomFilters(BuildContext context) {
-  showMaterialModalBottomSheet(
-    context: context,
-    builder: (context) => Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 20,
-      ),
-      child: Container(
-          height: 500,
-          child: ListView(
-            children: [
-              EquipmentFilter(),
-            ],
-          )),
-    ),
-  );
+  Navigator.of(context).pushNamed(RoomFiltersScreen.routeName);
 }
 
-void showStudioFilters(BuildContext context) {}
+void showStudioFilters(BuildContext context) {
+  Navigator.of(context).pushNamed('/studio/filters');
+}
