@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/studio_dto.dart';
 import 'package:studion_mobile/provider/room_studio_selector_bar_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/widget/common/city_selector.dart';
+import 'package:studion_mobile/widget/common/equipment_search_filters.dart';
 
 Widget searchAppBar() {
   return SliverAppBar(
@@ -64,13 +66,13 @@ class SearchFilters extends StatelessWidget {
                           'Залы',
                           textAlign: TextAlign.center,
                         ),
-                        decoration:
-                            provider.getCurrent() == RoomStudioSelectorState.room
-                                ? BoxDecoration(
-                                    color: Colors.blueGrey,
-                                    borderRadius: BorderRadius.circular(25),
-                                  )
-                                : null,
+                        decoration: provider.getCurrent() ==
+                                RoomStudioSelectorState.room
+                            ? BoxDecoration(
+                                color: Colors.indigo,
+                                borderRadius: BorderRadius.circular(25),
+                              )
+                            : null,
                         height: 28,
                         width: 85,
                         margin: const EdgeInsets.only(left: 2),
@@ -86,13 +88,13 @@ class SearchFilters extends StatelessWidget {
                           'Студии',
                           textAlign: TextAlign.center,
                         ),
-                        decoration:
-                            provider.getCurrent() == RoomStudioSelectorState.studio
-                                ? BoxDecoration(
-                                    color: Colors.blueGrey,
-                                    borderRadius: BorderRadius.circular(25),
-                                  )
-                                : null,
+                        decoration: provider.getCurrent() ==
+                                RoomStudioSelectorState.studio
+                            ? BoxDecoration(
+                                color: Colors.indigo,
+                                borderRadius: BorderRadius.circular(25),
+                              )
+                            : null,
                         height: 28,
                         width: 90,
                         margin: const EdgeInsets.only(right: 2),
@@ -110,14 +112,19 @@ class SearchFilters extends StatelessWidget {
               );
             },
           ),
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: Colors.white30,
-              borderRadius: BorderRadius.circular(18),
+          GestureDetector(
+            child: Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: Colors.white30,
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: const Icon(Icons.filter_list_outlined),
             ),
-            child: Icon(Icons.filter_list_outlined),
+            onTap: () {
+              showRoomFilters(context);
+            },
           )
         ],
       ),
@@ -171,3 +178,24 @@ class _StudioSearchFieldState extends State<StudioSearchField> {
     );
   }
 }
+
+void showRoomFilters(BuildContext context) {
+  showMaterialModalBottomSheet(
+    context: context,
+    builder: (context) => Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 20,
+      ),
+      child: Container(
+          height: 500,
+          child: ListView(
+            children: [
+              EquipmentFilter(),
+            ],
+          )),
+    ),
+  );
+}
+
+void showStudioFilters(BuildContext context) {}

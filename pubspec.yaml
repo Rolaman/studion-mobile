@@ -37,6 +37,7 @@ dependencies:
   expandable_text: ^2.2.0
   card_swiper: ^1.0.4
   modal_bottom_sheet: ^2.0.0
+  dropdown_search: ^2.0.0
 
 dev_dependencies:
   flutter_test:
