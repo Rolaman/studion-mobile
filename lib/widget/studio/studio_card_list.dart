@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/model/studio_dto.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/widget/common/loader.dart';
 import 'package:studion_mobile/widget/studio/studio_card.dart';
 
-class StudioCardList extends StatefulWidget {
-  @override
-  _StudioCardListState createState() => _StudioCardListState();
-}
-
-class _StudioCardListState extends State<StudioCardList> {
+class StudioCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<StudioListProvider>(
       builder: (_, provider, ch) {
         return FutureBuilder(
-            future: provider.get(StudioListRequest()),
+            future: provider.get(FilterRequest.values(
+              type: FilterType.studio,
+            )),
             builder: (ctx, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(

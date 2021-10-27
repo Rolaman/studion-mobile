@@ -7,15 +7,15 @@ import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/equipment_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/provider/interior_provider.dart';
+import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
-import 'package:studion_mobile/provider/room_studio_selector_bar_provider.dart';
+import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/screen/loader_screen.dart';
 import 'package:studion_mobile/screen/room_detail_screen.dart';
 import 'package:studion_mobile/screen/room_filters_screen.dart';
-import 'package:studion_mobile/screen/room_list_screen.dart';
+import 'package:studion_mobile/screen/list_screen.dart';
 import 'package:studion_mobile/screen/studio_detail_screen.dart';
-import 'package:studion_mobile/screen/studio_list_screen.dart';
 
 void main() {
   runApp(App());
@@ -42,7 +42,7 @@ class App extends StatelessWidget {
             create: (_) => CityProvider(),
           ),
           ChangeNotifierProvider(
-            create: (_) => RoomStudioSelectorBarProvider(),
+            create: (_) => SearchTypeProvider(),
           ),
           ChangeNotifierProvider(
             create: (_) => EquipmentProvider(),
@@ -52,6 +52,9 @@ class App extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => CharacteristicProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => PriceFilterProvider(),
           ),
           ChangeNotifierProvider(
             create: (_) => FiltersProvider(),
@@ -71,12 +74,11 @@ class App extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return LoaderScreen();
                   }
-                  return StudioListScreen();
+                  return ListScreen();
                 },
               ),
               routes: {
-                RoomListScreen.routeName: (ctx) => RoomListScreen(),
-                StudioListScreen.routeName: (ctx) => StudioListScreen(),
+                ListScreen.routeName: (ctx) => ListScreen(),
                 StudioDetailScreen.routeName: (ctx) => StudioDetailScreen(),
                 RoomDetailScreen.routeName: (ctx) => RoomDetailScreen(),
                 RoomFiltersScreen.routeName: (ctx) => RoomFiltersScreen(),

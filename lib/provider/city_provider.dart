@@ -24,6 +24,17 @@ class CityProvider extends ChangeNotifier {
     return _cities.firstWhere((e) => e.id == 'moscow');
   }
 
+  CityItem? getCurrentSync() {
+    try {
+      if (_choosen != null) {
+        return _choosen!;
+      }
+      return _cities.firstWhere((e) => e.id == 'moscow');
+    } catch (e) {
+      return null;
+    }
+  }
+
   Future<void> change(String id) async {
     _choosen = _cities.firstWhere((e) => id == e.id);
     notifyListeners();
@@ -31,7 +42,7 @@ class CityProvider extends ChangeNotifier {
 
   Future<void> _fetchAll() async {
     CollectionReference studios =
-    FirebaseFirestore.instance.collection('cities');
+        FirebaseFirestore.instance.collection('cities');
     QuerySnapshot<Object?> snapshot = await studios.get();
     _cities = snapshot.docs.map((e) {
       Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
@@ -41,5 +52,4 @@ class CityProvider extends ChangeNotifier {
       );
     }).toList();
   }
-
 }

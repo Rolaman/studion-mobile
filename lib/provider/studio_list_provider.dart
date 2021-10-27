@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/model/studio_dto.dart';
 
 class StudioListProvider with ChangeNotifier {
@@ -7,7 +8,7 @@ class StudioListProvider with ChangeNotifier {
   List<StudioItem> _allItems = [];
   bool loading = true;
 
-  Future<void> get(StudioListRequest request) async {
+  Future<void> get(FilterRequest request) async {
     if (_allItems.isEmpty) {
       await _fetchAll();
     }

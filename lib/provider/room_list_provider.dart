@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/model/room_dto.dart';
 
 class RoomListProvider with ChangeNotifier {
   List<RoomItem> _items = [];
   List<RoomItem> _allItems = [];
 
-  Future<void> get(RoomListRequest request) async {
+  Future<void> get(FilterRequest request) async {
     if (_allItems.isEmpty) {
       await _fetchAll();
     }

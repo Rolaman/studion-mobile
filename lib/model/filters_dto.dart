@@ -32,3 +32,40 @@ const equipmentGroups = {
   'generator': 'Генераторный свет',
   'others': 'Остальное',
 };
+
+class FilterRequest {
+  final List<String> equipments;
+  final List<String> interiors;
+  final List<String> characteristics;
+  final int? priceFrom;
+  final int? priceTo;
+  String? cityId;
+  String? text;
+  FilterType type;
+
+  FilterRequest(
+    this.equipments,
+    this.interiors,
+    this.characteristics,
+    this.priceFrom,
+    this.priceTo,
+    this.cityId,
+    this.text,
+    this.type,
+  );
+
+  FilterRequest.values(
+      {this.cityId,
+      this.equipments = const [],
+      this.interiors = const [],
+      this.characteristics = const [],
+      this.priceFrom,
+      this.priceTo,
+      this.text,
+      required this.type});
+}
+
+enum FilterType {
+  studio,
+  room,
+}

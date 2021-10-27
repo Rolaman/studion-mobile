@@ -1,8 +1,11 @@
+import 'package:studion_mobile/model/filters_dto.dart';
+
 class RoomListRequest {
   final String? cityId;
   final String? text;
+  final FilterRequest? filters;
 
-  RoomListRequest({this.cityId, this.text});
+  RoomListRequest({this.cityId, this.text, this.filters});
 }
 
 class RoomListResponse {

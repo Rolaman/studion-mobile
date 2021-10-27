@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
-import 'package:studion_mobile/screen/room_list_screen.dart';
-import 'package:studion_mobile/screen/studio_list_screen.dart';
+import 'package:studion_mobile/screen/list_screen.dart';
 
 class NavigationBar extends StatefulWidget {
   @override
@@ -13,12 +12,8 @@ class NavigationBar extends StatefulWidget {
 class _NavigationBarState extends State<NavigationBar> {
   final List<BottomNavigationBarItem> navigationItems = [
     const BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.placemark),
-      label: 'Студии',
-    ),
-    const BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.building_2_fill),
-      label: 'Залы',
+      label: 'Поиск',
     ),
     const BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.profile_circled),
@@ -27,9 +22,8 @@ class _NavigationBarState extends State<NavigationBar> {
   ];
 
   final Map<int, String> navigationRules = {
-    0: StudioListScreen.routeName,
-    1: RoomListScreen.routeName,
-    2: '/profile',
+    0: ListScreen.routeName,
+    1: '/profile',
   };
 
   void _onItemTapped(int index) {
@@ -48,10 +42,10 @@ class _NavigationBarState extends State<NavigationBar> {
           selectedItemColor: Colors.indigo,
           unselectedItemColor: Colors.black45,
           onTap: _onItemTapped,
-          selectedIconTheme: IconThemeData(
+          selectedIconTheme: const IconThemeData(
             color: Colors.black,
           ),
-          selectedLabelStyle: TextStyle(
+          selectedLabelStyle: const TextStyle(
             color: Colors.black,
           ));
     });

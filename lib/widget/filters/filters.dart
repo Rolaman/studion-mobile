@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
+import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/widget/filters/characteristics_filter_modal.dart';
 import 'package:studion_mobile/widget/filters/equipment_filters_modal.dart';
 import 'package:studion_mobile/widget/filters/interior_filters_modal.dart';
@@ -194,6 +196,94 @@ class CharacteristicsFilterItem extends StatelessWidget {
               Icon(Icons.arrow_forward_ios),
             ],
           ),
+        ),
+      ),
+      onTap: () {
+        showMaterialModalBottomSheet(
+            context: context,
+            builder: (ctx) {
+              return CharacteristicsFiltersModal();
+            });
+      },
+    );
+  }
+}
+
+class PriceFilterItem extends StatelessWidget {
+  const PriceFilterItem() : super(key: const Key('price'));
+
+  @override
+  Widget build(BuildContext context) {
+
+    final provider = Provider.of<PriceFilterProvider>(context, listen: false);
+
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      child: Container(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 4,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 10,
+                bottom: 8.0,
+              ),
+              child: Text(
+                'Цена, руб.',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 5,
+                right: 5,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 150,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                      ],
+                      style: const TextStyle(
+                        fontSize: 20,
+                      ),
+                      controller: provider.priceFromController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'От',
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 150,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                      ],
+                      style: const TextStyle(
+                        fontSize: 20,
+                      ),
+                      controller: provider.priceToController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'До',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
       onTap: () {

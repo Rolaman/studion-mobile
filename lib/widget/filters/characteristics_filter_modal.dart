@@ -20,7 +20,7 @@ class _CharacteristicsFiltersModalState
     if (!_inited) {
       setState(() {
         _checked = Provider.of<FiltersProvider>(context, listen: false)
-            .getInteriorFilterIds()
+            .getCharacteristicFilterIds()
             .toSet();
         _inited = true;
       });

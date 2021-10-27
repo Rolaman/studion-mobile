@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-import 'package:studion_mobile/model/studio_dto.dart';
-import 'package:studion_mobile/provider/room_studio_selector_bar_provider.dart';
+import 'package:studion_mobile/model/filters_dto.dart';
+import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/screen/room_filters_screen.dart';
 import 'package:studion_mobile/widget/common/city_selector.dart';
-import 'package:studion_mobile/widget/filters/equipment_filters_modal.dart';
 
 Widget searchAppBar() {
   return SliverAppBar(
+    key: Key('sliverAppBar'),
     snap: true,
     floating: true,
     pinned: true,
     title: Row(
       children: [
         CitySelector(),
-        // SearchAction(),
       ],
     ),
     actions: [
       SearchAction(),
     ],
     bottom: AppBar(
+      automaticallyImplyLeading: false,
       title: SearchFilters(),
     ),
   );
@@ -51,7 +50,7 @@ class SearchFilters extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Consumer<RoomStudioSelectorBarProvider>(
+          Consumer<SearchTypeProvider>(
             builder: (ctx, provider, child) {
               return Container(
                 alignment: AlignmentDirectional.center,
@@ -67,8 +66,7 @@ class SearchFilters extends StatelessWidget {
                           'Залы',
                           textAlign: TextAlign.center,
                         ),
-                        decoration: provider.getCurrent() ==
-                                RoomStudioSelectorState.room
+                        decoration: provider.getCurrent() == FilterType.room
                             ? BoxDecoration(
                                 color: Colors.indigo,
                                 borderRadius: BorderRadius.circular(25),
@@ -79,7 +77,7 @@ class SearchFilters extends StatelessWidget {
                         margin: const EdgeInsets.only(left: 2),
                       ),
                       onTap: () {
-                        provider.change(RoomStudioSelectorState.room);
+                        provider.change(FilterType.room);
                       },
                     ),
                     GestureDetector(
@@ -89,8 +87,7 @@ class SearchFilters extends StatelessWidget {
                           'Студии',
                           textAlign: TextAlign.center,
                         ),
-                        decoration: provider.getCurrent() ==
-                                RoomStudioSelectorState.studio
+                        decoration: provider.getCurrent() == FilterType.studio
                             ? BoxDecoration(
                                 color: Colors.indigo,
                                 borderRadius: BorderRadius.circular(25),
@@ -101,7 +98,7 @@ class SearchFilters extends StatelessWidget {
                         margin: const EdgeInsets.only(right: 2),
                       ),
                       onTap: () {
-                        provider.change(RoomStudioSelectorState.studio);
+                        provider.change(FilterType.studio);
                       },
                     ),
                   ],
@@ -159,7 +156,8 @@ class _StudioSearchFieldState extends State<StudioSearchField> {
     return TextField(
       onSubmitted: (text) {
         Provider.of<StudioListProvider>(context, listen: false)
-            .get(StudioListRequest(
+            .get(FilterRequest.values(
+          type: FilterType.studio,
           text: text,
         ));
       },
@@ -171,7 +169,9 @@ class _StudioSearchFieldState extends State<StudioSearchField> {
             icon: const Icon(Icons.clear),
             onPressed: () {
               Provider.of<StudioListProvider>(context, listen: false)
-                  .get(StudioListRequest());
+                  .get(FilterRequest.values(
+                type: FilterType.studio,
+              ));
               textController.clear();
             },
           ),
