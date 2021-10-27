@@ -7,6 +7,7 @@ import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/equipment_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/provider/interior_provider.dart';
+import 'package:studion_mobile/provider/metro_provider.dart';
 import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/search_text_type_provider.dart';
@@ -63,6 +64,9 @@ class App extends StatelessWidget {
           ChangeNotifierProvider(
             create: (_) => SearchTextTypeProvider(),
           ),
+          ChangeNotifierProvider(
+            create: (_) => MetroProvider(),
+          ),
         ],
         child: Consumer<AppDataProvider>(
           builder: (ctx, data, _) {
@@ -71,6 +75,8 @@ class App extends StatelessWidget {
                 Provider.of<RoomListProvider>(ctx, listen: false);
             final studiosProvider =
                 Provider.of<StudioListProvider>(ctx, listen: false);
+            final metroProvider =
+                Provider.of<MetroProvider>(ctx, listen: false);
             return MaterialApp(
               title: 'StudiON',
               theme: ThemeData(
@@ -90,20 +96,29 @@ class App extends StatelessWidget {
                         return LoaderScreen();
                       }
                       return FutureBuilder(
-                        future: roomsProvider.fetchAll(),
+                        future: metroProvider.fetch(['moscow', 'spb']),
                         builder: (_, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
                             return LoaderScreen();
                           }
                           return FutureBuilder(
-                            future: studiosProvider.fetchAll(),
+                            future: roomsProvider.fetchAll(),
                             builder: (_, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
                                 return LoaderScreen();
                               }
-                              return ListScreen();
+                              return FutureBuilder(
+                                future: studiosProvider.fetchAll(),
+                                builder: (_, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return LoaderScreen();
+                                  }
+                                  return ListScreen();
+                                },
+                              );
                             },
                           );
                         },

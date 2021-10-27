@@ -66,7 +66,17 @@ class ListScreen extends StatelessWidget {
                 body: CustomScrollView(
                   slivers: [
                     ch ?? searchAppBar(),
-                    SliverList(delegate: SliverChildListDelegate(rooms)),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext ctx, int index) {
+                          return RoomCard(
+                            roomProvider.items[index],
+                            Key(roomProvider.items[index].name),
+                          );
+                        },
+                        childCount: roomProvider.items.length,
+                      ),
+                    ),
                   ],
                 ),
                 bottomNavigationBar: NavigationBar(),
@@ -101,9 +111,16 @@ class ListScreen extends StatelessWidget {
                       slivers: [
                         ch ?? searchAppBar(),
                         SliverList(
-                            delegate: SliverChildListDelegate(provider.items
-                                .map((e) => StudioCard(e, Key(e.name)))
-                                .toList())),
+                          delegate: SliverChildBuilderDelegate(
+                            (BuildContext ctx, int index) {
+                              return StudioCard(
+                                provider.items[index],
+                                Key(provider.items[index].name),
+                              );
+                            },
+                            childCount: provider.items.length,
+                          ),
+                        ),
                       ],
                     ),
                     bottomNavigationBar: NavigationBar(),

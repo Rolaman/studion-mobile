@@ -64,6 +64,7 @@ class RoomListProvider with ChangeNotifier {
     _allItems = snapshot.docs.map((e) {
       Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
       List<String> images = firestoreData['imageUrls'].cast<String>();
+      List<String> metros = firestoreData['metros'].cast<String>();
       List<String> equipments = firestoreData['equipments']
           .cast<DocumentReference>()
           .map((e) => e.id)
@@ -94,6 +95,7 @@ class RoomListProvider with ChangeNotifier {
         interiors: interiors,
         characteristics: characteristics,
         address: firestoreData['address'],
+        metros: metros,
       );
     }).toList();
     _items = [..._allItems];

@@ -1,3 +1,5 @@
+import 'package:studion_mobile/model/metro_dto.dart';
+
 class RoomItem {
   final String id;
   final String name;
@@ -13,6 +15,7 @@ class RoomItem {
   final List<String> characteristics;
   final int price;
   final String address;
+  final List<String> metros;
 
   RoomItem({
     required this.id,
@@ -29,5 +32,6 @@ class RoomItem {
     this.characteristics = const [],
     required this.price,
     required this.address,
+    this.metros = const [],
   });
 }
