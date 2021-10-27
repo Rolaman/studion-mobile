@@ -27,15 +27,36 @@ class StudioListProvider with ChangeNotifier {
     _allItems = snapshot.docs.map((e) {
       Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
       List<String> images = firestoreData['imageUrls'].cast<String>();
-      List<String> equipments = firestoreData['equipments'].cast<String>();
+      List<String> equipments = firestoreData['equipments']
+          .cast<DocumentReference>()
+          .map((e) => e.id)
+          .toList()
+          .cast<String>();
+      List<String> interiors = firestoreData['interiors']
+          .cast<DocumentReference>()
+          .map((e) => e.id)
+          .toList()
+          .cast<String>();
+      List<String> characteristics = firestoreData['characteristics']
+          .cast<DocumentReference>()
+          .map((e) => e.id)
+          .toList()
+          .cast<String>();
       return StudioItem(
-          e.id,
-          firestoreData['name'],
-          firestoreData['imageUrl'],
-          images,
-          firestoreData['description'],
-          firestoreData['address'],
-          equipments);
+        id: e.id,
+        name: firestoreData['name'],
+        imageUrl: firestoreData['imageUrl'],
+        imageUrls: images,
+        description: firestoreData['description'],
+        address: firestoreData['address'],
+        equipments: equipments,
+        interiors: interiors,
+        characteristics: characteristics,
+        area: firestoreData['area'],
+        height: firestoreData['height'],
+        price: firestoreData['price'],
+        cityId: (firestoreData['cityId'] as DocumentReference).id,
+      );
     }).toList();
   }
 

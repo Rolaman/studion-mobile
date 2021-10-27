@@ -12,10 +12,12 @@ class CitySelector extends StatelessWidget {
     if (current != null) {
       return InkWell(
         child: Container(
+          alignment: AlignmentDirectional.center,
           padding: const EdgeInsets.symmetric(
             horizontal: 7,
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(current.name),
               const Icon(Icons.keyboard_arrow_down),

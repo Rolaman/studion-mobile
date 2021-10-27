@@ -7,8 +7,8 @@ import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/screen/list_screen.dart';
 import 'package:studion_mobile/widget/filters/filters.dart';
 
-class RoomFiltersScreen extends StatelessWidget {
-  static const routeName = '/room/filters';
+class FiltersScreen extends StatelessWidget {
+  static const routeName = '/filters';
 
   @override
   Widget build(BuildContext context) {

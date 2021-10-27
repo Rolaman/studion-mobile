@@ -12,6 +12,7 @@ class RoomItem {
   final List<String> interiors;
   final List<String> characteristics;
   final int price;
+  final String address;
 
   RoomItem({
     required this.id,
@@ -27,5 +28,6 @@ class RoomItem {
     this.interiors = const [],
     this.characteristics = const [],
     required this.price,
+    required this.address,
   });
 }

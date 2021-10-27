@@ -38,6 +38,7 @@ dependencies:
   card_swiper: ^1.0.4
   modal_bottom_sheet: ^2.0.0
   grouped_list: ^4.1.0
+  line_icons: ^2.0.1
 
 dev_dependencies:
   flutter_test:

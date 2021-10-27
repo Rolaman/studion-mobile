@@ -9,11 +9,12 @@ import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/provider/interior_provider.dart';
 import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
+import 'package:studion_mobile/provider/search_text_type_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/screen/loader_screen.dart';
 import 'package:studion_mobile/screen/room_detail_screen.dart';
-import 'package:studion_mobile/screen/room_filters_screen.dart';
+import 'package:studion_mobile/screen/filters_screen.dart';
 import 'package:studion_mobile/screen/list_screen.dart';
 import 'package:studion_mobile/screen/studio_detail_screen.dart';
 
@@ -59,6 +60,9 @@ class App extends StatelessWidget {
           ChangeNotifierProvider(
             create: (_) => FiltersProvider(),
           ),
+          ChangeNotifierProvider(
+            create: (_) => SearchTextTypeProvider(),
+          ),
         ],
         child: Consumer<AppDataProvider>(
           builder: (ctx, data, _) {
@@ -81,7 +85,7 @@ class App extends StatelessWidget {
                 ListScreen.routeName: (ctx) => ListScreen(),
                 StudioDetailScreen.routeName: (ctx) => StudioDetailScreen(),
                 RoomDetailScreen.routeName: (ctx) => RoomDetailScreen(),
-                RoomFiltersScreen.routeName: (ctx) => RoomFiltersScreen(),
+                FiltersScreen.routeName: (ctx) => FiltersScreen(),
               },
             );
           },

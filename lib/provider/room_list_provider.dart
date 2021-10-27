@@ -53,8 +53,6 @@ class RoomListProvider with ChangeNotifier {
       }
       return request.priceTo! > e.price;
     }).toList();
-    notifyListeners();
-    print(_items);
     return _items;
   }
 
@@ -94,6 +92,7 @@ class RoomListProvider with ChangeNotifier {
         equipments: equipments,
         interiors: interiors,
         characteristics: characteristics,
+        address: firestoreData['address'],
       );
     }).toList();
   }

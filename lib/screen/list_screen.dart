@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/city_dto.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
@@ -9,7 +10,7 @@ import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/widget/common/loader.dart';
 import 'package:studion_mobile/widget/common/navigation_bar.dart';
-import 'package:studion_mobile/widget/common/studio_app_bar.dart';
+import 'package:studion_mobile/widget/common/app_bar.dart';
 import 'package:studion_mobile/widget/room/room_card.dart';
 import 'package:studion_mobile/widget/studio/studio_card.dart';
 
@@ -23,7 +24,7 @@ class ListScreen extends StatelessWidget {
           type: FilterType.room,
         );
     return FutureBuilder(
-      future: Provider.of<CityProvider>(context, listen: false).getCurrent(),
+      future: Provider.of<CityProvider>(context).getCurrent(),
       builder: (ctx2, AsyncSnapshot<CityItem> citySnapshot) {
         if (citySnapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
@@ -72,14 +73,48 @@ class ListScreen extends StatelessWidget {
                           bottomNavigationBar: NavigationBar(),
                         );
                       }
+                      final rooms = snapshot.data!
+                          .map((e) => RoomCard(e, Key(e.name)))
+                          .toList();
+                      if (rooms.isEmpty) {
+                        return Scaffold(
+                          body: CustomScrollView(
+                            slivers: [
+                              ch ?? searchAppBar(),
+                              SliverList(
+                                  delegate: SliverChildListDelegate([
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                                const Center(
+                                  child: Text(
+                                    'Студий по запросу не найдено',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Center(
+                                  child: Transform.scale(
+                                    scale: 2,
+                                    child: const Icon(LineIcons.frowningFace),
+                                  ),
+                                )
+                              ])),
+                            ],
+                          ),
+                          bottomNavigationBar: NavigationBar(),
+                        );
+                      }
                       return Scaffold(
                         body: CustomScrollView(
                           slivers: [
                             ch ?? searchAppBar(),
                             SliverList(
-                                delegate: SliverChildListDelegate(snapshot.data!
-                                    .map((e) => RoomCard(e, Key(e.name)))
-                                    .toList())),
+                                delegate: SliverChildListDelegate(rooms)),
                           ],
                         ),
                         bottomNavigationBar: NavigationBar(),

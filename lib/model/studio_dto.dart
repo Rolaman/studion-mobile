@@ -1,16 +1,3 @@
-class StudioListRequest {
-  final String? cityId;
-  final String? text;
-
-  StudioListRequest({this.cityId, this.text});
-}
-
-class StudioListResponse {
-  final List<StudioItem> studios;
-
-  StudioListResponse(this.studios);
-}
-
 class StudioItem {
   final String id;
   final String name;
@@ -18,15 +5,27 @@ class StudioItem {
   final List<String> imageUrls;
   final String? description;
   final String address;
+  final int area;
+  final int height;
+  final int price;
+  final String cityId;
   final List<String> equipments;
+  final List<String> interiors;
+  final List<String> characteristics;
 
-  StudioItem(
-    this.id,
-    this.name,
+  StudioItem({
+    required this.id,
+    required this.name,
     this.imageUrl,
-    this.imageUrls,
+    this.imageUrls = const [],
     this.description,
-    this.address,
-    this.equipments,
-  );
+    required this.address,
+    this.equipments = const [],
+    required this.area,
+    required this.height,
+    required this.price,
+    required this.cityId,
+    this.interiors = const [],
+    this.characteristics = const [],
+  });
 }
