@@ -12,7 +12,10 @@ class RoomCard extends StatelessWidget {
     return InkWell(
       onTap: () => toDetailPage(context),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 3),
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 10,
+        ),
         child: SizedBox(
           height: 200,
           child: Stack(
@@ -21,16 +24,19 @@ class RoomCard extends StatelessWidget {
                   ? SizedBox(
                       height: 200,
                       width: double.infinity,
-                      child: Image.network(
-                        room.imageUrl!,
-                        fit: BoxFit.fill,
-                      ),
-                    )
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          room.imageUrl!,
+                          fit: BoxFit.fill,
+                        ),
+                      ))
                   : Container(
                       height: 200,
                       color: Colors.black12,
-                      child: const Center(
-                        child: Text(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: const Text(
                           'Фото отсутствует',
                         ),
                       ),
@@ -39,7 +45,12 @@ class RoomCard extends StatelessWidget {
                 alignment: FractionalOffset.bottomCenter,
                 child: Container(
                   height: 40,
-                  color: Colors.grey.withOpacity(0.5),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.5),
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(20),
+                    ),
+                  ),
                   child: Column(
                     children: [
                       Row(

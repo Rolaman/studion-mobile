@@ -1,19 +1,3 @@
-import 'package:studion_mobile/model/filters_dto.dart';
-
-class RoomListRequest {
-  final String? cityId;
-  final String? text;
-  final FilterRequest? filters;
-
-  RoomListRequest({this.cityId, this.text, this.filters});
-}
-
-class RoomListResponse {
-  final List<RoomItem> rooms;
-
-  RoomListResponse(this.rooms);
-}
-
 class RoomItem {
   final String id;
   final String name;
@@ -23,15 +7,25 @@ class RoomItem {
   final String? description;
   final int area;
   final int height;
+  final String cityId;
+  final List<String> equipments;
+  final List<String> interiors;
+  final List<String> characteristics;
+  final int price;
 
-  RoomItem(
-    this.id,
-    this.name,
+  RoomItem({
+    required this.id,
+    required this.name,
     this.imageUrl,
-    this.studioId,
-    this.imageUrls,
+    required this.studioId,
+    required this.imageUrls,
     this.description,
-    this.area,
-    this.height,
-  );
+    required this.area,
+    required this.height,
+    required this.cityId,
+    this.equipments = const [],
+    this.interiors = const [],
+    this.characteristics = const [],
+    required this.price,
+  });
 }

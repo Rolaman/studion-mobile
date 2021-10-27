@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/city_dto.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
+import 'package:studion_mobile/model/room_dto.dart';
 import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
@@ -45,83 +46,83 @@ class ListScreen extends StatelessWidget {
         args.cityId = citySnapshot.data!.id;
 
         return Consumer<SearchTypeProvider>(
-          child: searchAppBar(),
+            child: searchAppBar(),
             builder: (_, searchTypeProvider, ch) {
-          if (searchTypeProvider.getCurrent() == FilterType.room) {
-            return Consumer<RoomListProvider>(builder: (_, provider, ch) {
-              return FutureBuilder(
-                  future: provider.get(args),
-                  builder: (ctx, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
+              if (searchTypeProvider.getCurrent() == FilterType.room) {
+                final roomProvider =
+                    Provider.of<RoomListProvider>(context, listen: false);
+                return FutureBuilder(
+                    future: roomProvider.get(args),
+                    builder: (ctx, AsyncSnapshot<List<RoomItem>> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Scaffold(
+                          body: CustomScrollView(
+                            slivers: [
+                              ch ?? searchAppBar(),
+                              SliverToBoxAdapter(
+                                child: SizedBox(
+                                  height: 500,
+                                  child: Center(
+                                    child: Loader(),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          bottomNavigationBar: NavigationBar(),
+                        );
+                      }
                       return Scaffold(
                         body: CustomScrollView(
                           slivers: [
                             ch ?? searchAppBar(),
-                            SliverToBoxAdapter(
-                              child: SizedBox(
-                                height: 500,
-                                child: Center(
-                                  child: Loader(),
-                                ),
-                              ),
-                            ),
+                            SliverList(
+                                delegate: SliverChildListDelegate(snapshot.data!
+                                    .map((e) => RoomCard(e, Key(e.name)))
+                                    .toList())),
                           ],
                         ),
                         bottomNavigationBar: NavigationBar(),
                       );
-                    }
-                    return Scaffold(
-                      body: CustomScrollView(
-                        slivers: [
-                          ch ?? searchAppBar(),
-                          SliverList(
-                              delegate: SliverChildListDelegate(provider.items
-                                  .map((e) => RoomCard(e, Key(e.name)))
-                                  .toList())),
-                        ],
-                      ),
-                      bottomNavigationBar: NavigationBar(),
-                    );
-                  });
-            });
-          }
-          return Consumer<StudioListProvider>(builder: (_, provider, ch) {
-            return FutureBuilder(
-                future: provider.get(args),
-                builder: (ctx, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Scaffold(
-                      body: CustomScrollView(
-                        slivers: [
-                          ch ?? searchAppBar(),
-                          SliverToBoxAdapter(
-                            child: SizedBox(
-                              height: 500,
-                              child: Center(
-                                child: Loader(),
+                    });
+              }
+              return Consumer<StudioListProvider>(builder: (_, provider, ch) {
+                return FutureBuilder(
+                    future: provider.get(args),
+                    builder: (ctx, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Scaffold(
+                          body: CustomScrollView(
+                            slivers: [
+                              ch ?? searchAppBar(),
+                              SliverToBoxAdapter(
+                                child: SizedBox(
+                                  height: 500,
+                                  child: Center(
+                                    child: Loader(),
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                      bottomNavigationBar: NavigationBar(),
-                    );
-                  }
-                  return Scaffold(
-                    body: CustomScrollView(
-                      slivers: [
-                        ch ?? searchAppBar(),
-                        SliverList(
-                            delegate: SliverChildListDelegate(provider.items
-                                .map((e) => StudioCard(e, Key(e.name)))
-                                .toList())),
-                      ],
-                    ),
-                    bottomNavigationBar: NavigationBar(),
-                  );
-                });
-          });
-        });
+                          bottomNavigationBar: NavigationBar(),
+                        );
+                      }
+                      return Scaffold(
+                        body: CustomScrollView(
+                          slivers: [
+                            ch ?? searchAppBar(),
+                            SliverList(
+                                delegate: SliverChildListDelegate(provider.items
+                                    .map((e) => StudioCard(e, Key(e.name)))
+                                    .toList())),
+                          ],
+                        ),
+                        bottomNavigationBar: NavigationBar(),
+                      );
+                    });
+              });
+            });
       },
     );
   }

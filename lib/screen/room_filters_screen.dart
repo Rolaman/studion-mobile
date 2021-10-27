@@ -15,6 +15,25 @@ class RoomFiltersScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Фильтры'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Center(
+              child: GestureDetector(
+                child: const Text('Сбросить'),
+                onTap: () {
+                  Provider.of<FiltersProvider>(context, listen: false)
+                      .discard();
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      ListScreen.routeName, (r) => false,
+                      arguments: FilterRequest.values(
+                        type: FilterType.room,
+                      ));
+                },
+              ),
+            ),
+          )
+        ],
       ),
       body: Container(
         margin: const EdgeInsets.only(
@@ -45,20 +64,20 @@ class RoomFiltersScreen extends StatelessWidget {
                       Provider.of<FiltersProvider>(context, listen: false);
                   final priceProvider =
                       Provider.of<PriceFilterProvider>(context, listen: false);
-                  Navigator.of(context)
-                      .pushReplacementNamed(ListScreen.routeName,
-                          arguments: FilterRequest(
-                            itemProvider.getEquipmentFilterIds(),
-                            itemProvider.getInteriorFilterIds(),
-                            itemProvider.getCharacteristicFilterIds(),
-                            int.tryParse(
-                                priceProvider.priceFromController.value.text),
-                            int.tryParse(
-                                priceProvider.priceToController.value.text),
-                            null,
-                            null,
-                            FilterType.room,
-                          ));
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      ListScreen.routeName, (r) => false,
+                      arguments: FilterRequest(
+                        itemProvider.getEquipmentFilterIds(),
+                        itemProvider.getInteriorFilterIds(),
+                        itemProvider.getCharacteristicFilterIds(),
+                        int.tryParse(
+                            priceProvider.priceFromController.value.text),
+                        int.tryParse(
+                            priceProvider.priceToController.value.text),
+                        null,
+                        null,
+                        FilterType.room,
+                      ));
                 },
               ),
             ),

@@ -72,4 +72,11 @@ class FiltersProvider extends ChangeNotifier {
   List<String> getCharacteristicFilterIds() {
     return _characteristics.values.map((e) => e.id).toList();
   }
+
+  void discard() {
+    _equipments.clear();
+    _interiors.clear();
+    _characteristics.clear();
+    notifyListeners();
+  }
 }
