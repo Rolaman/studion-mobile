@@ -1,7 +1,6 @@
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studion_mobile/model/room_dto.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/widget/common/helper.dart';
@@ -18,6 +17,7 @@ class StudioDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final studioId = ModalRoute.of(context)!.settings.arguments as String;
     final studio = Provider.of<StudioListProvider>(context).getOne(studioId);
+    final roomProvider = Provider.of<RoomListProvider>(context, listen: false);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -43,19 +43,7 @@ class StudioDetailScreen extends StatelessWidget {
                     height: 1,
                   ),
             EquipmentList(studio.equipments),
-            Consumer<RoomListProvider>(
-              builder: (_, provider, ch) {
-                return FutureBuilder(
-                  future: provider.getByStudioId(studioId),
-                  builder: (ctx, AsyncSnapshot<List<RoomItem>> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const StudioDetailRoomList(null);
-                    }
-                    return StudioDetailRoomList(snapshot.data!);
-                  },
-                );
-              },
-            ),
+            StudioDetailRoomList(roomProvider.getByStudioId(studioId)),
           ],
         ),
       ),

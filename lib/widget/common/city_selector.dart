@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/city_dto.dart';
+import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/provider/city_provider.dart';
+import 'package:studion_mobile/provider/room_list_provider.dart';
 
 class CitySelector extends StatelessWidget {
   @override
@@ -54,6 +56,9 @@ class CitySelector extends StatelessWidget {
                         onTap: () {
                           Provider.of<CityProvider>(context, listen: false)
                               .change(e.id);
+                          Provider.of<RoomListProvider>(context, listen: false)
+                              .changeFilters(FilterRequest.values(
+                                  type: FilterType.room, cityId: e.id));
                           Navigator.of(context).pop();
                         },
                       );
@@ -116,6 +121,9 @@ class CitySelector extends StatelessWidget {
                       onTap: () {
                         Provider.of<CityProvider>(context, listen: false)
                             .change(e.id);
+                        Provider.of<RoomListProvider>(context, listen: false)
+                            .changeFilters(FilterRequest.values(
+                                type: FilterType.room, cityId: e.id));
                         Navigator.of(context).pop();
                       },
                     );

@@ -10,7 +10,7 @@ class CityProvider extends ChangeNotifier {
     if (_cities.isNotEmpty) {
       return _cities;
     }
-    await _fetchAll();
+    await fetchAll();
     return _cities;
   }
 
@@ -19,7 +19,7 @@ class CityProvider extends ChangeNotifier {
       return _choosen!;
     }
     if (_cities.isEmpty) {
-      await _fetchAll();
+      await fetchAll();
     }
     return _cities.firstWhere((e) => e.id == 'moscow');
   }
@@ -40,7 +40,7 @@ class CityProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _fetchAll() async {
+  Future<void> fetchAll() async {
     CollectionReference studios =
         FirebaseFirestore.instance.collection('cities');
     QuerySnapshot<Object?> snapshot = await studios.get();

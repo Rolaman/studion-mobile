@@ -4,10 +4,10 @@ import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/provider/price_filter_provider.dart';
+import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/search_text_type_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/screen/filters_screen.dart';
-import 'package:studion_mobile/screen/list_screen.dart';
 import 'package:studion_mobile/widget/common/city_selector.dart';
 
 Widget searchAppBar() {
@@ -18,9 +18,6 @@ Widget searchAppBar() {
     floating: true,
     pinned: true,
     title: Center(child: CitySelector()),
-    // actions: [
-    //   SearchAction(),
-    // ],
     bottom: AppBar(
       automaticallyImplyLeading: false,
       title: SearchFilters(),
@@ -53,55 +50,18 @@ class SearchFilters extends StatelessWidget {
         ),
         child: TextField(
           textInputAction: TextInputAction.search,
-          onSubmitted: (_) {
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil(ListScreen.routeName, (r) => false,
-                    arguments: FilterRequest.values(
-                      type: FilterType.room,
-                      text: searchTextTypeProvider.textController.value.text,
-                    ));
-          },
+          onSubmitted: (_) => doSearchByText(context, searchTextTypeProvider),
           decoration: InputDecoration(
             fillColor: Colors.white,
             filled: true,
             prefixIcon: IconButton(
               icon: const Icon(Icons.close),
-              onPressed: () {
-                searchTextTypeProvider.change(false);
-                searchTextTypeProvider.textController.clear();
-                final itemProvider =
-                    Provider.of<FiltersProvider>(context, listen: false);
-                final priceProvider =
-                    Provider.of<PriceFilterProvider>(context, listen: false);
-                final searchTypeProvider =
-                    Provider.of<SearchTypeProvider>(context, listen: false);
-                final cityProvider =
-                    Provider.of<CityProvider>(context, listen: false);
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    ListScreen.routeName, (r) => false,
-                    arguments: FilterRequest(
-                      itemProvider.getEquipmentFilterIds(),
-                      itemProvider.getInteriorFilterIds(),
-                      itemProvider.getCharacteristicFilterIds(),
-                      int.tryParse(
-                          priceProvider.priceFromController.value.text),
-                      int.tryParse(priceProvider.priceToController.value.text),
-                      cityProvider.getCurrentSync()?.id,
-                      null,
-                      searchTypeProvider.getCurrent(),
-                    ));
-              },
+              onPressed: () =>
+                  closeSearchByText(context, searchTextTypeProvider),
             ),
             suffixIcon: IconButton(
               icon: const Icon(Icons.search),
-              onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    ListScreen.routeName, (r) => false,
-                    arguments: FilterRequest.values(
-                      type: FilterType.room,
-                      text: searchTextTypeProvider.textController.value.text,
-                    ));
-              },
+              onPressed: () => doSearchByText(context, searchTextTypeProvider),
             ),
           ),
           controller: searchTextTypeProvider.textController,
@@ -225,4 +185,34 @@ void showRoomFilters(BuildContext context) {
 
 void showStudioFilters(BuildContext context) {
   Navigator.of(context).pushNamed('/studio/filters');
+}
+
+void closeSearchByText(BuildContext context, SearchTextTypeProvider provider) {
+  provider.change(false);
+  provider.textController.clear();
+  final itemProvider = Provider.of<FiltersProvider>(context, listen: false);
+  final priceProvider =
+      Provider.of<PriceFilterProvider>(context, listen: false);
+  final cityProvider = Provider.of<CityProvider>(context, listen: false);
+  itemProvider.discard();
+  priceProvider.priceFromController.clear();
+  priceProvider.priceToController.clear();
+  Provider.of<RoomListProvider>(context, listen: false).changeFilters(
+      FilterRequest.values(
+          type: FilterType.room, cityId: cityProvider.getCurrentSync()?.id));
+}
+
+void doSearchByText(BuildContext context, SearchTextTypeProvider provider) {
+  final cityProvider = Provider.of<CityProvider>(context, listen: false);
+  final itemProvider = Provider.of<FiltersProvider>(context, listen: false);
+  final priceProvider =
+      Provider.of<PriceFilterProvider>(context, listen: false);
+  itemProvider.discard();
+  priceProvider.priceFromController.clear();
+  priceProvider.priceToController.clear();
+  Provider.of<RoomListProvider>(context, listen: false).changeFilters(
+      FilterRequest.values(
+          type: FilterType.room,
+          text: provider.textController.value.text,
+          cityId: cityProvider.getCurrentSync()?.id));
 }

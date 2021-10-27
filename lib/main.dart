@@ -66,6 +66,11 @@ class App extends StatelessWidget {
         ],
         child: Consumer<AppDataProvider>(
           builder: (ctx, data, _) {
+            final cityProvider = Provider.of<CityProvider>(ctx, listen: false);
+            final roomsProvider =
+                Provider.of<RoomListProvider>(ctx, listen: false);
+            final studiosProvider =
+                Provider.of<StudioListProvider>(ctx, listen: false);
             return MaterialApp(
               title: 'StudiON',
               theme: ThemeData(
@@ -78,7 +83,33 @@ class App extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return LoaderScreen();
                   }
-                  return ListScreen();
+                  return FutureBuilder(
+                    future: cityProvider.fetchAll(),
+                    builder: (_, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return LoaderScreen();
+                      }
+                      return FutureBuilder(
+                        future: roomsProvider.fetchAll(),
+                        builder: (_, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return LoaderScreen();
+                          }
+                          return FutureBuilder(
+                            future: studiosProvider.fetchAll(),
+                            builder: (_, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return LoaderScreen();
+                              }
+                              return ListScreen();
+                            },
+                          );
+                        },
+                      );
+                    },
+                  );
                 },
               ),
               routes: {

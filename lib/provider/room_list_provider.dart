@@ -7,10 +7,7 @@ class RoomListProvider with ChangeNotifier {
   List<RoomItem> _items = [];
   List<RoomItem> _allItems = [];
 
-  Future<List<RoomItem>> get(FilterRequest request) async {
-    if (_allItems.isEmpty) {
-      await _fetchAll();
-    }
+  void changeFilters(FilterRequest request) {
     _items = _allItems.where((e) {
       if (request.text == null) {
         return true;
@@ -53,10 +50,14 @@ class RoomListProvider with ChangeNotifier {
       }
       return request.priceTo! > e.price;
     }).toList();
-    return _items;
+    notifyListeners();
   }
 
-  Future<void> _fetchAll() async {
+  List<RoomItem> getCurrents() {
+    return [..._items];
+  }
+
+  Future<void> fetchAll() async {
     CollectionReference studios =
         FirebaseFirestore.instance.collection('rooms');
     QuerySnapshot<Object?> snapshot = await studios.get();
@@ -95,12 +96,10 @@ class RoomListProvider with ChangeNotifier {
         address: firestoreData['address'],
       );
     }).toList();
+    _items = [..._allItems];
   }
 
-  Future<List<RoomItem>> getByStudioId(String studioId) async {
-    if (_allItems.isEmpty) {
-      await _fetchAll();
-    }
+  List<RoomItem> getByStudioId(String studioId) {
     return _allItems.where((e) {
       if (e.studioId == studioId) {
         return true;

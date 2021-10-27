@@ -5,12 +5,12 @@ import 'package:studion_mobile/model/studio_dto.dart';
 
 class StudioListProvider with ChangeNotifier {
   List<StudioItem> _items = [];
-  List<StudioItem> _allItems = [];
+  late final List<StudioItem> _allItems;
   bool loading = true;
 
   Future<void> get(FilterRequest request) async {
     if (_allItems.isEmpty) {
-      await _fetchAll();
+      await fetchAll();
     }
     _items = _allItems.where((e) {
       if (request.text == null) {
@@ -20,7 +20,7 @@ class StudioListProvider with ChangeNotifier {
     }).toList();
   }
 
-  Future<void> _fetchAll() async {
+  Future<void> fetchAll() async {
     CollectionReference studios =
         FirebaseFirestore.instance.collection('studios');
     QuerySnapshot<Object?> snapshot = await studios.get();
