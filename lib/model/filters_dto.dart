@@ -42,6 +42,7 @@ class FilterRequest {
   String? cityId;
   String? text;
   FilterType type;
+  final List<String> metros;
 
   FilterRequest(
     this.equipments,
@@ -52,17 +53,20 @@ class FilterRequest {
     this.cityId,
     this.text,
     this.type,
+    this.metros,
   );
 
-  FilterRequest.values(
-      {this.cityId,
-      this.equipments = const [],
-      this.interiors = const [],
-      this.characteristics = const [],
-      this.priceFrom,
-      this.priceTo,
-      this.text,
-      required this.type});
+  FilterRequest.values({
+    this.cityId,
+    this.equipments = const [],
+    this.interiors = const [],
+    this.characteristics = const [],
+    this.priceFrom,
+    this.priceTo,
+    this.text,
+    required this.type,
+    this.metros = const [],
+  });
 }
 
 enum FilterType {

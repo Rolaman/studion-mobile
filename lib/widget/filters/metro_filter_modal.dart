@@ -85,6 +85,7 @@ class _MetroFiltersModalState extends State<MetroFiltersModal> {
             ),
             alignment: AlignmentDirectional.center,
             child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
               child: const Text('Сбросить'),
               onTap: () {
                 setState(() {
@@ -109,6 +110,7 @@ class _MetroFiltersModalState extends State<MetroFiltersModal> {
             return Column(
               children: [
                 GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: () {
                     final state = _checked.contains(e.id);
                     setState(() {
@@ -125,7 +127,7 @@ class _MetroFiltersModalState extends State<MetroFiltersModal> {
                       top: 10,
                       bottom: 10,
                     ),
-                    height: 20,
+                    height: 40,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [

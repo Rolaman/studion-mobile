@@ -49,6 +49,11 @@ class RoomListProvider with ChangeNotifier {
         return true;
       }
       return request.priceTo! > e.price;
+    }).where((e) {
+      if (request.metros.isEmpty) {
+        return true;
+      }
+      return request.metros.any((metro) => e.metros.contains(metro));
     }).toList();
     notifyListeners();
   }
@@ -96,6 +101,8 @@ class RoomListProvider with ChangeNotifier {
         characteristics: characteristics,
         address: firestoreData['address'],
         metros: metros,
+        startHour: firestoreData['startHour'],
+        endHour: firestoreData['endHour'],
       );
     }).toList();
     _items = [..._allItems];

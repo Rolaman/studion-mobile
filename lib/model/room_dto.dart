@@ -16,6 +16,8 @@ class RoomItem {
   final int price;
   final String address;
   final List<String> metros;
+  final int startHour;
+  final int endHour;
 
   RoomItem({
     required this.id,
@@ -33,5 +35,7 @@ class RoomItem {
     required this.price,
     required this.address,
     this.metros = const [],
+    this.startHour = 0,
+    this.endHour = 0,
   });
 }

@@ -16,6 +16,11 @@ class FiltersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => applyFilters(context),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+            )),
         title: const Text('Фильтры'),
         actions: [
           Padding(
@@ -58,33 +63,13 @@ class FiltersScreen extends StatelessWidget {
             ),
             Container(
               margin: const EdgeInsets.only(
-                bottom: 30,
+                bottom: 40,
               ),
               alignment: AlignmentDirectional.bottomCenter,
               child: CupertinoButton(
                 color: Colors.indigo,
                 child: const Text('Применить'),
-                onPressed: () {
-                  final itemProvider =
-                      Provider.of<FiltersProvider>(context, listen: false);
-                  final cityProvider =
-                      Provider.of<CityProvider>(context, listen: false);
-                  final priceProvider =
-                      Provider.of<PriceFilterProvider>(context, listen: false);
-                  Provider.of<RoomListProvider>(context, listen: false)
-                      .changeFilters(FilterRequest(
-                    itemProvider.getEquipmentFilterIds(),
-                    itemProvider.getInteriorFilterIds(),
-                    itemProvider.getCharacteristicFilterIds(),
-                    int.tryParse(priceProvider.priceFromController.value.text),
-                    int.tryParse(priceProvider.priceToController.value.text),
-                    cityProvider.getCurrentSync()?.id,
-                    null,
-                    FilterType.room,
-                  ));
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      ListScreen.routeName, (r) => false);
-                },
+                onPressed: () => applyFilters(context),
               ),
             ),
           ],
@@ -92,4 +77,25 @@ class FiltersScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+void applyFilters(BuildContext context) {
+  final itemProvider = Provider.of<FiltersProvider>(context, listen: false);
+  final cityProvider = Provider.of<CityProvider>(context, listen: false);
+  final priceProvider =
+      Provider.of<PriceFilterProvider>(context, listen: false);
+  Provider.of<RoomListProvider>(context, listen: false)
+      .changeFilters(FilterRequest(
+    itemProvider.getEquipmentFilterIds(),
+    itemProvider.getInteriorFilterIds(),
+    itemProvider.getCharacteristicFilterIds(),
+    int.tryParse(priceProvider.priceFromController.value.text),
+    int.tryParse(priceProvider.priceToController.value.text),
+    cityProvider.getCurrentSync()?.id,
+    null,
+    FilterType.room,
+    itemProvider.getMetroFilterIds(),
+  ));
+  Navigator.of(context)
+      .pushNamedAndRemoveUntil(ListScreen.routeName, (r) => false);
 }

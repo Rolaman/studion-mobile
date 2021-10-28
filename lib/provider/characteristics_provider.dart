@@ -20,4 +20,11 @@ class CharacteristicProvider extends ChangeNotifier {
     }
     return [..._items];
   }
+
+  Future<List<String>> getByIdsAsync(List<String> ids) async {
+    if (_items.isEmpty) {
+      await get();
+    }
+    return _items.where((e) => ids.contains(e.id)).map((e) => e.name).toList();
+  }
 }

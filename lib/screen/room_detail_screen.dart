@@ -2,9 +2,11 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
+import 'package:studion_mobile/widget/common/address_info.dart';
 import 'package:studion_mobile/widget/common/helper.dart';
 import 'package:studion_mobile/widget/common/image_carousel.dart';
 import 'package:studion_mobile/widget/common/navigation_bar.dart';
+import 'package:studion_mobile/widget/common/working_hour_info.dart';
 import 'package:studion_mobile/widget/room/room_characteristics.dart';
 
 class RoomDetailScreen extends StatelessWidget {
@@ -16,33 +18,38 @@ class RoomDetailScreen extends StatelessWidget {
     final room = Provider.of<RoomListProvider>(context).getOne(roomId);
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            imageCarousel(room.imageUrls),
-            room.description != null
-                ? Padding(
-                    padding: const EdgeInsets.only(
-                      left: 5,
-                      right: 5,
-                      top: 5,
-                    ),
-                    child: ExpandableText(
-                      formatText(room.description!),
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
-                      expandText: 'Подробнее',
-                      collapseText: 'Свернуть',
-                      maxLines: 5,
-                    ),
-                  )
-                : const SizedBox(
-                    height: 0,
+      body: ListView(
+        children: [
+          imageCarousel(room.imageUrls),
+          AddressInfo(room.address),
+          WorkingHourInfo(9, 23),
+          const Divider(
+            thickness: 2,
+            indent: 15,
+            endIndent: 15,
+          ),
+          room.description != null
+              ? Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15,
+                    right: 15,
+                    top: 5,
                   ),
-            RoomCharacteristics(room),
-          ],
-        ),
+                  child: ExpandableText(
+                    formatText(room.description!),
+                    style: const TextStyle(
+                      fontSize: 17,
+                    ),
+                    expandText: 'Подробнее',
+                    collapseText: 'Свернуть',
+                    maxLines: 5,
+                  ),
+                )
+              : const SizedBox(
+                  height: 0,
+                ),
+          RoomCharacteristics(room),
+        ],
       ),
       bottomNavigationBar: NavigationBar(),
       appBar: AppBar(
