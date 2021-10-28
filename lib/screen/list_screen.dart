@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:studion_mobile/model/city_dto.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
-import 'package:studion_mobile/model/room_dto.dart';
-import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';

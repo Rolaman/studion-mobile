@@ -16,7 +16,7 @@ class MetroProvider extends ChangeNotifier {
       final lines = decodedResponse['lines'] as List<dynamic>;
       List<MetroStationItem> result = [];
       for (var line in lines) {
-        final color = Color(int.parse(line['hex_color'], radix: 16));
+        final color = Color(int.parse(line['hex_color'], radix: 16) + 4278190080);
         final stations = line['stations'] as List<dynamic>;
         for (var station in stations) {
           result.add(MetroStationItem(

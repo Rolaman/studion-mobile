@@ -52,6 +52,7 @@ class FiltersScreen extends StatelessWidget {
                 EquipmentFilterItem(),
                 InteriorFilterItem(),
                 CharacteristicsFilterItem(),
+                MetroFilterItem(),
                 PriceFilterItem(),
               ],
             ),

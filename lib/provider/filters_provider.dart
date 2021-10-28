@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
+import 'package:studion_mobile/model/metro_dto.dart';
 
 class FiltersProvider extends ChangeNotifier {
   final Map<String, EquipmentItem> _equipments = {};
   final Map<String, InteriorItem> _interiors = {};
   final Map<String, CharacteristicItem> _characteristics = {};
+  final Map<String, MetroStationItem> _metros = {};
 
   Future<void> changeEquipment(EquipmentItem item, bool state) async {
     if (!_equipments.containsKey(item.id) && state) {
@@ -73,10 +75,34 @@ class FiltersProvider extends ChangeNotifier {
     return _characteristics.values.map((e) => e.id).toList();
   }
 
+  Future<void> changeMetro(MetroStationItem item, bool state) async {
+    if (!_metros.containsKey(item.id) && state) {
+      _metros[item.id] = item;
+    }
+    if (_metros.containsKey(item.id) && !state) {
+      _metros.remove(item.id);
+    }
+    notifyListeners();
+  }
+
+  List<String> getMetroFilters() {
+    return _metros.values.map((e) => e.name).toList();
+  }
+
+  List<String> getMetroFilterIds() {
+    return _metros.values.map((e) => e.id).toList();
+  }
+
   void discard() {
     _equipments.clear();
     _interiors.clear();
     _characteristics.clear();
+    _metros.clear();
+    notifyListeners();
+  }
+
+  void discardMetro() {
+    _metros.clear();
     notifyListeners();
   }
 }

@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
+import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/room_dto.dart';
+import 'package:studion_mobile/provider/city_provider.dart';
+import 'package:studion_mobile/provider/metro_provider.dart';
 import 'package:studion_mobile/screen/room_detail_screen.dart';
+import 'package:studion_mobile/widget/common/current_metros_bar.dart';
 
 class RoomCard extends StatelessWidget {
   final RoomItem room;
@@ -11,6 +15,10 @@ class RoomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final city =
+        Provider.of<CityProvider>(context, listen: false).getCurrentSync();
+    final metros = Provider.of<MetroProvider>(context, listen: false)
+        .getByIds(city!.id, room.metros);
     return InkWell(
       onTap: () => toDetailPage(context),
       child: Container(
@@ -120,7 +128,8 @@ class RoomCard extends StatelessWidget {
                           left: 5,
                           right: 10,
                         ),
-                        child: Text(room.area.toString() + " м\u00B2",
+                        child: Text(
+                          room.area.toString() + " м\u00B2",
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -136,7 +145,8 @@ class RoomCard extends StatelessWidget {
                           left: 5,
                           right: 30,
                         ),
-                        child: Text((room.height / 10).toString() + " м",
+                        child: Text(
+                          (room.height / 10).toString() + " м",
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -160,6 +170,7 @@ class RoomCard extends StatelessWidget {
                 ],
               ),
             ),
+            CurrentMetrosBar(metros),
           ],
         ),
       ),
