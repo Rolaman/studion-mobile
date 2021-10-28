@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/widget/common/address_info.dart';
+import 'package:studion_mobile/widget/common/calendar_button.dart';
 import 'package:studion_mobile/widget/common/helper.dart';
 import 'package:studion_mobile/widget/common/image_carousel.dart';
 import 'package:studion_mobile/widget/common/navigation_bar.dart';
 import 'package:studion_mobile/widget/common/working_hour_info.dart';
 import 'package:studion_mobile/widget/room/room_characteristics.dart';
+import 'package:studion_mobile/widget/room/room_to_studio_field.dart';
 
 class RoomDetailScreen extends StatelessWidget {
   static const routeName = '/room';
@@ -22,7 +24,27 @@ class RoomDetailScreen extends StatelessWidget {
         children: [
           imageCarousel(room.imageUrls),
           AddressInfo(room.address),
-          WorkingHourInfo(9, 23),
+          WorkingHourInfo(room.startHour, room.endHour),
+          Flex(
+            direction: Axis.horizontal,
+            children: [
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(
+                    right: 30,
+                    left: 15,
+                  ),
+                  child: Text(
+                    'от ${room.price} руб./ч',
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(child: CalendarButton(room.calendarUrl!))
+            ],
+          ),
           const Divider(
             thickness: 2,
             indent: 15,
@@ -48,6 +70,12 @@ class RoomDetailScreen extends StatelessWidget {
               : const SizedBox(
                   height: 0,
                 ),
+          ToStudioField(room.studioId),
+          const Divider(
+            thickness: 2,
+            indent: 15,
+            endIndent: 15,
+          ),
           RoomCharacteristics(room),
         ],
       ),

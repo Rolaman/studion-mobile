@@ -103,6 +103,7 @@ class RoomListProvider with ChangeNotifier {
         metros: metros,
         startHour: firestoreData['startHour'],
         endHour: firestoreData['endHour'],
+        calendarUrl: firestoreData['calendarUrl'],
       );
     }).toList();
     _items = [..._allItems];

@@ -5,7 +5,7 @@ import 'package:studion_mobile/model/studio_dto.dart';
 
 class StudioListProvider with ChangeNotifier {
   List<StudioItem> _items = [];
-  late final List<StudioItem> _allItems;
+  List<StudioItem> _allItems = [];
   bool loading = true;
 
   Future<void> get(FilterRequest request) async {
@@ -54,7 +54,7 @@ class StudioListProvider with ChangeNotifier {
         characteristics: characteristics,
         area: firestoreData['area'],
         height: firestoreData['height'],
-        price: firestoreData['price'],
+        price: firestoreData['price'] ?? -1,
         cityId: (firestoreData['cityId'] as DocumentReference).id,
       );
     }).toList();
@@ -65,6 +65,13 @@ class StudioListProvider with ChangeNotifier {
   }
 
   StudioItem getOne(String id) {
+    return _allItems.firstWhere((e) => id == e.id);
+  }
+
+  Future<StudioItem> getOneAsync(String id) async {
+    if (_allItems.isEmpty) {
+      await fetchAll();
+    }
     return _allItems.firstWhere((e) => id == e.id);
   }
 }

@@ -1,5 +1,3 @@
-import 'package:studion_mobile/model/metro_dto.dart';
-
 class RoomItem {
   final String id;
   final String name;
@@ -18,6 +16,7 @@ class RoomItem {
   final List<String> metros;
   final int startHour;
   final int endHour;
+  final String? calendarUrl;
 
   RoomItem({
     required this.id,
@@ -37,5 +36,6 @@ class RoomItem {
     this.metros = const [],
     this.startHour = 0,
     this.endHour = 0,
+    this.calendarUrl,
   });
 }
