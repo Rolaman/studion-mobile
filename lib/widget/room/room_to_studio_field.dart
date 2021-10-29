@@ -19,55 +19,63 @@ class ToStudioField extends StatelessWidget {
       builder: (ctx, AsyncSnapshot<StudioItem> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            child: const CircularProgressIndicator(),
+            child: Center(child: const CircularProgressIndicator()),
           );
         }
-        return Container(
-          margin: const EdgeInsets.only(
-            left: 15,
-            right: 15,
-            top: 10,
-            bottom: 5,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(
-                      right: 15,
-                    ),
-                    width: 50,
-                    height: 50,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.network(
-                        snapshot.data!.imageUrl!,
-                        fit: BoxFit.fill,
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              StudioDetailScreen.routeName,
+              arguments: studioId,
+            );
+          },
+          child: Container(
+            margin: const EdgeInsets.only(
+              left: 15,
+              right: 15,
+              top: 10,
+              bottom: 5,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(
+                        right: 15,
+                      ),
+                      width: 50,
+                      height: 50,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.network(
+                          snapshot.data!.imageUrl!,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    child: Text(
-                      snapshot.data!.name,
-                      style: const TextStyle(
-                        fontSize: 20,
+                    Container(
+                      child: Text(
+                        snapshot.data!.name,
+                        style: const TextStyle(
+                          fontSize: 20,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    StudioDetailScreen.routeName,
-                    arguments: studioId,
-                  );
-                },
-                icon: const Icon(Icons.arrow_forward_ios),
-              )
-            ],
+                  ],
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      StudioDetailScreen.routeName,
+                      arguments: studioId,
+                    );
+                  },
+                  icon: const Icon(Icons.arrow_forward_ios),
+                )
+              ],
+            ),
           ),
         );
       },

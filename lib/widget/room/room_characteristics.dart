@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skeleton_text/skeleton_text.dart';
+import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/model/room_dto.dart';
 import 'package:studion_mobile/provider/characteristics_provider.dart';
+import 'package:studion_mobile/provider/equipment_provider.dart';
 import 'package:studion_mobile/provider/interior_provider.dart';
 
 class RoomCharacteristics extends StatelessWidget {
@@ -92,6 +94,7 @@ class RoomCharacteristics extends StatelessWidget {
           ),
           InteriorInfo(item.interiors),
           CharacteristicsInfo(item.characteristics),
+          EquipmentInfo(item.equipments),
         ],
       ),
     );
@@ -297,6 +300,150 @@ class CharacteristicsInfo extends StatelessWidget {
                       ),
                     );
                   }).toList(),
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class EquipmentInfo extends StatelessWidget {
+  final List<String> equipments;
+
+  const EquipmentInfo(this.equipments) : super(key: const Key('equipments'));
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: Provider.of<EquipmentProvider>(context, listen: false)
+          .getByIdsAsync(equipments),
+      builder: (ctx, AsyncSnapshot<List<EquipmentItem>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(
+            margin: const EdgeInsets.only(
+              top: 5,
+            ),
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(
+                    bottom: 2,
+                  ),
+                  alignment: AlignmentDirectional.topStart,
+                  child: const Text(
+                    'Оборудование',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                SkeletonAnimation(
+                  shimmerColor: Colors.white54,
+                  child: Container(
+                    width: 100,
+                    height: 60,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.grey[300]),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+        if (snapshot.data!.isEmpty) {
+          return const SizedBox();
+        }
+        return Container(
+          margin: const EdgeInsets.only(
+            top: 7,
+          ),
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                  bottom: 2,
+                ),
+                alignment: AlignmentDirectional.topStart,
+                child: const Text(
+                  'Оборудование',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Container(
+                alignment: AlignmentDirectional.topStart,
+                child: SizedBox(
+                  height: 190,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: snapshot.data!.map((e) {
+                      return SizedBox(
+                        height: 180,
+                        width: 150,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 3,
+                            vertical: 1,
+                          ),
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 3,
+                            vertical: 3,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              e.imageUrl != null
+                                  ? Container(
+                                      width: 100,
+                                      height: 100,
+                                      margin: const EdgeInsets.only(
+                                        top: 3,
+                                        bottom: 3,
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Image.network(
+                                          e.imageUrl!,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                              Text(
+                                equipmentGroups[e.type]!,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                e.name,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ),
               )
             ],

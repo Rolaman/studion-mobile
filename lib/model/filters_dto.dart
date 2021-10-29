@@ -2,8 +2,14 @@ class EquipmentItem {
   final String id;
   final String name;
   final String type;
+  final String? imageUrl;
 
-  EquipmentItem(this.id, this.name, this.type);
+  EquipmentItem({
+    required this.id,
+    required this.name,
+    required this.type,
+    this.imageUrl,
+  });
 }
 
 class EquipmentGroup {

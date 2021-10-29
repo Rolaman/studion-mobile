@@ -14,9 +14,10 @@ class EquipmentProvider extends ChangeNotifier {
       _items = snapshot.docs.map((e) {
         Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
         return EquipmentItem(
-          e.id,
-          firestoreData['name'],
-          firestoreData['type'],
+          id: e.id,
+          name: firestoreData['name'],
+          type: firestoreData['type'],
+          imageUrl: firestoreData['imageUrl'],
         );
       }).toList();
       for (var e in _items) {
@@ -31,5 +32,12 @@ class EquipmentProvider extends ChangeNotifier {
       }
     }
     return [..._items];
+  }
+
+  Future<List<EquipmentItem>> getByIdsAsync(List<String> ids) async {
+    if (_items.isEmpty) {
+      await get();
+    }
+    return _items.where((e) => ids.contains(e.id)).toList();
   }
 }
