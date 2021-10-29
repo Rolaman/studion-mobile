@@ -160,7 +160,7 @@ class InteriorInfo extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.only(
-                  bottom: 2,
+                  bottom: 5,
                 ),
                 alignment: AlignmentDirectional.topStart,
                 child: const Text(
@@ -179,8 +179,8 @@ class InteriorInfo extends StatelessWidget {
                   children: snapshot.data!.map((e) {
                     return Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 3,
-                        vertical: 1,
+                        horizontal: 5,
+                        vertical: 3,
                       ),
                       margin: const EdgeInsets.symmetric(
                         horizontal: 3,
@@ -287,8 +287,8 @@ class CharacteristicsInfo extends StatelessWidget {
                   children: snapshot.data!.map((e) {
                     return Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 3,
-                        vertical: 1,
+                        horizontal: 5,
+                        vertical: 3,
                       ),
                       margin: const EdgeInsets.symmetric(
                         horizontal: 3,
@@ -336,7 +336,7 @@ class EquipmentInfo extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.only(
-                    bottom: 2,
+                    bottom: 5,
                   ),
                   alignment: AlignmentDirectional.topStart,
                   child: const Text(
@@ -372,7 +372,7 @@ class EquipmentInfo extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.only(
-                  bottom: 2,
+                  bottom: 5,
                 ),
                 alignment: AlignmentDirectional.topStart,
                 child: const Text(
@@ -395,8 +395,8 @@ class EquipmentInfo extends StatelessWidget {
                         width: 150,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 3,
-                            vertical: 1,
+                            horizontal: 5,
+                            vertical: 3,
                           ),
                           margin: const EdgeInsets.symmetric(
                             horizontal: 3,
