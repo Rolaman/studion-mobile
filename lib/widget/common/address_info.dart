@@ -10,7 +10,7 @@ class AddressInfo extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 15,
-        vertical: 10,
+        vertical: 5,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

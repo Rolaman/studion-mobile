@@ -42,6 +42,11 @@ class StudioListProvider with ChangeNotifier {
           .map((e) => e.id)
           .toList()
           .cast<String>();
+      List<String> facilities = firestoreData['facilities']
+          .cast<DocumentReference>()
+          .map((e) => e.id)
+          .toList()
+          .cast<String>();
       return StudioItem(
         id: e.id,
         name: firestoreData['name'],
@@ -56,6 +61,16 @@ class StudioListProvider with ChangeNotifier {
         height: firestoreData['height'],
         price: firestoreData['price'] ?? -1,
         cityId: (firestoreData['cityId'] as DocumentReference).id,
+        startHour: firestoreData['startHour'] ?? 0,
+        endHour: firestoreData['endHour'] ?? 24,
+        // TODO remove below
+        calendarUrl: 'https://google.com',
+        mobile: '+7(952)210-77-65',
+
+        facilities: facilities,
+        siteUrl: firestoreData['siteUrl'],
+        vkUrl: firestoreData['vkUrl'],
+        instagramUrl: firestoreData['instagramUrl'],
       );
     }).toList();
   }

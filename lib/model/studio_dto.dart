@@ -12,6 +12,14 @@ class StudioItem {
   final List<String> equipments;
   final List<String> interiors;
   final List<String> characteristics;
+  final int startHour;
+  final int endHour;
+  final String? calendarUrl;
+  final String? mobile;
+  final List<String> facilities;
+  final String? siteUrl;
+  final String? vkUrl;
+  final String? instagramUrl;
 
   StudioItem({
     required this.id,
@@ -27,5 +35,13 @@ class StudioItem {
     required this.cityId,
     this.interiors = const [],
     this.characteristics = const [],
+    required this.startHour,
+    required this.endHour,
+    this.calendarUrl,
+    this.mobile,
+    this.facilities = const [],
+    this.siteUrl,
+    this.vkUrl,
+    this.instagramUrl,
   });
 }

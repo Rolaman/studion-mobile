@@ -132,14 +132,17 @@ class InteriorInfo extends StatelessWidget {
                     ),
                   ),
                 ),
-                SkeletonAnimation(
-                  shimmerColor: Colors.white54,
-                  child: Container(
-                    width: 100,
-                    height: 30,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.grey[300]),
+                Container(
+                  alignment: AlignmentDirectional.topStart,
+                  child: SkeletonAnimation(
+                    shimmerColor: Colors.white54,
+                    child: Container(
+                      width: 100,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.grey[300]),
+                    ),
                   ),
                 ),
               ],
@@ -237,14 +240,17 @@ class CharacteristicsInfo extends StatelessWidget {
                     ),
                   ),
                 ),
-                SkeletonAnimation(
-                  shimmerColor: Colors.white54,
-                  child: Container(
-                    width: 100,
-                    height: 30,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.grey[300]),
+                Container(
+                  alignment: AlignmentDirectional.topStart,
+                  child: SkeletonAnimation(
+                    shimmerColor: Colors.white54,
+                    child: Container(
+                      width: 100,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.grey[300]),
+                    ),
                   ),
                 ),
               ],

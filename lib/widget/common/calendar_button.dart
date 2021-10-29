@@ -30,3 +30,30 @@ class CalendarButton extends StatelessWidget {
     );
   }
 }
+
+class StudioCalendarButton extends StatelessWidget {
+  final String url;
+
+  const StudioCalendarButton(this.url) : super(key: const Key('calendarUrl'));
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        vertical: 7,
+        horizontal: 15,
+      ),
+      height: 50,
+      child: CupertinoButton(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 5,
+        ),
+        color: Colors.indigo,
+        child: const Text('Календарь бронирования'),
+        onPressed: () {
+          launch(url);
+        },
+      ),
+    );
+  }
+}

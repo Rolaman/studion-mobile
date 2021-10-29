@@ -79,3 +79,11 @@ enum FilterType {
   studio,
   room,
 }
+
+
+class FacilityItem {
+  final String id;
+  final String name;
+
+  FacilityItem(this.id, this.name);
+}

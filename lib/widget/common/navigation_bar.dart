@@ -29,7 +29,7 @@ class _NavigationBarState extends State<NavigationBar> {
   void _onItemTapped(int index) {
     Provider.of<BottomNavigationIndexProvider>(context, listen: false)
         .change(index);
-    Navigator.of(context).pushReplacementNamed(navigationRules[index]!);
+    Navigator.of(context).restorablePushNamedAndRemoveUntil(navigationRules[index]!, (r) => false);
   }
 
   @override
