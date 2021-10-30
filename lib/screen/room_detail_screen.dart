@@ -9,6 +9,7 @@ import 'package:studion_mobile/widget/common/image_carousel.dart';
 import 'package:studion_mobile/widget/common/navigation_bar.dart';
 import 'package:studion_mobile/widget/common/working_hour_info.dart';
 import 'package:studion_mobile/widget/room/room_characteristics.dart';
+import 'package:studion_mobile/widget/room/room_star_icon.dart';
 import 'package:studion_mobile/widget/room/room_to_studio_field.dart';
 
 class RoomDetailScreen extends StatelessWidget {
@@ -94,6 +95,9 @@ class RoomDetailScreen extends StatelessWidget {
         title: Text(
           room.name,
         ),
+        actions: [
+          RoomStarIcon(roomId),
+        ],
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:expandable_text/expandable_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
@@ -13,6 +14,7 @@ import 'package:studion_mobile/widget/room/room_characteristics.dart';
 import 'package:studion_mobile/widget/studio/facilities_info.dart';
 import 'package:studion_mobile/widget/studio/contact_info.dart';
 import 'package:studion_mobile/widget/studio/studio_detail_room_list.dart';
+import 'package:studion_mobile/widget/studio/studio_star_icon.dart';
 
 class StudioDetailScreen extends StatelessWidget {
   static const routeName = '/studio';
@@ -29,9 +31,11 @@ class StudioDetailScreen extends StatelessWidget {
         child: Column(
           children: [
             imageCarousel(studio.imageUrls),
-            studio.address != null ? AddressInfo(studio.address!) : const SizedBox(
-              height: 5,
-            ),
+            studio.address != null
+                ? AddressInfo(studio.address!)
+                : const SizedBox(
+                    height: 5,
+                  ),
             WorkingHourInfo(studio.startHour, studio.endHour),
             studio.mobile != null
                 ? ContactInfo(
@@ -103,6 +107,9 @@ class StudioDetailScreen extends StatelessWidget {
         title: Text(
           studio.name,
         ),
+        actions: [
+          StudioStarIcon(studioId),
+        ],
       ),
     );
   }

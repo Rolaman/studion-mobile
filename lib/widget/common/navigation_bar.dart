@@ -33,12 +33,21 @@ class _NavigationBarState extends State<NavigationBar> {
   };
 
   void _onItemTapped(int index) {
-    final provider = Provider.of<BottomNavigationIndexProvider>(context, listen: false);
-    if (provider.selectedIndex == index) {
+    bool isNewRouteSameAsCurrent = false;
+    Navigator.popUntil(context, (route) {
+      if (route.settings.name == navigationRules[index]) {
+        isNewRouteSameAsCurrent = true;
+      }
+      return true;
+    });
+    if (isNewRouteSameAsCurrent) {
       return;
     }
+    final provider =
+        Provider.of<BottomNavigationIndexProvider>(context, listen: false);
     provider.change(index);
-    Navigator.of(context).restorablePushNamedAndRemoveUntil(navigationRules[index]!, (r) => false);
+    Navigator.of(context).restorablePushNamedAndRemoveUntil(
+        navigationRules[index]!, (r) => false);
   }
 
   @override

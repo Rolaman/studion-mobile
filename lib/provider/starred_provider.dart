@@ -19,6 +19,7 @@ class StarredProvider extends ChangeNotifier {
     final newStudios = oldStudios.toSet();
     newStudios.add(id);
     prefs.setStringList('starredStudios', newStudios.toList());
+    notifyListeners();
   }
 
   Future<void> addStarredRoom(String id) async {
@@ -27,6 +28,7 @@ class StarredProvider extends ChangeNotifier {
     final newRooms = oldRooms.toSet();
     newRooms.add(id);
     prefs.setStringList('starredRooms', newRooms.toList());
+    notifyListeners();
   }
 
   Future<void> removeStarredStudio(String id) async {
@@ -35,6 +37,7 @@ class StarredProvider extends ChangeNotifier {
     final newStudios = oldStudios.toSet();
     newStudios.remove(id);
     prefs.setStringList('starredStudios', newStudios.toList());
+    notifyListeners();
   }
 
   Future<void> removeStarredRoom(String id) async {
@@ -43,6 +46,7 @@ class StarredProvider extends ChangeNotifier {
     final newRooms = oldRooms.toSet();
     newRooms.remove(id);
     prefs.setStringList('starredRooms', newRooms.toList());
+    notifyListeners();
   }
 
 }
