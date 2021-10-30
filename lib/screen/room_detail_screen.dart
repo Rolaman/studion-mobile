@@ -42,7 +42,9 @@ class RoomDetailScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(child: CalendarButton(room.calendarUrl!))
+              room.calendarUrl != null
+                  ? Expanded(child: CalendarButton(room.calendarUrl!))
+                  : const SizedBox(),
             ],
           ),
           const Divider(

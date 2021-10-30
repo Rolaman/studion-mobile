@@ -22,13 +22,16 @@ class StudioDetailScreen extends StatelessWidget {
     final studioId = ModalRoute.of(context)!.settings.arguments as String;
     final studio = Provider.of<StudioListProvider>(context).getOne(studioId);
     final roomProvider = Provider.of<RoomListProvider>(context, listen: false);
+    final rooms = roomProvider.getByStudioId(studioId);
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             imageCarousel(studio.imageUrls),
-            AddressInfo(studio.address),
+            studio.address != null ? AddressInfo(studio.address!) : const SizedBox(
+              height: 5,
+            ),
             WorkingHourInfo(studio.startHour, studio.endHour),
             studio.mobile != null
                 ? ContactInfo(
@@ -71,7 +74,7 @@ class StudioDetailScreen extends StatelessWidget {
                     child: EquipmentInfo(studio.equipments),
                   )
                 : const SizedBox(),
-            StudioDetailRoomList(roomProvider.getByStudioId(studioId)),
+            rooms.isNotEmpty ? StudioDetailRoomList(rooms) : const SizedBox(),
             studio.characteristics.isNotEmpty
                 ? Container(
                     margin: const EdgeInsets.symmetric(horizontal: 15),

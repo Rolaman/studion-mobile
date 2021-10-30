@@ -60,7 +60,7 @@ class StudioListProvider with ChangeNotifier {
         characteristics: characteristics,
         area: firestoreData['area'],
         height: firestoreData['height'],
-        price: firestoreData['price'] ?? -1,
+        price: firestoreData['price'],
         cityId: (firestoreData['cityId'] as DocumentReference).id,
         startHour: firestoreData['startHour'] ?? 0,
         endHour: firestoreData['endHour'] ?? 24,

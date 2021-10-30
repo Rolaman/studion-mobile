@@ -4,10 +4,10 @@ class StudioItem {
   final String? imageUrl;
   final List<String> imageUrls;
   final String? description;
-  final String address;
+  final String? address;
   final int area;
   final int height;
-  final int price;
+  final int? price;
   final String cityId;
   final List<String> equipments;
   final List<String> interiors;

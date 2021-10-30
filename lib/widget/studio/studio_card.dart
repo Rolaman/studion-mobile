@@ -102,19 +102,21 @@ class StudioCard extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(
-                top: 8,
-              ),
-              alignment: AlignmentDirectional.topStart,
-              child: Text(
-                studio.address,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
-              ),
-            ),
+            studio.address != null
+                ? Container(
+                    margin: const EdgeInsets.only(
+                      top: 8,
+                    ),
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      studio.address!,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  )
+                : SizedBox(),
             Container(
               margin: const EdgeInsets.only(
                 top: 1,
@@ -161,18 +163,27 @@ class StudioCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  OutlinedButton(
-                    style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(const Size(150, 30)),
-                    ),
-                    onPressed: () => toDetailPage(context),
-                    child: Text(
-                      'От ${studio.price} руб.',
-                      style: const TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
+                  studio.price != null
+                      ? OutlinedButton(
+                          style: ButtonStyle(
+                            fixedSize:
+                                MaterialStateProperty.all(const Size(150, 30)),
+                          ),
+                          onPressed: () => toDetailPage(context),
+                          child: Text(
+                            'От ${studio.price} руб.',
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                        )
+                      : Container(
+                          margin: EdgeInsets.only(
+                            top: 12,
+                            bottom: 3,
+                          ),
+                          height: 30,
+                        ),
                 ],
               ),
             ),

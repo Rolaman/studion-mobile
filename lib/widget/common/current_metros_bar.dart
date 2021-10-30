@@ -27,6 +27,7 @@ class CurrentMetrosBar extends StatelessWidget {
     }
     final namesText = metros.map((e) => e.name).join(', ');
     return Container(
+      margin: EdgeInsets.only(left: 2),
       child: Row(
         children: [
           Stack(
