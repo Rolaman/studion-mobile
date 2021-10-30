@@ -9,18 +9,57 @@ class StudioListProvider with ChangeNotifier {
   bool loading = true;
 
   Future<void> changeFilters(FilterRequest request) async {
-    if (_allItems.isEmpty) {
-      await fetchAll();
-    }
     _items = _allItems.where((e) {
       if (request.text == null) {
         return true;
       }
-      return e.name.contains(request.text!);
+      return e.name.toLowerCase().contains(request.text!.toLowerCase());
+    }).where((e) {
+      if (request.cityId == null) {
+        return true;
+      }
+      return e.cityId == request.cityId;
+    }).where((e) {
+      if (request.equipments.isEmpty) {
+        return true;
+      }
+      return request.equipments.every((eq) {
+        return e.equipments.contains(eq);
+      });
+    }).where((e) {
+      if (request.interiors.isEmpty) {
+        return true;
+      }
+      return request.interiors.every((eq) {
+        return e.interiors.contains(eq);
+      });
+    }).where((e) {
+      if (request.characteristics.isEmpty) {
+        return true;
+      }
+      return request.characteristics.every((eq) {
+        return e.characteristics.contains(eq);
+      });
+    }).where((e) {
+      if (request.priceFrom == null) {
+        return true;
+      }
+      return e.price == null || request.priceFrom! < e.price!;
+    }).where((e) {
+      if (request.priceTo == null) {
+        return true;
+      }
+      return e.price == null || request.priceTo! > e.price!;
+    }).where((e) {
+      if (request.metros.isEmpty) {
+        return true;
+      }
+      return request.metros.any((metro) => e.metros.contains(metro));
     }).toList();
+    notifyListeners();
   }
 
-  Future<void> fetchAll() async {
+  Future<void> fetch() async {
     CollectionReference studios =
         FirebaseFirestore.instance.collection('studios');
     QuerySnapshot<Object?> snapshot = await studios.get();
@@ -89,7 +128,7 @@ class StudioListProvider with ChangeNotifier {
 
   Future<StudioItem> getOneAsync(String id) async {
     if (_allItems.isEmpty) {
-      await fetchAll();
+      await fetch();
     }
     return _allItems.firstWhere((e) => id == e.id);
   }

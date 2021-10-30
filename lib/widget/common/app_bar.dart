@@ -7,6 +7,7 @@ import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/search_text_type_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
+import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/screen/filters_screen.dart';
 import 'package:studion_mobile/widget/common/city_selector.dart';
 
@@ -82,6 +83,11 @@ class SearchFilters extends StatelessWidget {
         ),
       );
     }
+    final activeFilters =
+        Provider.of<FiltersProvider>(context).hasActiveFilters();
+    final activePriceFilters =
+        Provider.of<PriceFilterProvider>(context).hasActiveFilters();
+
     return Container(
       alignment: AlignmentDirectional.topStart,
       margin: const EdgeInsets.only(
@@ -178,10 +184,27 @@ class SearchFilters extends StatelessWidget {
                     color: Colors.white30,
                     borderRadius: BorderRadius.circular(18),
                   ),
-                  child: const Icon(Icons.filter_list_outlined),
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      const Icon(Icons.filter_list_outlined),
+                      activeFilters || activePriceFilters
+                          ? Container(
+                              alignment: AlignmentDirectional.topEnd,
+                              child: Container(
+                                  width: 10,
+                                  height: 10,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(6),
+                                  )),
+                            )
+                          : const SizedBox(),
+                    ],
+                  ),
                 ),
                 onTap: () {
-                  showRoomFilters(context);
+                  showFilters(context);
                 },
               )
             ],
@@ -192,12 +215,8 @@ class SearchFilters extends StatelessWidget {
   }
 }
 
-void showRoomFilters(BuildContext context) {
+void showFilters(BuildContext context) {
   Navigator.of(context).pushNamed(FiltersScreen.routeName);
-}
-
-void showStudioFilters(BuildContext context) {
-  Navigator.of(context).pushNamed('/studio/filters');
 }
 
 void closeSearchByText(BuildContext context, SearchTextTypeProvider provider) {
@@ -213,6 +232,9 @@ void closeSearchByText(BuildContext context, SearchTextTypeProvider provider) {
   Provider.of<RoomListProvider>(context, listen: false).changeFilters(
       FilterRequest.values(
           type: FilterType.room, cityId: cityProvider.getCurrentSync().id));
+  Provider.of<StudioListProvider>(context, listen: false).changeFilters(
+      FilterRequest.values(
+          type: FilterType.studio, cityId: cityProvider.getCurrentSync().id));
 }
 
 void doSearchByText(BuildContext context, SearchTextTypeProvider provider) {
@@ -226,6 +248,11 @@ void doSearchByText(BuildContext context, SearchTextTypeProvider provider) {
   Provider.of<RoomListProvider>(context, listen: false).changeFilters(
       FilterRequest.values(
           type: FilterType.room,
+          text: provider.textController.value.text,
+          cityId: cityProvider.getCurrentSync().id));
+  Provider.of<StudioListProvider>(context, listen: false).changeFilters(
+      FilterRequest.values(
+          type: FilterType.studio,
           text: provider.textController.value.text,
           cityId: cityProvider.getCurrentSync().id));
 }

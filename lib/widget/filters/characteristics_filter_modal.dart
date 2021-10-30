@@ -47,39 +47,65 @@ class _CharacteristicsFiltersModalState
             ),
             child: ListView(
               children: snapshot.data!.map((e) {
-                return Container(
-                  margin: const EdgeInsets.only(
-                    bottom: 14,
-                  ),
-                  height: 20,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        e.name,
-                        style: const TextStyle(
-                          fontSize: 18,
+                return Column(
+                  children: [
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {
+                        final state = _checked.contains(e.id);
+                        setState(() {
+                          if (!state) {
+                            _checked.add(e.id);
+                          } else {
+                            _checked.remove(e.id);
+                          }
+                        });
+                        Provider.of<FiltersProvider>(context, listen: false)
+                            .changeCharacteristic(e, !state);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                          top: 10,
+                          bottom: 10,
+                        ),
+                        height: 40,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Transform.scale(
+                              scale: 1.2,
+                              child: Checkbox(
+                                value: _checked.contains(e.id),
+                                onChanged: (state) {
+                                  setState(() {
+                                    if (state!) {
+                                      _checked.add(e.id);
+                                    } else {
+                                      _checked.remove(e.id);
+                                    }
+                                  });
+                                  Provider.of<FiltersProvider>(context,
+                                          listen: false)
+                                      .changeCharacteristic(e, state!);
+                                },
+                              ),
+                            ),
+                            Text(
+                              e.name,
+                              style: const TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Transform.scale(
-                          scale: 1.2,
-                          child: Checkbox(
-                            value: _checked.contains(e.id),
-                            onChanged: (state) {
-                              setState(() {
-                                if (state!) {
-                                  _checked.add(e.id);
-                                } else {
-                                  _checked.remove(e.id);
-                                }
-                              });
-                              Provider.of<FiltersProvider>(context,
-                                      listen: false)
-                                  .changeCharacteristic(e, state!);
-                            },
-                          ))
-                    ],
-                  ),
+                    ),
+                    const Divider(
+                      thickness: 2,
+                      indent: 10,
+                      endIndent: 10,
+                    ),
+                  ],
                 );
               }).toList(),
             ),

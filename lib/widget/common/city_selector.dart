@@ -5,6 +5,7 @@ import 'package:studion_mobile/model/city_dto.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
+import 'package:studion_mobile/provider/studio_list_provider.dart';
 
 class CitySelector extends StatelessWidget {
   @override
@@ -58,6 +59,9 @@ class CitySelector extends StatelessWidget {
                         Provider.of<RoomListProvider>(context, listen: false)
                             .changeFilters(FilterRequest.values(
                                 type: FilterType.room, cityId: e.id));
+                        Provider.of<StudioListProvider>(context, listen: false)
+                            .changeFilters(FilterRequest.values(
+                            type: FilterType.studio, cityId: e.id));
                         Navigator.of(context).pop();
                       },
                     );

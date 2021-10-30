@@ -7,6 +7,7 @@ class FiltersProvider extends ChangeNotifier {
   final Map<String, InteriorItem> _interiors = {};
   final Map<String, CharacteristicItem> _characteristics = {};
   final Map<String, MetroStationItem> _metros = {};
+  final Map<String, FacilityItem> _facilities = {};
 
   Future<void> changeEquipment(EquipmentItem item, bool state) async {
     if (!_equipments.containsKey(item.id) && state) {
@@ -40,10 +41,6 @@ class FiltersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool getInteriorState(String id) {
-    return _interiors.containsKey(id);
-  }
-
   List<String> getInteriorFilters() {
     return _interiors.values.map((e) => e.name).toList();
   }
@@ -51,7 +48,6 @@ class FiltersProvider extends ChangeNotifier {
   List<String> getInteriorFilterIds() {
     return _interiors.values.map((e) => e.id).toList();
   }
-
 
   Future<void> changeCharacteristic(CharacteristicItem item, bool state) async {
     if (!_characteristics.containsKey(item.id) && state) {
@@ -61,10 +57,6 @@ class FiltersProvider extends ChangeNotifier {
       _characteristics.remove(item.id);
     }
     notifyListeners();
-  }
-
-  bool getCharacteristicState(String id) {
-    return _characteristics.containsKey(id);
   }
 
   List<String> getCharacteristicFilters() {
@@ -93,16 +85,43 @@ class FiltersProvider extends ChangeNotifier {
     return _metros.values.map((e) => e.id).toList();
   }
 
+  Future<void> changeFacilities(FacilityItem item, bool state) async {
+    if (!_facilities.containsKey(item.id) && state) {
+      _facilities[item.id] = item;
+    }
+    if (_facilities.containsKey(item.id) && !state) {
+      _facilities.remove(item.id);
+    }
+    notifyListeners();
+  }
+
+  List<String> getFacilitiesFilters() {
+    return _facilities.values.map((e) => e.name).toList();
+  }
+
+  List<String> getFacilitiesFilterIds() {
+    return _facilities.values.map((e) => e.id).toList();
+  }
+
   void discard() {
     _equipments.clear();
     _interiors.clear();
     _characteristics.clear();
     _metros.clear();
+    _facilities.clear();
     notifyListeners();
   }
 
   void discardMetro() {
     _metros.clear();
     notifyListeners();
+  }
+
+  bool hasActiveFilters() {
+    return _equipments.isNotEmpty ||
+        _interiors.isNotEmpty ||
+        _characteristics.isNotEmpty ||
+        _metros.isNotEmpty ||
+        _facilities.isNotEmpty;
   }
 }

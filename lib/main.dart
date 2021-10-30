@@ -123,8 +123,8 @@ Future<void> providerLoading(BuildContext ctx) {
   return appDataProvider
       .fetch()
       .then((_) => cityProvider.fetchAll())
-      .then((_) => roomsProvider.fetchAll())
-      .then((_) => studiosProvider.fetchAll())
+      .then((_) => roomsProvider.fetch())
+      .then((_) => studiosProvider.fetch())
       .then((_) => metroProvider.fetch(['moscow', 'spb']))
       .then((_) => interiorProvider.fetch())
       .then((_) => equipmentProvider.fetch())

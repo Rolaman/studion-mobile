@@ -6,6 +6,7 @@ import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/widget/filters/characteristics_filter_modal.dart';
 import 'package:studion_mobile/widget/filters/equipment_filters_modal.dart';
+import 'package:studion_mobile/widget/filters/facilities_filters_modal.dart';
 import 'package:studion_mobile/widget/filters/interior_filters_modal.dart';
 import 'package:studion_mobile/widget/filters/metro_filter_modal.dart';
 
@@ -362,6 +363,75 @@ class MetroFilterItem extends StatelessWidget {
             context: context,
             builder: (ctx) {
               return MetroFiltersModal();
+            });
+      },
+    );
+  }
+}
+
+class FacilityFilterItem extends StatelessWidget {
+  const FacilityFilterItem() : super(key: const Key('facility'));
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      child: Consumer<FiltersProvider>(
+        builder: (ctx, FiltersProvider provider, Widget? child) {
+          return Column(
+            children: [
+              child!,
+              Container(
+                alignment: AlignmentDirectional.topStart,
+                child: Wrap(
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.start,
+                  children: provider.getFacilitiesFilters().map((e) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 3,
+                        vertical: 1,
+                      ),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 2,
+                        vertical: 2,
+                      ),
+                      child: Text(e),
+                      decoration: BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          );
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 4,
+          ),
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Text(
+                'Удобства',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              Icon(Icons.arrow_forward_ios),
+            ],
+          ),
+        ),
+      ),
+      onTap: () {
+        showMaterialModalBottomSheet(
+            context: context,
+            builder: (ctx) {
+              return FacilitiesFiltersModal();
             });
       },
     );

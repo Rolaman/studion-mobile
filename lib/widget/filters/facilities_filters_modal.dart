@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
+import 'package:studion_mobile/provider/facilities_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/provider/interior_provider.dart';
 
-class InteriorFiltersModal extends StatefulWidget {
+class FacilitiesFiltersModal extends StatefulWidget {
   @override
-  _InteriorFiltersModalState createState() => _InteriorFiltersModalState();
+  _FacilitiesFiltersModalState createState() => _FacilitiesFiltersModalState();
 }
 
-class _InteriorFiltersModalState extends State<InteriorFiltersModal> {
+class _FacilitiesFiltersModalState extends State<FacilitiesFiltersModal> {
   Set<String> _checked = {};
   bool _inited = false;
 
@@ -18,7 +19,7 @@ class _InteriorFiltersModalState extends State<InteriorFiltersModal> {
     if (!_inited) {
       setState(() {
         _checked = Provider.of<FiltersProvider>(context, listen: false)
-            .getInteriorFilterIds()
+            .getFacilitiesFilterIds()
             .toSet();
         _inited = true;
       });
@@ -31,8 +32,8 @@ class _InteriorFiltersModalState extends State<InteriorFiltersModal> {
     return Container(
       height: 500,
       child: FutureBuilder(
-        future: Provider.of<InteriorProvider>(context).get(),
-        builder: (ctx, AsyncSnapshot<List<InteriorItem>> snapshot) {
+        future: Provider.of<FacilitiesProvider>(context).get(),
+        builder: (ctx, AsyncSnapshot<List<FacilityItem>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -59,7 +60,7 @@ class _InteriorFiltersModalState extends State<InteriorFiltersModal> {
                           }
                         });
                         Provider.of<FiltersProvider>(context, listen: false)
-                            .changeInterior(e, !state);
+                            .changeFacilities(e, !state);
                       },
                       child: Container(
                         padding: const EdgeInsets.only(
@@ -84,7 +85,7 @@ class _InteriorFiltersModalState extends State<InteriorFiltersModal> {
                                   });
                                   Provider.of<FiltersProvider>(context,
                                           listen: false)
-                                      .changeInterior(e, state!);
+                                      .changeFacilities(e, state!);
                                 },
                               ),
                             ),

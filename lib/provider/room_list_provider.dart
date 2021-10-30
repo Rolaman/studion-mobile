@@ -62,7 +62,7 @@ class RoomListProvider with ChangeNotifier {
     return [..._items];
   }
 
-  Future<void> fetchAll() async {
+  Future<void> fetch() async {
     CollectionReference studios =
         FirebaseFirestore.instance.collection('rooms');
     QuerySnapshot<Object?> snapshot = await studios.get();
