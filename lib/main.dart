@@ -13,12 +13,14 @@ import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/search_text_type_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
+import 'package:studion_mobile/provider/starred_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/screen/error_screen.dart';
 import 'package:studion_mobile/screen/loader_screen.dart';
 import 'package:studion_mobile/screen/room_detail_screen.dart';
 import 'package:studion_mobile/screen/filters_screen.dart';
 import 'package:studion_mobile/screen/list_screen.dart';
+import 'package:studion_mobile/screen/starred_screen.dart';
 import 'package:studion_mobile/screen/studio_detail_screen.dart';
 
 void main() {
@@ -72,6 +74,9 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => FacilitiesProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => StarredProvider(),
+        ),
       ],
       builder: (ctx, _) {
         return MaterialApp(
@@ -86,6 +91,7 @@ class App extends StatelessWidget {
             StudioDetailScreen.routeName: (ctx) => StudioDetailScreen(),
             RoomDetailScreen.routeName: (ctx) => RoomDetailScreen(),
             FiltersScreen.routeName: (ctx) => FiltersScreen(),
+            StarredScreen.routeName: (ctx) => StarredScreen(),
           },
         );
       },
