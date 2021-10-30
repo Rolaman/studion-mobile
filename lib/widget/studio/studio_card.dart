@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
+import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/studio_dto.dart';
+import 'package:studion_mobile/provider/city_provider.dart';
+import 'package:studion_mobile/provider/metro_provider.dart';
 import 'package:studion_mobile/screen/studio_detail_screen.dart';
+import 'package:studion_mobile/widget/common/current_metros_bar.dart';
 
 class StudioCard extends StatelessWidget {
   final StudioItem studio;
@@ -10,6 +14,10 @@ class StudioCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final city =
+        Provider.of<CityProvider>(context, listen: false).getCurrentSync();
+    final metros = Provider.of<MetroProvider>(context, listen: false)
+        .getByIds(city!.id, studio.metros);
     return InkWell(
       onTap: () => toDetailPage(context),
       child: Container(
@@ -25,25 +33,32 @@ class StudioCard extends StatelessWidget {
                 children: [
                   studio.imageUrl != null
                       ? SizedBox(
-                      height: 200,
-                      width: double.infinity,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.network(
-                          studio.imageUrl!,
-                          fit: BoxFit.fill,
-                        ),
-                      ))
+                          height: 200,
+                          width: double.infinity,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.network(
+                              studio.imageUrl!,
+                              fit: BoxFit.fill,
+                            ),
+                          ))
                       : Container(
-                    height: 200,
-                    color: Colors.black12,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: const Text(
-                        'Фото отсутствует',
-                      ),
-                    ),
-                  ),
+                          alignment: AlignmentDirectional.center,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: const Text(
+                              'Фото отсутствует',
+                              style: TextStyle(
+                                fontSize: 17,
+                              ),
+                            ),
+                          ),
+                        ),
                   Align(
                     alignment: FractionalOffset.bottomCenter,
                     child: Container(
@@ -119,7 +134,8 @@ class StudioCard extends StatelessWidget {
                           left: 5,
                           right: 10,
                         ),
-                        child: Text(studio.area.toString() + " м\u00B2",
+                        child: Text(
+                          studio.area.toString() + " м\u00B2",
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -135,7 +151,8 @@ class StudioCard extends StatelessWidget {
                           left: 5,
                           right: 30,
                         ),
-                        child: Text((studio.height / 10).toString() + " м",
+                        child: Text(
+                          (studio.height / 10).toString() + " м",
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -159,6 +176,7 @@ class StudioCard extends StatelessWidget {
                 ],
               ),
             ),
+            CurrentMetrosBar(metros),
           ],
         ),
       ),

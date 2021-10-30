@@ -5,7 +5,6 @@ import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
-import 'package:studion_mobile/widget/common/loader.dart';
 import 'package:studion_mobile/widget/common/navigation_bar.dart';
 import 'package:studion_mobile/widget/common/app_bar.dart';
 import 'package:studion_mobile/widget/room/room_card.dart';
@@ -80,50 +79,65 @@ class ListScreen extends StatelessWidget {
               );
             });
           }
-          return Consumer<StudioListProvider>(builder: (_, provider, ch) {
-            return FutureBuilder(
-                future:
-                    provider.get(FilterRequest.values(type: FilterType.studio)),
-                builder: (ctx, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Scaffold(
-                      body: CustomScrollView(
-                        slivers: [
-                          ch ?? searchAppBar(),
-                          SliverToBoxAdapter(
-                            child: SizedBox(
-                              height: 500,
-                              child: Center(
-                                child: Loader(),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      bottomNavigationBar: NavigationBar(),
-                    );
-                  }
+          return Consumer<StudioListProvider>(
+              builder: (ctx, studioProvider, child) {
+                final studios = studioProvider
+                    .getCurrents()
+                    .map((e) => StudioCard(e, Key(e.name)))
+                    .toList();
+                if (studios.isEmpty) {
                   return Scaffold(
                     body: CustomScrollView(
                       slivers: [
                         ch ?? searchAppBar(),
                         SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (BuildContext ctx, int index) {
-                              return StudioCard(
-                                provider.items[index],
-                                Key(provider.items[index].name),
-                              );
-                            },
-                            childCount: provider.items.length,
-                          ),
-                        ),
+                            delegate: SliverChildListDelegate([
+                              const SizedBox(
+                                height: 50,
+                              ),
+                              const Center(
+                                child: Text(
+                                  'Студий по запросу не найдено',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Center(
+                                child: Transform.scale(
+                                  scale: 2,
+                                  child: const Icon(LineIcons.frowningFace),
+                                ),
+                              )
+                            ])),
                       ],
                     ),
                     bottomNavigationBar: NavigationBar(),
                   );
-                });
-          });
+                }
+                return Scaffold(
+                  body: CustomScrollView(
+                    slivers: [
+                      ch ?? searchAppBar(),
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                              (BuildContext ctx, int index) {
+                            return StudioCard(
+                              studioProvider.items[index],
+                              Key(studioProvider.items[index].name),
+                            );
+                          },
+                          childCount: studioProvider.items.length,
+                        ),
+                      ),
+                    ],
+                  ),
+                  bottomNavigationBar: NavigationBar(),
+                );
+              });
         });
   }
 }

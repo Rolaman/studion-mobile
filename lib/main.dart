@@ -5,6 +5,7 @@ import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
 import 'package:studion_mobile/provider/characteristics_provider.dart';
 import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/equipment_provider.dart';
+import 'package:studion_mobile/provider/facilities_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/provider/interior_provider.dart';
 import 'package:studion_mobile/provider/metro_provider.dart';
@@ -66,6 +67,9 @@ class App extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => MetroProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => FacilitiesProvider(),
           ),
         ],
         child: Consumer<AppDataProvider>(

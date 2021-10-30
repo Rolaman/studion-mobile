@@ -20,6 +20,7 @@ class StudioItem {
   final String? siteUrl;
   final String? vkUrl;
   final String? instagramUrl;
+  final List<String> metros;
 
   StudioItem({
     required this.id,
@@ -43,5 +44,6 @@ class StudioItem {
     this.siteUrl,
     this.vkUrl,
     this.instagramUrl,
+    this.metros = const [],
   });
 }

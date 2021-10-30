@@ -12,7 +12,7 @@ class StudioCardList extends StatelessWidget {
     return Consumer<StudioListProvider>(
       builder: (_, provider, ch) {
         return FutureBuilder(
-            future: provider.get(FilterRequest.values(
+            future: provider.changeFilters(FilterRequest.values(
               type: FilterType.studio,
             )),
             builder: (ctx, snapshot) {

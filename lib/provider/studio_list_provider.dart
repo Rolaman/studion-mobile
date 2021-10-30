@@ -8,7 +8,7 @@ class StudioListProvider with ChangeNotifier {
   List<StudioItem> _allItems = [];
   bool loading = true;
 
-  Future<void> get(FilterRequest request) async {
+  Future<void> changeFilters(FilterRequest request) async {
     if (_allItems.isEmpty) {
       await fetchAll();
     }
@@ -47,6 +47,7 @@ class StudioListProvider with ChangeNotifier {
           .map((e) => e.id)
           .toList()
           .cast<String>();
+      List<String> metros = firestoreData['metros'].cast<String>();
       return StudioItem(
         id: e.id,
         name: firestoreData['name'],
@@ -71,8 +72,11 @@ class StudioListProvider with ChangeNotifier {
         siteUrl: firestoreData['siteUrl'],
         vkUrl: firestoreData['vkUrl'],
         instagramUrl: firestoreData['instagramUrl'],
+        metros: metros,
       );
     }).toList();
+    _items = [..._allItems];
+    notifyListeners();
   }
 
   List<StudioItem> get items {
@@ -88,5 +92,9 @@ class StudioListProvider with ChangeNotifier {
       await fetchAll();
     }
     return _allItems.firstWhere((e) => id == e.id);
+  }
+
+  List<StudioItem> getCurrents() {
+    return [..._items];
   }
 }

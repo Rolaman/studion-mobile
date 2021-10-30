@@ -229,7 +229,7 @@ class CharacteristicsInfo extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.only(
-                    bottom: 2,
+                    bottom: 5,
                   ),
                   alignment: AlignmentDirectional.topStart,
                   child: const Text(
@@ -268,7 +268,7 @@ class CharacteristicsInfo extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.only(
-                  bottom: 2,
+                  bottom: 5,
                 ),
                 alignment: AlignmentDirectional.topStart,
                 child: const Text(

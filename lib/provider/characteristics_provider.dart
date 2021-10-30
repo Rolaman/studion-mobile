@@ -8,7 +8,7 @@ class CharacteristicProvider extends ChangeNotifier {
   Future<List<CharacteristicItem>> get() async {
     if (_items.isEmpty) {
       CollectionReference studios =
-      FirebaseFirestore.instance.collection('facilities');
+      FirebaseFirestore.instance.collection('characteristics');
       QuerySnapshot<Object?> snapshot = await studios.get();
       _items = snapshot.docs.map((e) {
         Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;

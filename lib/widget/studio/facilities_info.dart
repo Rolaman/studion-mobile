@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'package:studion_mobile/provider/characteristics_provider.dart';
+import 'package:studion_mobile/provider/facilities_provider.dart';
 
 class FacilitiesInfo extends StatelessWidget {
   final List<String> facilityIds;
@@ -12,7 +13,7 @@ class FacilitiesInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Provider.of<CharacteristicProvider>(context, listen: false)
+      future: Provider.of<FacilitiesProvider>(context, listen: false)
           .getByIdsAsync(facilityIds),
       builder: (ctx, AsyncSnapshot<List<String>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {

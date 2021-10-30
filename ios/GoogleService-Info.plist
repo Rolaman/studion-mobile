@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>30592401942-hu9k2s98s2p1eatv22i304um3uctt4ok.apps.googleusercontent.com</string>
+	<string>30592401942-4si481d1fshldnot50b7jsd47ua3gih3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.30592401942-hu9k2s98s2p1eatv22i304um3uctt4ok</string>
+	<string>com.googleusercontent.apps.30592401942-4si481d1fshldnot50b7jsd47ua3gih3</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDeCaY9mIHf-0v44qA3d-_9jh70u5EScUU</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>rolaman.studion</string>
+	<string>rolaman.studion.studionMobile</string>
 	<key>PROJECT_ID</key>
 	<string>studion-dev</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:30592401942:ios:974b6df88f52b8ea08eb37</string>
+	<string>1:30592401942:ios:118dfcdd7cef81a708eb37</string>
 	<key>DATABASE_URL</key>
 	<string>https://studion-dev-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
