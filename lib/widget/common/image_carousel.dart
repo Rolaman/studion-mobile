@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:skeleton_text/skeleton_text.dart';
 
 Widget imageCarousel(List<String> imageUrls) {
   if (imageUrls.isEmpty) {
@@ -34,6 +35,30 @@ Widget imageCarousel(List<String> imageUrls) {
           child: Image.network(
             imageUrls[item],
             fit: BoxFit.fill,
+            errorBuilder: (ctx, exception, _) {
+              return Container(
+                color: Colors.black12,
+                alignment: AlignmentDirectional.center,
+                child: const Text(
+                    'Не удалось загрузить изображение'
+                ),
+              );
+            },
+            loadingBuilder: (ctx, ch, loadingProgress) {
+              if (loadingProgress == null) {
+                return ch;
+              }
+              return SkeletonAnimation(
+                shimmerColor: Colors.white54,
+                child: Container(
+                  width: double.infinity,
+                  height: 200,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey[300]),
+                ),
+              );
+            },
           ),
         ),
       );
