@@ -17,7 +17,7 @@ class StudioCard extends StatelessWidget {
     final city =
         Provider.of<CityProvider>(context, listen: false).getCurrentSync();
     final metros = Provider.of<MetroProvider>(context, listen: false)
-        .getByIds(city!.id, studio.metros);
+        .getByIds(city.id, studio.metros);
     return InkWell(
       onTap: () => toDetailPage(context),
       child: Container(

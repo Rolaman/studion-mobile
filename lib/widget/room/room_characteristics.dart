@@ -36,61 +36,67 @@ class RoomCharacteristics extends StatelessWidget {
               ),
             ),
           ),
-          Flex(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            direction: Axis.horizontal,
-            children: [
-              Container(
-                child: Column(
-                  children: [
-                    Container(
-                      alignment: AlignmentDirectional.topCenter,
-                      child: Text(
-                        item.area.toString() + " м\u00B2",
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+          Container(
+            margin: const EdgeInsets.only(
+              top: 5,
+              bottom: 10,
+            ),
+            child: Flex(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              direction: Axis.horizontal,
+              children: [
+                Container(
+                  child: Column(
+                    children: [
+                      Container(
+                        alignment: AlignmentDirectional.topCenter,
+                        child: Text(
+                          item.area.toString() + " м\u00B2",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      alignment: AlignmentDirectional.topCenter,
-                      child: const Text(
-                        'Площадь зала',
-                        style: TextStyle(
-                          fontSize: 18,
+                      Container(
+                        alignment: AlignmentDirectional.topCenter,
+                        child: const Text(
+                          'Площадь зала',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    Container(
-                      alignment: AlignmentDirectional.topCenter,
-                      child: Text(
-                        '${item.height / 10} м',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                Container(
+                  child: Column(
+                    children: [
+                      Container(
+                        alignment: AlignmentDirectional.topCenter,
+                        child: Text(
+                          '${item.height / 10} м',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      alignment: AlignmentDirectional.topCenter,
-                      child: const Text(
-                        'Высота потолков',
-                        style: TextStyle(
-                          fontSize: 18,
+                      Container(
+                        alignment: AlignmentDirectional.topCenter,
+                        child: const Text(
+                          'Высота потолков',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           InteriorInfo(item.interiors),
           CharacteristicsInfo(item.characteristics),

@@ -24,14 +24,14 @@ class CityProvider extends ChangeNotifier {
     return _cities.firstWhere((e) => e.id == 'moscow');
   }
 
-  CityItem? getCurrentSync() {
+  CityItem getCurrentSync() {
     try {
       if (_choosen != null) {
         return _choosen!;
       }
       return _cities.firstWhere((e) => e.id == 'moscow');
     } catch (e) {
-      return null;
+      return CityItem('moscow', 'Москва');
     }
   }
 

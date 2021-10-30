@@ -49,11 +49,25 @@ class SearchFilters extends StatelessWidget {
           right: 12,
         ),
         child: TextField(
+          style: const TextStyle(
+            fontSize: 20,
+          ),
+          textAlignVertical: TextAlignVertical.center,
+          autocorrect: false,
+          enableSuggestions: false,
+          keyboardType: TextInputType.visiblePassword,
           textInputAction: TextInputAction.search,
           onSubmitted: (_) => doSearchByText(context, searchTextTypeProvider),
           decoration: InputDecoration(
+            contentPadding: const EdgeInsets.only(
+              top: 2,
+              bottom: 2,
+            ),
             fillColor: Colors.white,
             filled: true,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             prefixIcon: IconButton(
               icon: const Icon(Icons.close),
               onPressed: () =>
@@ -65,7 +79,6 @@ class SearchFilters extends StatelessWidget {
             ),
           ),
           controller: searchTextTypeProvider.textController,
-          keyboardType: TextInputType.text,
         ),
       );
     }
@@ -199,7 +212,7 @@ void closeSearchByText(BuildContext context, SearchTextTypeProvider provider) {
   priceProvider.priceToController.clear();
   Provider.of<RoomListProvider>(context, listen: false).changeFilters(
       FilterRequest.values(
-          type: FilterType.room, cityId: cityProvider.getCurrentSync()?.id));
+          type: FilterType.room, cityId: cityProvider.getCurrentSync().id));
 }
 
 void doSearchByText(BuildContext context, SearchTextTypeProvider provider) {
@@ -214,5 +227,5 @@ void doSearchByText(BuildContext context, SearchTextTypeProvider provider) {
       FilterRequest.values(
           type: FilterType.room,
           text: provider.textController.value.text,
-          cityId: cityProvider.getCurrentSync()?.id));
+          cityId: cityProvider.getCurrentSync().id));
 }

@@ -21,7 +21,7 @@ class _MetroFiltersModalState extends State<MetroFiltersModal> {
   void didChangeDependencies() {
     if (!_inited) {
       final city =
-          Provider.of<CityProvider>(context, listen: false).getCurrentSync()!;
+          Provider.of<CityProvider>(context, listen: false).getCurrentSync();
       _allMetros = Provider.of<MetroProvider>(context, listen: false)
           .getByCityId(city.id);
       setState(() {
@@ -48,6 +48,13 @@ class _MetroFiltersModalState extends State<MetroFiltersModal> {
             right: 15,
           ),
           child: TextField(
+            style: const TextStyle(
+              fontSize: 20,
+            ),
+            textAlignVertical: TextAlignVertical.center,
+            autocorrect: false,
+            enableSuggestions: false,
+            keyboardType: TextInputType.visiblePassword,
             textInputAction: TextInputAction.search,
             onChanged: (value) {
               setState(() {
@@ -58,6 +65,10 @@ class _MetroFiltersModalState extends State<MetroFiltersModal> {
               });
             },
             decoration: InputDecoration(
+              contentPadding: const EdgeInsets.only(
+                top: 2,
+                bottom: 2,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -75,27 +86,26 @@ class _MetroFiltersModalState extends State<MetroFiltersModal> {
               ),
             ),
             controller: _textController,
-            keyboardType: TextInputType.text,
           ),
         ),
         actions: [
-          Container(
-            margin: const EdgeInsets.only(
-              right: 10,
-            ),
-            alignment: AlignmentDirectional.center,
-            child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
+          GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {
+              setState(() {
+                _checked.clear();
+                _shownMetros = [..._allMetros];
+              });
+              _textController.clear();
+              FocusScope.of(context).unfocus();
+              filterProvider.discardMetro();
+            },
+            child: Container(
+              padding: const EdgeInsets.only(
+                right: 10,
+              ),
+              alignment: AlignmentDirectional.center,
               child: const Text('Сбросить'),
-              onTap: () {
-                setState(() {
-                  _checked.clear();
-                  _shownMetros = [..._allMetros];
-                });
-                _textController.clear();
-                FocusScope.of(context).unfocus();
-                filterProvider.discardMetro();
-              },
             ),
           )
         ],
@@ -161,7 +171,6 @@ class _MetroFiltersModalState extends State<MetroFiltersModal> {
                             fontSize: 18,
                           ),
                         ),
-
                       ],
                     ),
                   ),

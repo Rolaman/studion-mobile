@@ -18,7 +18,7 @@ class RoomCard extends StatelessWidget {
     final city =
         Provider.of<CityProvider>(context, listen: false).getCurrentSync();
     final metros = Provider.of<MetroProvider>(context, listen: false)
-        .getByIds(city!.id, room.metros);
+        .getByIds(city.id, room.metros);
     return InkWell(
       onTap: () => toDetailPage(context),
       child: Container(

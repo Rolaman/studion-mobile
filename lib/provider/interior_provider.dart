@@ -7,18 +7,22 @@ class InteriorProvider extends ChangeNotifier {
 
   Future<List<InteriorItem>> get() async {
     if (_items.isEmpty) {
-      CollectionReference studios =
-          FirebaseFirestore.instance.collection('interiors');
-      QuerySnapshot<Object?> snapshot = await studios.get();
-      _items = snapshot.docs.map((e) {
-        Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
-        return InteriorItem(
-          e.id,
-          firestoreData['name'],
-        );
-      }).toList();
+      await fetch();
     }
     return [..._items];
+  }
+
+  Future<void> fetch() async {
+    CollectionReference studios =
+    FirebaseFirestore.instance.collection('interiors');
+    QuerySnapshot<Object?> snapshot = await studios.get();
+    _items = snapshot.docs.map((e) {
+      Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
+      return InteriorItem(
+        e.id,
+        firestoreData['name'],
+      );
+    }).toList();
   }
 
   Future<List<String>> getByIdsAsync(List<String> ids) async {

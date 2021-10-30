@@ -23,22 +23,25 @@ class FiltersScreen extends StatelessWidget {
             )),
         title: const Text('Фильтры'),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: Center(
-              child: GestureDetector(
-                child: const Text('Сбросить'),
-                onTap: () {
-                  Provider.of<FiltersProvider>(context, listen: false)
-                      .discard();
-                  final city = Provider.of<CityProvider>(context, listen: false)
-                      .getCurrentSync();
-                  Provider.of<RoomListProvider>(context, listen: false)
-                      .changeFilters(FilterRequest.values(
-                          type: FilterType.room, cityId: city?.id));
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      ListScreen.routeName, (r) => false);
-                },
+          GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {
+              Provider.of<FiltersProvider>(context, listen: false)
+                  .discard();
+              Provider.of<PriceFilterProvider>(context, listen: false)
+                  .discard();
+              final city = Provider.of<CityProvider>(context, listen: false)
+                  .getCurrentSync();
+              Provider.of<RoomListProvider>(context, listen: false)
+                  .changeFilters(FilterRequest.values(
+                  type: FilterType.room, cityId: city.id));
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  ListScreen.routeName, (r) => false);
+            },
+            child: const Center(
+              child: Padding(
+                padding: EdgeInsets.only(right: 12),
+                child: Text('Сбросить'),
               ),
             ),
           )
@@ -91,7 +94,7 @@ void applyFilters(BuildContext context) {
     itemProvider.getCharacteristicFilterIds(),
     int.tryParse(priceProvider.priceFromController.value.text),
     int.tryParse(priceProvider.priceToController.value.text),
-    cityProvider.getCurrentSync()?.id,
+    cityProvider.getCurrentSync().id,
     null,
     FilterType.room,
     itemProvider.getMetroFilterIds(),

@@ -34,6 +34,31 @@ class EquipmentProvider extends ChangeNotifier {
     return [..._items];
   }
 
+  Future<void> fetch() async {
+    CollectionReference studios =
+    FirebaseFirestore.instance.collection('equipments');
+    QuerySnapshot<Object?> snapshot = await studios.get();
+    _items = snapshot.docs.map((e) {
+      Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
+      return EquipmentItem(
+        id: e.id,
+        name: firestoreData['name'],
+        type: firestoreData['type'],
+        imageUrl: firestoreData['imageUrl'],
+      );
+    }).toList();
+    for (var e in _items) {
+      if (!_groups.containsKey(e.type)) {
+        _groups[e.type] = EquipmentGroup(
+          e.type,
+          equipmentGroups[e.type]!,
+          [],
+        );
+      }
+      _groups[e.type]!.items.add(e);
+    }
+  }
+
   Future<List<EquipmentItem>> getByIdsAsync(List<String> ids) async {
     if (_items.isEmpty) {
       await get();
