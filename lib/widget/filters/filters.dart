@@ -211,8 +211,31 @@ class CharacteristicsFilterItem extends StatelessWidget {
   }
 }
 
-class PriceFilterItem extends StatelessWidget {
+class PriceFilterItem extends StatefulWidget {
   const PriceFilterItem() : super(key: const Key('price'));
+
+  @override
+  State<PriceFilterItem> createState() => _PriceFilterItemState();
+}
+
+class _PriceFilterItemState extends State<PriceFilterItem> {
+
+  late FocusNode focusNodeFrom;
+  late FocusNode focusNodeTo;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNodeFrom = FocusNode();
+    focusNodeTo = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    focusNodeFrom.dispose();
+    focusNodeTo.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -251,6 +274,7 @@ class PriceFilterItem extends StatelessWidget {
                   Container(
                     width: 150,
                     child: TextField(
+                      focusNode: focusNodeFrom,
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -268,6 +292,7 @@ class PriceFilterItem extends StatelessWidget {
                   Container(
                     width: 150,
                     child: TextField(
+                      focusNode: focusNodeTo,
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -284,6 +309,9 @@ class PriceFilterItem extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 20,
             ),
           ],
         ),

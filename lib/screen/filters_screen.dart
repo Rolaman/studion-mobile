@@ -56,19 +56,17 @@ class FiltersScreen extends StatelessWidget {
           right: 20,
           top: 10,
         ),
-        child: Stack(
+        child: ListView(
           children: [
-            ListView(
-              children: const [
-                EquipmentFilterItem(),
-                InteriorFilterItem(),
-                CharacteristicsFilterItem(),
-                FacilityFilterItem(),
-                MetroFilterItem(),
-                PriceFilterItem(),
-              ],
-            ),
+            const EquipmentFilterItem(),
+            const InteriorFilterItem(),
+            const CharacteristicsFilterItem(),
+            const FacilityFilterItem(),
+            const MetroFilterItem(),
+            const PriceFilterItem(),
             Container(
+              key: const Key('applyFiltersButton'),
+              height: 50,
               margin: const EdgeInsets.only(
                 bottom: 40,
               ),

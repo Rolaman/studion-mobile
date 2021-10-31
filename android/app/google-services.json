@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "30592401942",
+    "firebase_url": "https://studion-dev-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "studion-dev",
+    "storage_bucket": "studion-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30592401942:android:b323e09b0bb6562308eb37",
+        "android_client_info": {
+          "package_name": "rolaman.studion.studion_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "30592401942-kounops0qnni8nruk0amdrntlka7s8d7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzEWZtqsmP4QcDF6bXZeo3DaLF4F2bCwA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "30592401942-kounops0qnni8nruk0amdrntlka7s8d7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "30592401942-4si481d1fshldnot50b7jsd47ua3gih3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "rolaman.studion.studionMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
