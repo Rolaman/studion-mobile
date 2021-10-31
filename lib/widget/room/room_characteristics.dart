@@ -392,7 +392,7 @@ class EquipmentInfo extends StatelessWidget {
               Container(
                 alignment: AlignmentDirectional.topStart,
                 child: SizedBox(
-                  height: 190,
+                  height: 200,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: snapshot.data!.map((e) {
@@ -460,11 +460,11 @@ class EquipmentInfo extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 18,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                               const SizedBox(
-                                height: 5,
+                                height: 2,
                               ),
                               Text(
                                 e.name,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
 import 'package:studion_mobile/screen/list_screen.dart';
+import 'package:studion_mobile/screen/about_screen.dart';
 import 'package:studion_mobile/screen/starred_screen.dart';
 
 class NavigationBar extends StatefulWidget {
@@ -21,15 +22,15 @@ class _NavigationBarState extends State<NavigationBar> {
       label: 'Избранные',
     ),
     const BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.profile_circled),
-      label: 'Профиль',
+      icon: Icon(CupertinoIcons.info),
+      label: 'Инфо',
     ),
   ];
 
   final Map<int, String> navigationRules = {
     0: ListScreen.routeName,
     1: StarredScreen.routeName,
-    2: '/profile',
+    2: AboutScreen.routeName,
   };
 
   void _onItemTapped(int index) {
