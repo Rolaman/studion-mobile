@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 class ContactInfo extends StatelessWidget {
   final String mobile;
@@ -34,10 +35,8 @@ class ContactInfo extends StatelessWidget {
           GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () async {
-              final url = formatMobile(mobile);
-              await canLaunch(url)
-                  ? await launch(url)
-                  : _showCallError(context);
+              final cleanMobile = formatMobile(mobile);
+              await FlutterPhoneDirectCaller.callNumber(cleanMobile);
             },
             child: Text(
               mobile,
@@ -115,20 +114,23 @@ class ContactInfo extends StatelessWidget {
 }
 
 String formatMobile(String mobile) {
-  return mobile.replaceAll('(', ' ').replaceAll(')', ' ').replaceAll('-', ' ');
+  return 'tel://' +
+      mobile
+          .replaceAll('(', ' ')
+          .replaceAll(')', ' ')
+          .replaceAll('-', ' ');
 }
 
 Future<void> _showCallError(BuildContext context) async {
   if (Platform.isIOS) {
     return showCupertinoDialog<void>(
       context: context,
-      // barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
           content: const Text(
             'Требуется разрешить телефонные вызовы в настройках',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 17,
             ),
           ),
           actions: <Widget>[
