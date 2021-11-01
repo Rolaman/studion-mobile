@@ -22,9 +22,16 @@ class RoomListProvider with ChangeNotifier {
       if (request.equipments.isEmpty) {
         return true;
       }
-      return request.equipments.every((eq) {
+      bool matchForAny = true;
+      if (request.equipments.any((eq) => eq == 'impulse-any')) {
+        matchForAny = e.equipments.any((eq) => eq.contains('impulse'));
+      }
+      if (request.equipments.any((eq) => eq == 'constant-any')) {
+        matchForAny = matchForAny && e.equipments.any((eq) => eq.contains('constant'));
+      }
+      return request.equipments.where((eq) => !eq.contains('-any')).every((eq) {
         return e.equipments.contains(eq);
-      });
+      }) && matchForAny;
     }).where((e) {
       if (request.interiors.isEmpty) {
         return true;

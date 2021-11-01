@@ -9,11 +9,10 @@ class FiltersProvider extends ChangeNotifier {
   final Map<String, MetroStationItem> _metros = {};
   final Map<String, FacilityItem> _facilities = {};
 
-  Future<void> changeEquipment(EquipmentItem item, bool state) async {
-    if (!_equipments.containsKey(item.id) && state) {
+  Future<void> changeEquipment(EquipmentItem item) async {
+    if (!_equipments.containsKey(item.id)) {
       _equipments[item.id] = item;
-    }
-    if (_equipments.containsKey(item.id) && !state) {
+    } else {
       _equipments.remove(item.id);
     }
     notifyListeners();
@@ -23,19 +22,18 @@ class FiltersProvider extends ChangeNotifier {
     return _equipments.containsKey(id);
   }
 
-  List<String> getEquipmentFilters() {
-    return _equipments.values.map((e) => e.name).toList();
+  List<EquipmentItem> getEquipmentFilters() {
+    return _equipments.values.toList();
   }
 
   List<String> getEquipmentFilterIds() {
     return _equipments.values.map((e) => e.id).toList();
   }
 
-  Future<void> changeInterior(InteriorItem item, bool state) async {
-    if (!_interiors.containsKey(item.id) && state) {
+  Future<void> changeInterior(InteriorItem item) async {
+    if (!_interiors.containsKey(item.id)) {
       _interiors[item.id] = item;
-    }
-    if (_interiors.containsKey(item.id) && !state) {
+    } else {
       _interiors.remove(item.id);
     }
     notifyListeners();
@@ -49,11 +47,10 @@ class FiltersProvider extends ChangeNotifier {
     return _interiors.values.map((e) => e.id).toList();
   }
 
-  Future<void> changeCharacteristic(CharacteristicItem item, bool state) async {
-    if (!_characteristics.containsKey(item.id) && state) {
+  Future<void> changeCharacteristic(CharacteristicItem item) async {
+    if (!_characteristics.containsKey(item.id)) {
       _characteristics[item.id] = item;
-    }
-    if (_characteristics.containsKey(item.id) && !state) {
+    } else {
       _characteristics.remove(item.id);
     }
     notifyListeners();
@@ -85,11 +82,10 @@ class FiltersProvider extends ChangeNotifier {
     return _metros.values.map((e) => e.id).toList();
   }
 
-  Future<void> changeFacilities(FacilityItem item, bool state) async {
-    if (!_facilities.containsKey(item.id) && state) {
+  Future<void> changeFacilities(FacilityItem item) async {
+    if (!_facilities.containsKey(item.id)) {
       _facilities[item.id] = item;
-    }
-    if (_facilities.containsKey(item.id) && !state) {
+    } else {
       _facilities.remove(item.id);
     }
     notifyListeners();

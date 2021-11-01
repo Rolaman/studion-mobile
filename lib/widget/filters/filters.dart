@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/widget/filters/characteristics_filter_modal.dart';
@@ -22,23 +23,33 @@ class EquipmentFilterItem extends StatelessWidget {
           return Column(
             children: [
               child!,
-              Row(
-                children: provider.getEquipmentFilters().map((e) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 3,
-                      vertical: 1,
-                    ),
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 2,
-                    ),
-                    child: Text(e),
-                    decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  );
-                }).toList(),
+              Container(
+                alignment: AlignmentDirectional.topStart,
+                margin: const EdgeInsets.only(left: 3),
+                child: Wrap(
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.start,
+                  children: provider.getEquipmentFilters().map((e) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 3,
+                        vertical: 1,
+                      ),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 2,
+                        vertical: 2,
+                      ),
+                      child: !e.id.contains('-any')
+                          ? Text(e.name)
+                          : Text(
+                              '${e.name} ${equipmentGroups[e.type]!.toLowerCase()}'),
+                      decoration: BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ),
             ],
           );
@@ -86,6 +97,7 @@ class InteriorFilterItem extends StatelessWidget {
             children: [
               child!,
               Container(
+                margin: const EdgeInsets.only(left: 3),
                 alignment: AlignmentDirectional.topStart,
                 child: Wrap(
                   direction: Axis.horizontal,
@@ -155,6 +167,7 @@ class CharacteristicsFilterItem extends StatelessWidget {
             children: [
               child!,
               Container(
+                margin: const EdgeInsets.only(left: 3),
                 alignment: AlignmentDirectional.topStart,
                 child: Wrap(
                   direction: Axis.horizontal,
@@ -219,7 +232,6 @@ class PriceFilterItem extends StatefulWidget {
 }
 
 class _PriceFilterItemState extends State<PriceFilterItem> {
-
   late FocusNode focusNodeFrom;
   late FocusNode focusNodeTo;
 
@@ -239,7 +251,6 @@ class _PriceFilterItemState extends State<PriceFilterItem> {
 
   @override
   Widget build(BuildContext context) {
-
     final provider = Provider.of<PriceFilterProvider>(context, listen: false);
 
     return GestureDetector(
@@ -328,7 +339,6 @@ class _PriceFilterItemState extends State<PriceFilterItem> {
 }
 
 class MetroFilterItem extends StatelessWidget {
-
   const MetroFilterItem() : super(key: const Key('metros'));
 
   @override
@@ -341,6 +351,7 @@ class MetroFilterItem extends StatelessWidget {
             children: [
               child!,
               Container(
+                margin: const EdgeInsets.only(left: 3),
                 alignment: AlignmentDirectional.topStart,
                 child: Wrap(
                   direction: Axis.horizontal,
@@ -410,6 +421,7 @@ class FacilityFilterItem extends StatelessWidget {
             children: [
               child!,
               Container(
+                margin: const EdgeInsets.only(left: 3),
                 alignment: AlignmentDirectional.topStart,
                 child: Wrap(
                   direction: Axis.horizontal,
@@ -465,4 +477,3 @@ class FacilityFilterItem extends StatelessWidget {
     );
   }
 }
-

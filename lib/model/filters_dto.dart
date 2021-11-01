@@ -35,8 +35,9 @@ class CharacteristicItem {
 }
 
 const equipmentGroups = {
-  'generator': 'Генераторный свет',
-  'others': 'Остальное',
+  'other': 'Другое',
+  'constant': 'Постоянный свет',
+  'impulse': 'Импульсный свет',
 };
 
 class FilterRequest {

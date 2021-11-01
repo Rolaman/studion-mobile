@@ -5,32 +5,11 @@ import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/provider/equipment_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 
-class EquipmentFiltersModal extends StatefulWidget {
-  @override
-  _EquipmentFiltersModalState createState() => _EquipmentFiltersModalState();
-}
-
-class _EquipmentFiltersModalState extends State<EquipmentFiltersModal> {
-  Set<String> _checked = {};
-  bool _inited = false;
-
-  @override
-  void didChangeDependencies() {
-    if (!_inited) {
-      setState(() {
-        _checked = Provider.of<FiltersProvider>(context, listen: false)
-            .getEquipmentFilterIds()
-            .toSet();
-        _inited = true;
-      });
-    }
-    super.didChangeDependencies();
-  }
-
+class EquipmentFiltersModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
+      height: 600,
       child: FutureBuilder(
         future: Provider.of<EquipmentProvider>(context).get(),
         builder: (ctx, AsyncSnapshot<List<EquipmentItem>> snapshot) {
@@ -47,6 +26,7 @@ class _EquipmentFiltersModalState extends State<EquipmentFiltersModal> {
             child: GroupedListView<EquipmentItem, String>(
               elements: snapshot.data!,
               groupBy: (e) => e.type,
+              sort: false,
               groupSeparatorBuilder: (String groupByValue) => Column(
                 children: [
                   Text(
@@ -59,45 +39,67 @@ class _EquipmentFiltersModalState extends State<EquipmentFiltersModal> {
                   const Divider(),
                 ],
               ),
-              itemBuilder: (context, EquipmentItem e) => Container(
-                margin: const EdgeInsets.only(
-                  bottom: 5,
-                  top: 5,
-                ),
-                height: 20,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      e.name,
-                      style: const TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                    Transform.scale(
-                        scale: 1.2,
-                        child: Checkbox(
-                          value: _checked.contains(e.id),
-                          onChanged: (state) {
-                            setState(() {
-                              if (state!) {
-                                _checked.add(e.id);
-                              } else {
-                                _checked.remove(e.id);
-                              }
-                            });
-                            Provider.of<FiltersProvider>(context, listen: false)
-                                .changeEquipment(e, state!);
-                          },
-                        ))
-                  ],
-                ),
+              itemBuilder: (context, EquipmentItem e) => Column(
+                children: [
+                  EquipmentItemPicker(e, Key("picker_equipment" + e.id)),
+                  const Divider(
+                    thickness: 2,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
+                ],
               ),
-              order: GroupedListOrder.ASC,
             ),
           );
         },
       ),
+    );
+  }
+}
+
+class EquipmentItemPicker extends StatelessWidget {
+  final EquipmentItem item;
+
+  const EquipmentItemPicker(this.item, Key key) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<FiltersProvider>(
+      builder: (ctx, provider, _) {
+        return GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            provider.changeEquipment(item);
+          },
+          child: Container(
+            padding: const EdgeInsets.only(
+              top: 10,
+              bottom: 10,
+            ),
+            height: 40,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Transform.scale(
+                  scale: 1.2,
+                  child: Checkbox(
+                    value: provider.getEquipmentFilterIds().contains(item.id),
+                    onChanged: (_) {
+                      provider.changeEquipment(item);
+                    },
+                  ),
+                ),
+                Text(
+                  item.name,
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

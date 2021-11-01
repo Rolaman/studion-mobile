@@ -3,34 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/provider/facilities_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
-import 'package:studion_mobile/provider/interior_provider.dart';
 
-class FacilitiesFiltersModal extends StatefulWidget {
-  @override
-  _FacilitiesFiltersModalState createState() => _FacilitiesFiltersModalState();
-}
-
-class _FacilitiesFiltersModalState extends State<FacilitiesFiltersModal> {
-  Set<String> _checked = {};
-  bool _inited = false;
-
-  @override
-  void didChangeDependencies() {
-    if (!_inited) {
-      setState(() {
-        _checked = Provider.of<FiltersProvider>(context, listen: false)
-            .getFacilitiesFilterIds()
-            .toSet();
-        _inited = true;
-      });
-    }
-    super.didChangeDependencies();
-  }
+class FacilitiesFiltersModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
+      height: 600,
       child: FutureBuilder(
         future: Provider.of<FacilitiesProvider>(context).get(),
         builder: (ctx, AsyncSnapshot<List<FacilityItem>> snapshot) {
@@ -48,57 +27,7 @@ class _FacilitiesFiltersModalState extends State<FacilitiesFiltersModal> {
               children: snapshot.data!.map((e) {
                 return Column(
                   children: [
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        final state = _checked.contains(e.id);
-                        setState(() {
-                          if (!state) {
-                            _checked.add(e.id);
-                          } else {
-                            _checked.remove(e.id);
-                          }
-                        });
-                        Provider.of<FiltersProvider>(context, listen: false)
-                            .changeFacilities(e, !state);
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                          top: 10,
-                          bottom: 10,
-                        ),
-                        height: 40,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Transform.scale(
-                              scale: 1.2,
-                              child: Checkbox(
-                                value: _checked.contains(e.id),
-                                onChanged: (state) {
-                                  setState(() {
-                                    if (state!) {
-                                      _checked.add(e.id);
-                                    } else {
-                                      _checked.remove(e.id);
-                                    }
-                                  });
-                                  Provider.of<FiltersProvider>(context,
-                                          listen: false)
-                                      .changeFacilities(e, state!);
-                                },
-                              ),
-                            ),
-                            Text(
-                              e.name,
-                              style: const TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    FacilitiesItemPicker(e, Key('picker-facil' + e.id)),
                     const Divider(
                       thickness: 2,
                       indent: 10,
@@ -111,6 +40,53 @@ class _FacilitiesFiltersModalState extends State<FacilitiesFiltersModal> {
           );
         },
       ),
+    );
+  }
+}
+
+class FacilitiesItemPicker extends StatelessWidget {
+  final FacilityItem item;
+
+  const FacilitiesItemPicker(this.item, Key key) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<FiltersProvider>(
+      builder: (ctx, provider, _) {
+        return GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            provider.changeFacilities(item);
+          },
+          child: Container(
+            padding: const EdgeInsets.only(
+              top: 10,
+              bottom: 10,
+            ),
+            height: 40,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Transform.scale(
+                  scale: 1.2,
+                  child: Checkbox(
+                    value: provider.getFacilitiesFilterIds().contains(item.id),
+                    onChanged: (_) {
+                      provider.changeFacilities(item);
+                    },
+                  ),
+                ),
+                Text(
+                  item.name,
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

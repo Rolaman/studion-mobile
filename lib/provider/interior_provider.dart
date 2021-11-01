@@ -27,7 +27,7 @@ class InteriorProvider extends ChangeNotifier {
 
   Future<List<String>> getByIdsAsync(List<String> ids) async {
     if (_items.isEmpty) {
-      await get();
+      await fetch();
     }
     return _items.where((e) => ids.contains(e.id)).map((e) => e.name).toList();
   }
