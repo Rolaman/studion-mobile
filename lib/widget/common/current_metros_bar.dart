@@ -26,7 +26,9 @@ class CurrentMetrosBar extends StatelessWidget {
       ));
     }
     String namesText = metros.map((e) => e.name).toSet().join(', ');
-    namesText = namesText.substring(0, namesText.length - 1);
+    if (namesText.endsWith(",")) {
+      namesText = namesText.substring(0, namesText.length - 1);
+    }
     return Container(
       margin: const EdgeInsets.only(left: 2),
       child: Row(
