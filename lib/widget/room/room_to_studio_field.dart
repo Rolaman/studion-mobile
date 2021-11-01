@@ -19,9 +19,7 @@ class ToStudioField extends StatelessWidget {
       future: studioFuture,
       builder: (ctx, AsyncSnapshot<StudioItem> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            child: Center(child: const CircularProgressIndicator()),
-          );
+          return Center(child: const CircularProgressIndicator());
         }
         return GestureDetector(
           onTap: () {
@@ -80,9 +78,13 @@ class ToStudioField extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 143,
                       child: Text(
                         snapshot.data!.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.fade,
+                        softWrap: false,
                         style: const TextStyle(
                           fontSize: 20,
                         ),

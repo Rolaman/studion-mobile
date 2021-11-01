@@ -85,35 +85,23 @@ class RoomListProvider with ChangeNotifier {
       List<String> images = firestoreData['imageUrls'].cast<String>();
       List<String> metros = firestoreData['metros'].cast<String>();
       List<String> equipments = firestoreData['equipments']
-          .cast<DocumentReference>()
-          .map((e) => e.id)
-          .toList()
           .cast<String>();
       List<String> interiors = firestoreData['interiors']
-          .cast<DocumentReference>()
-          .map((e) => e.id)
-          .toList()
           .cast<String>();
       List<String> characteristics = firestoreData['characteristics']
-          .cast<DocumentReference>()
-          .map((e) => e.id)
-          .toList()
           .cast<String>();
       List<String> facilities = firestoreData['facilities']
-          .cast<DocumentReference>()
-          .map((e) => e.id)
-          .toList()
           .cast<String>();
       return RoomItem(
         id: e.id,
         name: firestoreData['name'],
         imageUrl: firestoreData['imageUrl'],
-        studioId: (firestoreData['studioId'] as DocumentReference).id,
+        studioId: firestoreData['studioId'],
         imageUrls: images,
         description: firestoreData['description'],
         area: firestoreData['area'],
         height: firestoreData['height'],
-        cityId: (firestoreData['cityId'] as DocumentReference).id,
+        cityId: firestoreData['cityId'],
         price: firestoreData['price'],
         equipments: equipments,
         interiors: interiors,

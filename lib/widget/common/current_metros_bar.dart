@@ -25,10 +25,12 @@ class CurrentMetrosBar extends StatelessWidget {
         ),
       ));
     }
-    final namesText = metros.map((e) => e.name).join(', ');
+    String namesText = metros.map((e) => e.name).join(', ');
+    namesText = namesText.substring(0, namesText.length - 1);
     return Container(
       margin: const EdgeInsets.only(left: 2),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Stack(
             children: colorCircles,
@@ -37,7 +39,14 @@ class CurrentMetrosBar extends StatelessWidget {
             padding: const EdgeInsets.only(
               left: 8,
             ),
-            child: Text(namesText),
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width - 52,
+                child: Text(
+                  namesText,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  maxLines: 1,
+                )),
           ),
         ],
       ),

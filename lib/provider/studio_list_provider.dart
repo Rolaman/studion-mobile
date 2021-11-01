@@ -81,24 +81,12 @@ class StudioListProvider with ChangeNotifier {
       Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
       List<String> images = firestoreData['imageUrls'].cast<String>();
       List<String> equipments = firestoreData['equipments']
-          .cast<DocumentReference>()
-          .map((e) => e.id)
-          .toList()
           .cast<String>();
       List<String> interiors = firestoreData['interiors']
-          .cast<DocumentReference>()
-          .map((e) => e.id)
-          .toList()
           .cast<String>();
       List<String> characteristics = firestoreData['characteristics']
-          .cast<DocumentReference>()
-          .map((e) => e.id)
-          .toList()
           .cast<String>();
       List<String> facilities = firestoreData['facilities']
-          .cast<DocumentReference>()
-          .map((e) => e.id)
-          .toList()
           .cast<String>();
       List<String> metros = firestoreData['metros'].cast<String>();
       return StudioItem(
@@ -114,13 +102,11 @@ class StudioListProvider with ChangeNotifier {
         area: firestoreData['area'],
         height: firestoreData['height'],
         price: firestoreData['price'],
-        cityId: (firestoreData['cityId'] as DocumentReference).id,
+        cityId: firestoreData['cityId'],
         startHour: firestoreData['startHour'] ?? 0,
         endHour: firestoreData['endHour'] ?? 24,
-        // TODO remove below
-        calendarUrl: 'https://google.com',
-        mobile: '+7(952)210-77-65',
-
+        calendarUrl: firestoreData['calendarUrl'],
+        mobile: firestoreData['mobile'],
         facilities: facilities,
         siteUrl: firestoreData['siteUrl'],
         vkUrl: firestoreData['vkUrl'],
