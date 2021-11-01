@@ -44,6 +44,7 @@ class FilterRequest {
   final List<String> equipments;
   final List<String> interiors;
   final List<String> characteristics;
+  final List<String> facilities;
   final int? priceFrom;
   final int? priceTo;
   String? cityId;
@@ -55,6 +56,7 @@ class FilterRequest {
     this.equipments,
     this.interiors,
     this.characteristics,
+    this.facilities,
     this.priceFrom,
     this.priceTo,
     this.cityId,
@@ -68,6 +70,7 @@ class FilterRequest {
     this.equipments = const [],
     this.interiors = const [],
     this.characteristics = const [],
+    this.facilities = const [],
     this.priceFrom,
     this.priceTo,
     this.text,

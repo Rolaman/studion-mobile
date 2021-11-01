@@ -48,6 +48,13 @@ class StudioListProvider with ChangeNotifier {
         return e.characteristics.contains(eq);
       });
     }).where((e) {
+      if (request.facilities.isEmpty) {
+        return true;
+      }
+      return request.facilities.every((eq) {
+        return e.facilities.contains(eq);
+      });
+    }).where((e) {
       if (request.priceFrom == null) {
         return true;
       }

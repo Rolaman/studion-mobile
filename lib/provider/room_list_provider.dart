@@ -47,6 +47,13 @@ class RoomListProvider with ChangeNotifier {
         return e.characteristics.contains(eq);
       });
     }).where((e) {
+      if (request.facilities.isEmpty) {
+        return true;
+      }
+      return request.facilities.every((eq) {
+        return e.facilities.contains(eq);
+      });
+    }).where((e) {
       if (request.priceFrom == null) {
         return true;
       }
@@ -92,6 +99,11 @@ class RoomListProvider with ChangeNotifier {
           .map((e) => e.id)
           .toList()
           .cast<String>();
+      List<String> facilities = firestoreData['facilities']
+          .cast<DocumentReference>()
+          .map((e) => e.id)
+          .toList()
+          .cast<String>();
       return RoomItem(
         id: e.id,
         name: firestoreData['name'],
@@ -106,6 +118,7 @@ class RoomListProvider with ChangeNotifier {
         equipments: equipments,
         interiors: interiors,
         characteristics: characteristics,
+        facilities: facilities,
         address: firestoreData['address'],
         metros: metros,
         startHour: firestoreData['startHour'],

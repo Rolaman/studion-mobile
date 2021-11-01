@@ -11,6 +11,7 @@ class RoomItem {
   final List<String> equipments;
   final List<String> interiors;
   final List<String> characteristics;
+  final List<String> facilities;
   final int price;
   final String address;
   final List<String> metros;
@@ -31,6 +32,7 @@ class RoomItem {
     this.equipments = const [],
     this.interiors = const [],
     this.characteristics = const [],
+    this.facilities = const [],
     required this.price,
     required this.address,
     this.metros = const [],
