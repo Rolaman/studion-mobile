@@ -25,6 +25,7 @@ dependencies:
   url_launcher: ^6.0.12
   shared_preferences: ^2.0.8
   flutter_phone_direct_caller: ^2.1.0
+  firebase_crashlytics: ^2.2.4
 
 dev_dependencies:
   flutter_test:

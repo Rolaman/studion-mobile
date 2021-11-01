@@ -1,6 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studion_mobile/provider/appdata_provider.dart';
 import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
 import 'package:studion_mobile/provider/characteristics_provider.dart';
 import 'package:studion_mobile/provider/city_provider.dart';
@@ -24,7 +25,10 @@ import 'package:studion_mobile/screen/list_screen.dart';
 import 'package:studion_mobile/screen/starred_screen.dart';
 import 'package:studion_mobile/screen/studio_detail_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   runApp(App());
 }
 
@@ -33,9 +37,6 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => AppDataProvider(),
-        ),
         ChangeNotifierProvider(
           create: (_) => StudioListProvider(),
         ),
@@ -110,6 +111,8 @@ Widget retriableListScreen(BuildContext ctx, FutureFunction futureFunction) {
           return LoaderScreen();
         }
         if (snapshot.hasError) {
+          FirebaseCrashlytics.instance
+              .recordError(snapshot.error, snapshot.stackTrace);
           return ErrorScreen();
         }
         return ListScreen();
@@ -117,7 +120,6 @@ Widget retriableListScreen(BuildContext ctx, FutureFunction futureFunction) {
 }
 
 Future<void> providerLoading(BuildContext ctx) {
-  final appDataProvider = Provider.of<AppDataProvider>(ctx, listen: false);
   final cityProvider = Provider.of<CityProvider>(ctx, listen: false);
   final roomsProvider = Provider.of<RoomListProvider>(ctx, listen: false);
   final studiosProvider = Provider.of<StudioListProvider>(ctx, listen: false);
@@ -129,9 +131,8 @@ Future<void> providerLoading(BuildContext ctx) {
   final facilitiesProvider =
       Provider.of<FacilitiesProvider>(ctx, listen: false);
 
-  return appDataProvider
-      .fetch()
-      .then((_) => cityProvider.fetchAll())
+  return cityProvider
+      .fetchAll()
       .then((_) => roomsProvider.fetch())
       .then((_) => studiosProvider.fetch())
       .then((_) => metroProvider.fetch(['moscow', 'spb']))
