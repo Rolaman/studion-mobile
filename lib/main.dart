@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +37,7 @@ void main() async {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics analytics = FirebaseAnalytics();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -97,6 +100,9 @@ class App extends StatelessWidget {
             StarredScreen.routeName: (ctx) => StarredScreen(),
             AboutScreen.routeName: (ctx) => AboutScreen(),
           },
+          navigatorObservers: [
+            FirebaseAnalyticsObserver(analytics: analytics),
+          ],
         );
       },
     );
