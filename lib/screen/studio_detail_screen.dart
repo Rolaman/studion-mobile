@@ -14,6 +14,7 @@ import 'package:studion_mobile/widget/room/room_characteristics.dart';
 import 'package:studion_mobile/widget/studio/facilities_info.dart';
 import 'package:studion_mobile/widget/studio/contact_info.dart';
 import 'package:studion_mobile/widget/studio/studio_detail_room_list.dart';
+import 'package:studion_mobile/widget/studio/studio_path_instruction.dart';
 import 'package:studion_mobile/widget/studio/studio_star_icon.dart';
 
 class StudioDetailScreen extends StatelessWidget {
@@ -91,6 +92,16 @@ class StudioDetailScreen extends StatelessWidget {
               ),
               child: FacilitiesInfo(studio.facilities),
             ),
+            studio.pathInstruction != null
+                ? Container(
+                    margin: const EdgeInsets.only(
+                      left: 15,
+                      right: 15,
+                      bottom: 20,
+                    ),
+                    child: StudioPathInstruction(studio.pathInstruction!),
+                  )
+                : SizedBox(),
           ],
         ),
       ),

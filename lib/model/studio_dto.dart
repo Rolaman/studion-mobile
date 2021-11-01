@@ -21,6 +21,7 @@ class StudioItem {
   final String? vkUrl;
   final String? instagramUrl;
   final List<String> metros;
+  final String? pathInstruction;
 
   StudioItem({
     required this.id,
@@ -45,5 +46,6 @@ class StudioItem {
     this.vkUrl,
     this.instagramUrl,
     this.metros = const [],
+    this.pathInstruction,
   });
 }
