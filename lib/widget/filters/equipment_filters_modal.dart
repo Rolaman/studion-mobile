@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/provider/equipment_provider.dart';
@@ -10,48 +11,67 @@ class EquipmentFiltersModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 600,
-      child: FutureBuilder(
-        future: Provider.of<EquipmentProvider>(context).get(),
-        builder: (ctx, AsyncSnapshot<List<EquipmentItem>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Container(
+      child: Stack(
+        children: [
+          FutureBuilder(
+            future: Provider.of<EquipmentProvider>(context).get(),
+            builder: (ctx, AsyncSnapshot<List<EquipmentItem>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Container(
+                alignment: AlignmentDirectional.topCenter,
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: GroupedListView<EquipmentItem, String>(
+                  elements: snapshot.data!,
+                  groupBy: (e) => e.type,
+                  sort: false,
+                  groupSeparatorBuilder: (String groupByValue) => Column(
+                    children: [
+                      Text(
+                        equipmentGroups[groupByValue]!,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const Divider(),
+                    ],
+                  ),
+                  itemBuilder: (context, EquipmentItem e) => Column(
+                    children: [
+                      EquipmentItemPicker(e, Key("picker_equipment" + e.id)),
+                      const Divider(
+                        thickness: 2,
+                        indent: 10,
+                        endIndent: 10,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+          Container(
+            height: 20,
+            margin: const EdgeInsets.only(top: 5),
             alignment: AlignmentDirectional.topCenter,
-            margin: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            child: GroupedListView<EquipmentItem, String>(
-              elements: snapshot.data!,
-              groupBy: (e) => e.type,
-              sort: false,
-              groupSeparatorBuilder: (String groupByValue) => Column(
-                children: [
-                  Text(
-                    equipmentGroups[groupByValue]!,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const Divider(),
-                ],
-              ),
-              itemBuilder: (context, EquipmentItem e) => Column(
-                children: [
-                  EquipmentItemPicker(e, Key("picker_equipment" + e.id)),
-                  const Divider(
-                    thickness: 2,
-                    indent: 10,
-                    endIndent: 10,
-                  ),
-                ],
+            child: Container(
+              width: 50,
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                child: const Icon(LineIcons.angleDown),
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
               ),
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }

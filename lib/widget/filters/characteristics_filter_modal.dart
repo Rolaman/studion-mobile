@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/provider/characteristics_provider.dart';
@@ -10,35 +11,54 @@ class CharacteristicsFiltersModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 600,
-      child: FutureBuilder(
-        future: Provider.of<CharacteristicProvider>(context).get(),
-        builder: (ctx, AsyncSnapshot<List<CharacteristicItem>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Container(
-            alignment: AlignmentDirectional.topCenter,
-            margin: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            child: ListView(
-              children: snapshot.data!.map((e) {
-                return Column(
-                  children: [
-                    CharacteristicItemPicker(e, Key('picker-charac' + e.id)),
-                    const Divider(
-                      thickness: 2,
-                      indent: 10,
-                      endIndent: 10,
-                    ),
-                  ],
+      child: Stack(
+        children: [
+          FutureBuilder(
+            future: Provider.of<CharacteristicProvider>(context).get(),
+            builder: (ctx, AsyncSnapshot<List<CharacteristicItem>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
-              }).toList(),
+              }
+              return Container(
+                alignment: AlignmentDirectional.topCenter,
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: ListView(
+                  children: snapshot.data!.map((e) {
+                    return Column(
+                      children: [
+                        CharacteristicItemPicker(e, Key('picker-charac' + e.id)),
+                        const Divider(
+                          thickness: 2,
+                          indent: 10,
+                          endIndent: 10,
+                        ),
+                      ],
+                    );
+                  }).toList(),
+                ),
+              );
+            },
+          ),
+          Container(
+            height: 20,
+            margin: const EdgeInsets.only(top: 5),
+            alignment: AlignmentDirectional.topCenter,
+            child: Container(
+              width: 50,
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                child: const Icon(LineIcons.angleDown),
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }

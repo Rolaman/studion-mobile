@@ -182,13 +182,13 @@ class RoomCard extends StatelessWidget {
                   ),
                   OutlinedButton(
                     style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(const Size(150, 30)),
+                      fixedSize: MaterialStateProperty.all(const Size(140, 30)),
                     ),
                     onPressed: () => toDetailPage(context),
                     child: Text(
                       'От ${room.price} руб.',
                       style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
                       ),
                     ),
                   ),

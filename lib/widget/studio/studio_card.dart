@@ -192,18 +192,18 @@ class StudioCard extends StatelessWidget {
                       ? OutlinedButton(
                           style: ButtonStyle(
                             fixedSize:
-                                MaterialStateProperty.all(const Size(150, 30)),
+                                MaterialStateProperty.all(const Size(140, 30)),
                           ),
                           onPressed: () => toDetailPage(context),
                           child: Text(
                             'От ${studio.price} руб.',
                             style: const TextStyle(
-                              fontSize: 18,
+                              fontSize: 17,
                             ),
                           ),
                         )
                       : Container(
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                             top: 12,
                             bottom: 3,
                           ),
