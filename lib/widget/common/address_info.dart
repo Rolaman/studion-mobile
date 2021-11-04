@@ -19,10 +19,16 @@ class AddressInfo extends StatelessWidget {
             margin: const EdgeInsets.only(
               right: 15,
             ),
-            child: Text(
-              address,
-              style: const TextStyle(
-                fontSize: 20,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width - 80,
+              child: Text(
+                address,
+                maxLines: 2,
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
               ),
             ),
           ),
