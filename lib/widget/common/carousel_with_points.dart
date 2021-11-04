@@ -16,7 +16,11 @@ class CarouselWithPoints extends StatelessWidget {
         itemBuilder: (ctx, index) {
           return widgets[index];
         },
-        pagination: const SwiperPagination(),
+        pagination: const SwiperPagination(
+          builder: DotSwiperPaginationBuilder(
+            color: Colors.white24,
+          ),
+        ),
         viewportFraction: 0.85,
       ),
     );

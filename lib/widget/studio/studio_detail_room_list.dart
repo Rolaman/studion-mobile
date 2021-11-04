@@ -68,6 +68,7 @@ class StudioDetailRoomItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0),
               child: SizedBox(
                 width: double.infinity,
+                height: 250,
                 child: Image.network(
                   room.imageUrl!,
                   fit: BoxFit.fill,
