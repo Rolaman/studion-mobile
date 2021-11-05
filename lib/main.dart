@@ -38,8 +38,8 @@ void main() async {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    FirebaseMessaging.onMessageOpenedApp
-        .listen((msg) => _handleMessage(context, msg));
+    FirebaseMessaging.instance.subscribeToTopic('common');
+    FirebaseMessaging.onBackgroundMessage(_handleBackgroundNotification);
     FirebaseAnalytics analytics = FirebaseAnalytics();
     return MultiProvider(
       providers: [
@@ -154,6 +154,9 @@ Future<void> providerLoading(BuildContext ctx) {
       .then((_) => equipmentProvider.fetch())
       .then((_) => characteristicProvider.fetch())
       .then((_) => facilitiesProvider.fetch());
+}
+
+Future<void> _handleBackgroundNotification(RemoteMessage msg) async {
 }
 
 typedef FutureFunction = Future Function(BuildContext);
