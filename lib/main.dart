@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
@@ -37,6 +38,8 @@ void main() async {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    FirebaseMessaging.onMessageOpenedApp
+        .listen((msg) => _handleMessage(context, msg));
     FirebaseAnalytics analytics = FirebaseAnalytics();
     return MultiProvider(
       providers: [
@@ -106,6 +109,11 @@ class App extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _handleMessage(BuildContext context, RemoteMessage message) {
+    Navigator.pushNamedAndRemoveUntil(
+        context, ListScreen.routeName, (r) => false);
   }
 }
 
