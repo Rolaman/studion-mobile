@@ -343,6 +343,7 @@ class EquipmentInfo extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(
                     bottom: 5,
+                    left: 15,
                   ),
                   alignment: AlignmentDirectional.topStart,
                   child: const Text(
@@ -379,6 +380,7 @@ class EquipmentInfo extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(
                   bottom: 5,
+                  left: 15,
                 ),
                 alignment: AlignmentDirectional.topStart,
                 child: const Text(

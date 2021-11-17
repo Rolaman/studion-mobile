@@ -74,10 +74,7 @@ class StudioDetailScreen extends StatelessWidget {
                     height: 1,
                   ),
             studio.equipments.isNotEmpty
-                ? Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    child: EquipmentInfo(studio.equipments),
-                  )
+                ? EquipmentInfo(studio.equipments)
                 : const SizedBox(),
             rooms.isNotEmpty ? StudioDetailRoomList(rooms) : const SizedBox(),
             studio.characteristics.isNotEmpty
