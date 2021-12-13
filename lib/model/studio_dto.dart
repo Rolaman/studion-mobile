@@ -22,6 +22,8 @@ class StudioItem {
   final String? instagramUrl;
   final List<String> metros;
   final String? pathInstruction;
+  final double rating;
+  final bool popular;
 
   StudioItem({
     required this.id,
@@ -47,5 +49,7 @@ class StudioItem {
     this.instagramUrl,
     this.metros = const [],
     this.pathInstruction,
+    this.rating = 4.5,
+    this.popular = true,
   });
 }

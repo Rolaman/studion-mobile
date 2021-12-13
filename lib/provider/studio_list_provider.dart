@@ -123,6 +123,12 @@ class StudioListProvider with ChangeNotifier {
     return [..._items];
   }
 
+  List<StudioItem> get popular {
+    return [
+      ...items.where((e) => e.popular)
+  ];
+}
+
   StudioItem getOne(String id) {
     return _allItems.firstWhere((e) => id == e.id);
   }

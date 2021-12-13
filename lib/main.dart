@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
 import 'package:studion_mobile/provider/characteristics_provider.dart';
@@ -22,15 +23,20 @@ import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/screen/error_screen.dart';
 import 'package:studion_mobile/screen/loader_screen.dart';
 import 'package:studion_mobile/screen/about_screen.dart';
+import 'package:studion_mobile/screen/new_home_screen.dart';
+import 'package:studion_mobile/screen/new_search_screen.dart';
 import 'package:studion_mobile/screen/room_detail_screen.dart';
 import 'package:studion_mobile/screen/filters_screen.dart';
 import 'package:studion_mobile/screen/list_screen.dart';
 import 'package:studion_mobile/screen/starred_screen.dart';
 import 'package:studion_mobile/screen/studio_detail_screen.dart';
+import 'package:studion_mobile/util/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: SystemUiOverlay.values);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   runApp(App());
 }
@@ -89,12 +95,8 @@ class App extends StatelessWidget {
       builder: (ctx, _) {
         return MaterialApp(
           title: 'StudiON',
-          theme: ThemeData(
-            fontFamily: 'OpenSans',
-            primarySwatch: Colors.indigo,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          home: retriableListScreen(ctx, providerLoading),
+          theme: themeData,
+          home: retriableHomeScreen(ctx, providerLoading),
           routes: {
             ListScreen.routeName: (ctx) => ListScreen(),
             StudioDetailScreen.routeName: (ctx) => StudioDetailScreen(),
@@ -129,7 +131,23 @@ Widget retriableListScreen(BuildContext ctx, FutureFunction futureFunction) {
               .recordError(snapshot.error, snapshot.stackTrace);
           return ErrorScreen();
         }
-        return ListScreen();
+        return NewHomeScreen();
+      });
+}
+
+Widget retriableHomeScreen(BuildContext ctx, FutureFunction futureFunction) {
+  return FutureBuilder(
+      future: futureFunction(ctx),
+      builder: (ctx, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return LoaderScreen();
+        }
+        if (snapshot.hasError) {
+          FirebaseCrashlytics.instance
+              .recordError(snapshot.error, snapshot.stackTrace);
+          return ErrorScreen();
+        }
+        return NewSearchScreen();
       });
 }
 
@@ -156,7 +174,6 @@ Future<void> providerLoading(BuildContext ctx) {
       .then((_) => facilitiesProvider.fetch());
 }
 
-Future<void> _handleBackgroundNotification(RemoteMessage msg) async {
-}
+Future<void> _handleBackgroundNotification(RemoteMessage msg) async {}
 
 typedef FutureFunction = Future Function(BuildContext);

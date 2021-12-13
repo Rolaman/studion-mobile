@@ -18,6 +18,7 @@ class RoomItem {
   final int startHour;
   final int endHour;
   final String? calendarUrl;
+  final bool best;
 
   RoomItem({
     required this.id,
@@ -39,5 +40,6 @@ class RoomItem {
     this.startHour = 0,
     this.endHour = 0,
     this.calendarUrl,
+    this.best = true,
   });
 }

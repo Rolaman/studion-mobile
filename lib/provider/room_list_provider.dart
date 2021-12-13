@@ -133,4 +133,8 @@ class RoomListProvider with ChangeNotifier {
   List<RoomItem> get items {
     return [..._items];
   }
+
+  List<RoomItem> get best {
+    return [..._allItems.where((e) => e.best)];
+  }
 }
