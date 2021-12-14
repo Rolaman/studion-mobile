@@ -18,11 +18,11 @@ SliverAppBar searchAppBar(BuildContext context) {
     title: Container(
       alignment: AlignmentDirectional.topStart,
       padding: const EdgeInsets.only(
-        top: 20,
+        top: 8,
       ),
       child: const ScreenHeader(
         'Поиск',
-        leftMargin: 10,
+        leftMargin: 14,
       ),
     ),
     backgroundColor: backgroundColor,

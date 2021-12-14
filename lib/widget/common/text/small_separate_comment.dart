@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:studion_mobile/util/theme.dart';
 
-class SmallSeparateTitle extends StatelessWidget {
+class SmallSeparateComment extends StatelessWidget {
   final String text;
   final Color color;
 
-  const SmallSeparateTitle(this.text, {this.color = Colors.black});
+  const SmallSeparateComment(this.text, {this.color = commonGrey});
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       style: TextStyle(
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w500,
         fontSize: 14,
         color: color,
       ),

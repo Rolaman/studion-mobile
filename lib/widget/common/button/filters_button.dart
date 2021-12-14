@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:studion_mobile/screen/new_filters_screen.dart';
 
 class FiltersButton extends StatelessWidget {
   final double size;
@@ -24,7 +25,7 @@ class FiltersButton extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.of(context).pushNamed('/filters');
+        showFiltersScreen(context);
       },
     );
   }

@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
-import 'package:studion_mobile/screen/list_screen.dart';
 import 'package:studion_mobile/screen/about_screen.dart';
+import 'package:studion_mobile/screen/new_home_screen.dart';
+import 'package:studion_mobile/screen/new_search_screen.dart';
 import 'package:studion_mobile/screen/starred_screen.dart';
 
 class NavigationBar extends StatefulWidget {
@@ -14,12 +16,16 @@ class NavigationBar extends StatefulWidget {
 class _NavigationBarState extends State<NavigationBar> {
   final List<BottomNavigationBarItem> navigationItems = [
     const BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.building_2_fill),
+      icon: Icon(LineIcons.home),
+      label: 'Обзор',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(LineIcons.searchLocation),
       label: 'Поиск',
     ),
     const BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.star_fill),
-      label: 'Избранные',
+      icon: Icon(LineIcons.heart),
+      label: 'Избранное',
     ),
     const BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.info),
@@ -28,9 +34,10 @@ class _NavigationBarState extends State<NavigationBar> {
   ];
 
   final Map<int, String> navigationRules = {
-    0: ListScreen.routeName,
-    1: StarredScreen.routeName,
-    2: AboutScreen.routeName,
+    0: NewHomeScreen.routeName,
+    1: NewSearchScreen.routeName,
+    2: StarredScreen.routeName,
+    3: AboutScreen.routeName,
   };
 
   void _onItemTapped(int index) {

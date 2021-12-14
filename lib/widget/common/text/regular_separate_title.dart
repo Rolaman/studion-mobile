@@ -5,7 +5,7 @@ class RegularSeparateTitle extends StatelessWidget {
   final String text;
   final Color color;
 
-  RegularSeparateTitle(this.text, {this.color = Colors.black});
+  const RegularSeparateTitle(this.text, {this.color = Colors.black});
 
   @override
   Widget build(BuildContext context) {

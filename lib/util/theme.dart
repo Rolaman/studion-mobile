@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studion_mobile/util/page_transition.dart';
 
 const MaterialColor mainColors = MaterialColor(
   _bluePrimaryValue,
@@ -20,9 +21,11 @@ const int _bluePrimaryValue = 0xFF2196F3;
 
 const Color mainColor = Color(0xFF316BFF);
 
-const Color backgroundColor =  Color(0xFFFCFCFC);
+const Color backgroundColor = Color(0xFFFCFCFC);
 
 const Color commonGrey = Color(0xFF9E9E9E);
+
+const Color disabledColor = Color(0xFFF4F4F6);
 
 final ThemeData themeData = ThemeData(
   fontFamily: 'Mulish',
@@ -30,5 +33,11 @@ final ThemeData themeData = ThemeData(
   visualDensity: VisualDensity.adaptivePlatformDensity,
   textSelectionTheme: const TextSelectionThemeData(
     cursorColor: Colors.black,
+  ),
+  pageTransitionsTheme: const PageTransitionsTheme(
+    builders: {
+      TargetPlatform.android: FadePageTransitionsBuilder(),
+      TargetPlatform.iOS: FadePageTransitionsBuilder(),
+    },
   ),
 );

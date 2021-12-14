@@ -35,6 +35,10 @@ class CityProvider extends ChangeNotifier {
     }
   }
 
+  List<CityItem> get items {
+    return [..._cities];
+  }
+
   Future<void> change(String id) async {
     _choosen = _cities.firstWhere((e) => id == e.id);
     notifyListeners();
