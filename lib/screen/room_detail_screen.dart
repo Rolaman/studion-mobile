@@ -82,7 +82,7 @@ class RoomDetailScreen extends StatelessWidget {
           RoomCharacteristics(room),
         ],
       ),
-      bottomNavigationBar: NavigationBar(),
+      bottomNavigationBar: CommonNavigationBar(),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {

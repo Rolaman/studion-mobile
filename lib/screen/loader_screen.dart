@@ -7,7 +7,7 @@ class LoaderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Loader(),
-      bottomNavigationBar: NavigationBar(),
+      bottomNavigationBar: CommonNavigationBar(),
     );
   }
 }

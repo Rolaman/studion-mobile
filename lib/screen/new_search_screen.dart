@@ -52,7 +52,7 @@ class NewSearchScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: NavigationBar(),
+      bottomNavigationBar: CommonNavigationBar(),
     );
   }
 }

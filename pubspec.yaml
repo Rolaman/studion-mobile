@@ -13,7 +13,7 @@ dependencies:
   http: ^0.13.4
   provider: ^6.0.1
   firebase_core: ^1.7.0
-  cloud_firestore: ^2.5.3
+  cloud_firestore: ^3.1.4
   loading_indicator: ^3.0.2
   carousel_slider: ^4.0.0
   expandable_text: ^2.2.0
@@ -26,7 +26,7 @@ dependencies:
   shared_preferences: ^2.0.8
   flutter_phone_direct_caller: ^2.1.0
   firebase_crashlytics: ^2.2.4
-  firebase_analytics: ^8.3.4
+  firebase_analytics: ^9.0.3
   expandable: ^5.0.1
   firebase_messaging: ^11.0.0
   syncfusion_flutter_sliders: ^19.3.57

@@ -1,5 +1,4 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -46,7 +45,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     FirebaseMessaging.instance.subscribeToTopic('common');
     FirebaseMessaging.onBackgroundMessage(_handleBackgroundNotification);
-    FirebaseAnalytics analytics = FirebaseAnalytics();
+    FirebaseAnalytics analytics = FirebaseAnalytics.instance;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(

@@ -102,7 +102,7 @@ class StudioDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: NavigationBar(),
+      bottomNavigationBar: CommonNavigationBar(),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {

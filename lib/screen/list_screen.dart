@@ -55,7 +55,7 @@ class ListScreen extends StatelessWidget {
                       ])),
                     ],
                   ),
-                  bottomNavigationBar: NavigationBar(),
+                  bottomNavigationBar: CommonNavigationBar(),
                 );
               }
               return Scaffold(
@@ -75,7 +75,7 @@ class ListScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                bottomNavigationBar: NavigationBar(),
+                bottomNavigationBar: CommonNavigationBar(),
               );
             });
           }
@@ -115,7 +115,7 @@ class ListScreen extends StatelessWidget {
                             ])),
                       ],
                     ),
-                    bottomNavigationBar: NavigationBar(),
+                    bottomNavigationBar: CommonNavigationBar(),
                   );
                 }
                 return Scaffold(
@@ -135,7 +135,7 @@ class ListScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  bottomNavigationBar: NavigationBar(),
+                  bottomNavigationBar: CommonNavigationBar(),
                 );
               });
         });

@@ -15,7 +15,7 @@ class StarredScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       child: Scaffold(
-        bottomNavigationBar: NavigationBar(),
+        bottomNavigationBar: CommonNavigationBar(),
         appBar: AppBar(
           flexibleSpace: Column(
             mainAxisAlignment: MainAxisAlignment.end,

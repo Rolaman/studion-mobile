@@ -8,7 +8,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavigationBar(),
+      bottomNavigationBar: CommonNavigationBar(),
       body: SafeArea(
         child: Container(
           alignment: AlignmentDirectional.topCenter,

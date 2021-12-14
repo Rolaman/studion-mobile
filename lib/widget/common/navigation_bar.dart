@@ -8,12 +8,12 @@ import 'package:studion_mobile/screen/new_home_screen.dart';
 import 'package:studion_mobile/screen/new_search_screen.dart';
 import 'package:studion_mobile/screen/starred_screen.dart';
 
-class NavigationBar extends StatefulWidget {
+class CommonNavigationBar extends StatefulWidget {
   @override
-  _NavigationBarState createState() => _NavigationBarState();
+  _CommonNavigationBarState createState() => _CommonNavigationBarState();
 }
 
-class _NavigationBarState extends State<NavigationBar> {
+class _CommonNavigationBarState extends State<CommonNavigationBar> {
   final List<BottomNavigationBarItem> navigationItems = [
     const BottomNavigationBarItem(
       icon: Icon(LineIcons.home),
