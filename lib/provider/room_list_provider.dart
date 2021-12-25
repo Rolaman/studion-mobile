@@ -112,6 +112,7 @@ class RoomListProvider with ChangeNotifier {
         startHour: firestoreData['startHour'],
         endHour: firestoreData['endHour'],
         calendarUrl: firestoreData['calendarUrl'],
+        best: firestoreData['best'],
       );
     }).toList();
     _items = [..._allItems];

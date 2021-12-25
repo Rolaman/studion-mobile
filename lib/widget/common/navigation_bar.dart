@@ -7,6 +7,7 @@ import 'package:studion_mobile/screen/about_screen.dart';
 import 'package:studion_mobile/screen/new_home_screen.dart';
 import 'package:studion_mobile/screen/new_search_screen.dart';
 import 'package:studion_mobile/screen/starred_screen.dart';
+import 'package:studion_mobile/util/theme.dart';
 
 class CommonNavigationBar extends StatefulWidget {
   @override
@@ -14,48 +15,8 @@ class CommonNavigationBar extends StatefulWidget {
 }
 
 class _CommonNavigationBarState extends State<CommonNavigationBar> {
-  final List<BottomNavigationBarItem> navigationItems = [
-    const BottomNavigationBarItem(
-      icon: Icon(LineIcons.home),
-      label: 'Обзор',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(LineIcons.searchLocation),
-      label: 'Поиск',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(LineIcons.heart),
-      label: 'Избранное',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.info),
-      label: 'Инфо',
-    ),
-  ];
-
-  final Map<int, String> navigationRules = {
-    0: NewHomeScreen.routeName,
-    1: NewSearchScreen.routeName,
-    2: StarredScreen.routeName,
-    3: AboutScreen.routeName,
-  };
-
   void _onItemTapped(int index) {
-    bool isNewRouteSameAsCurrent = false;
-    Navigator.popUntil(context, (route) {
-      if (route.settings.name == navigationRules[index]) {
-        isNewRouteSameAsCurrent = true;
-      }
-      return true;
-    });
-    if (isNewRouteSameAsCurrent) {
-      return;
-    }
-    final provider =
-        Provider.of<BottomNavigationIndexProvider>(context, listen: false);
-    provider.change(index);
-    Navigator.of(context).restorablePushNamedAndRemoveUntil(
-        navigationRules[index]!, (r) => false);
+    _toScreen(context, index);
   }
 
   @override
@@ -65,7 +26,7 @@ class _CommonNavigationBarState extends State<CommonNavigationBar> {
           type: BottomNavigationBarType.fixed,
           items: navigationItems,
           currentIndex: provider.selectedIndex,
-          selectedItemColor: Colors.indigo,
+          selectedItemColor: mainColor,
           unselectedItemColor: Colors.black45,
           onTap: _onItemTapped,
           selectedIconTheme: const IconThemeData(
@@ -76,4 +37,65 @@ class _CommonNavigationBarState extends State<CommonNavigationBar> {
           ));
     });
   }
+}
+
+final Map<int, String> navigationRules = {
+  0: NewHomeScreen.routeName,
+  1: NewSearchScreen.routeName,
+  2: StarredScreen.routeName,
+  3: AboutScreen.routeName,
+};
+
+final List<BottomNavigationBarItem> navigationItems = [
+  const BottomNavigationBarItem(
+    icon: Icon(LineIcons.home),
+    label: 'Обзор',
+  ),
+  const BottomNavigationBarItem(
+    icon: Icon(LineIcons.searchLocation),
+    label: 'Поиск',
+  ),
+  const BottomNavigationBarItem(
+    icon: Icon(LineIcons.heart),
+    label: 'Избранное',
+  ),
+  const BottomNavigationBarItem(
+    icon: Icon(CupertinoIcons.info),
+    label: 'Инфо',
+  ),
+];
+
+void toHomeScreen(BuildContext ctx) {
+  _toScreen(ctx, 0);
+}
+
+void toSearchScreen(BuildContext ctx) {
+  _toScreen(ctx, 1);
+}
+
+void toStarredScreen(BuildContext ctx) {
+  _toScreen(ctx, 2);
+}
+
+void toAboutScreen(BuildContext ctx) {
+  _toScreen(ctx, 3);
+}
+
+void _toScreen(BuildContext ctx, int index) {
+  final provider = Provider.of<BottomNavigationIndexProvider>(ctx, listen: false);
+  bool isNewRouteSameAsCurrent = false;
+  Navigator.popUntil(ctx, (route) {
+    if (route.settings.name == navigationRules[index]) {
+      isNewRouteSameAsCurrent = true;
+    }
+    return true;
+  });
+  if (isNewRouteSameAsCurrent) {
+    return;
+  }
+  provider.change(index);
+  Navigator.of(ctx).restorablePushNamedAndRemoveUntil(
+    navigationRules[index]!,
+    (r) => false,
+  );
 }
