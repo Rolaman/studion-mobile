@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/studio_dto.dart';
+import 'package:studion_mobile/provider/starred_provider.dart';
 import 'package:studion_mobile/widget/common/button/favourite_button.dart';
 import 'package:studion_mobile/widget/popular/rating/studio_card_rating.dart';
 
 class LargeStudioCard extends StatelessWidget {
   final StudioItem studio;
+  final bool starred;
 
-  const LargeStudioCard(this.studio, Key key) : super(key: key);
+  const LargeStudioCard(this.studio, this.starred, Key key) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final provider = Provider.of<StarredProvider>(context, listen: false);
+    return SizedBox(
       width: 270,
       height: 300,
       child: Stack(
         alignment: AlignmentDirectional.bottomStart,
         children: [
-          Container(
+          SizedBox(
             width: 270,
             height: 300,
             child: ClipRRect(
@@ -58,8 +61,8 @@ class LargeStudioCard extends StatelessWidget {
               right: 15,
               top: 15,
             ),
-            child: FavouriteButton(studio.popular, () {
-              // TODO: call to firebase
+            child: FavouriteButton(starred, () {
+              provider.changeStarredStudio(studio.id);
             }),
           )
         ],

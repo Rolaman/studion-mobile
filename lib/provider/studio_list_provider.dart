@@ -113,6 +113,7 @@ class StudioListProvider with ChangeNotifier {
         instagramUrl: firestoreData['instagramUrl'],
         metros: metros,
         pathInstruction: firestoreData['pathInstruction'],
+        popular: firestoreData['popular'],
       );
     }).toList();
     _items = [..._allItems];

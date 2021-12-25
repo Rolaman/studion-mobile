@@ -10,30 +10,25 @@ class StudioStarIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<StarredProvider>(builder: (ctx, provider, _) {
-      return FutureBuilder(
-          future: provider.getStarredStudios(),
-          builder: (ctx, AsyncSnapshot<List<String>> snapshot) {
-            if (snapshot.connectionState != ConnectionState.done ||
-                (snapshot.hasData && !snapshot.data!.contains(studioId))) {
-              return IconButton(
-                onPressed: () {
-                  provider.addStarredStudio(studioId);
-                },
-                icon: const Icon(
-                  CupertinoIcons.star,
-                ),
-              );
-            }
-            return IconButton(
-              onPressed: () {
-                provider.removeStarredStudio(studioId);
-              },
-              icon: const Icon(
-                CupertinoIcons.star_fill,
-              ),
-            );
-          });
-    });
+    final provider = Provider.of<StarredProvider>(context, listen: false);
+
+    if (provider.studioIds.contains(studioId)) {
+      return IconButton(
+        onPressed: () {
+          provider.addStarredStudio(studioId);
+        },
+        icon: const Icon(
+          CupertinoIcons.star,
+        ),
+      );
+    }
+    return IconButton(
+      onPressed: () {
+        provider.removeStarredStudio(studioId);
+      },
+      icon: const Icon(
+        CupertinoIcons.star_fill,
+      ),
+    );
   }
 }

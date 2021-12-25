@@ -14,28 +14,29 @@ class LargeActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 270,
-      height: 300,
-      child: Stack(
-        alignment: AlignmentDirectional.center,
-        children: [
-          SizedBox(
-            width: 270,
-            height: 300,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: Container(
-                color: Colors.grey,
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      child: SizedBox(
+        width: 270,
+        height: 300,
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: [
+            SizedBox(
+              width: 270,
+              height: 300,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Container(
+                  color: Colors.grey,
+                ),
               ),
             ),
-          ),
-          GestureDetector(
-            child: child,
-            onTap: action,
-          )
-        ],
+            child,
+          ],
+        ),
       ),
+      onTap: action,
     );
   }
 }

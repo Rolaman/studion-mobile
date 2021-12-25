@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
+import 'package:studion_mobile/provider/starred_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/widget/common/decorator/side_margin_decorator.dart';
 import 'package:studion_mobile/widget/common/navigation_bar.dart';
@@ -18,15 +18,28 @@ class NewSearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final typeProvider = Provider.of<SearchTypeProvider>(context);
+    final provider = Provider.of<StarredProvider>(context, listen: false);
 
     List<Widget> itemList = [];
 
     if (typeProvider.getCurrent() == FilterType.room) {
       final rooms = Provider.of<RoomListProvider>(context).items;
-      itemList = rooms.map((e) => RoomListCard(e, Key(e.id))).toList();
+      itemList = rooms
+          .map((e) => RoomListCard(
+                e,
+                provider.roomIds.contains(e.id),
+                Key(e.id),
+              ))
+          .toList();
     } else {
       final studios = Provider.of<StudioListProvider>(context).items;
-      itemList = studios.map((e) => StudioListCard(e, Key(e.id))).toList();
+      itemList = studios
+          .map((e) => StudioListCard(
+                e,
+                provider.studioIds.contains(e.id),
+                Key(e.id),
+              ))
+          .toList();
     }
 
     return Scaffold(

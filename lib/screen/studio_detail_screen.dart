@@ -98,7 +98,7 @@ class StudioDetailScreen extends StatelessWidget {
                     ),
                     child: StudioPathInstruction(studio.pathInstruction!),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ],
         ),
       ),

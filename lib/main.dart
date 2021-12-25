@@ -161,16 +161,18 @@ Future<void> providerLoading(BuildContext ctx) {
       Provider.of<CharacteristicProvider>(ctx, listen: false);
   final facilitiesProvider =
       Provider.of<FacilitiesProvider>(ctx, listen: false);
+  final starredProvider = Provider.of<StarredProvider>(ctx, listen: false);
 
   return cityProvider
-      .fetchAll()
+      .fetch()
       .then((_) => roomsProvider.fetch())
       .then((_) => studiosProvider.fetch())
       .then((_) => metroProvider.fetch(['moscow', 'spb']))
       .then((_) => interiorProvider.fetch())
       .then((_) => equipmentProvider.fetch())
       .then((_) => characteristicProvider.fetch())
-      .then((_) => facilitiesProvider.fetch());
+      .then((_) => facilitiesProvider.fetch())
+      .then((_) => starredProvider.fetch());
 }
 
 Future<void> _handleBackgroundNotification(RemoteMessage msg) async {}

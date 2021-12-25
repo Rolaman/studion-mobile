@@ -10,30 +10,25 @@ class RoomStarIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<StarredProvider>(builder: (ctx, provider, _) {
-      return FutureBuilder(
-          future: provider.getStarredRooms(),
-          builder: (ctx, AsyncSnapshot<List<String>> snapshot) {
-            if (snapshot.connectionState != ConnectionState.done ||
-                (snapshot.hasData && !snapshot.data!.contains(roomId))) {
-              return IconButton(
-                onPressed: () {
-                  provider.addStarredRoom(roomId);
-                },
-                icon: const Icon(
-                  CupertinoIcons.star,
-                ),
-              );
-            }
-            return IconButton(
-              onPressed: () {
-                provider.removeStarredRoom(roomId);
-              },
-              icon: const Icon(
-                CupertinoIcons.star_fill,
-              ),
-            );
-          });
-    });
+    final provider = Provider.of<StarredProvider>(context, listen: false);
+
+    if (provider.roomIds.contains(roomId)) {
+      return IconButton(
+        onPressed: () {
+          provider.addStarredRoom(roomId);
+        },
+        icon: const Icon(
+          CupertinoIcons.star,
+        ),
+      );
+    }
+    return IconButton(
+      onPressed: () {
+        provider.removeStarredRoom(roomId);
+      },
+      icon: const Icon(
+        CupertinoIcons.star_fill,
+      ),
+    );
   }
 }

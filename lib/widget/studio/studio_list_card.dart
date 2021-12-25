@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/studio_dto.dart';
+import 'package:studion_mobile/provider/starred_provider.dart';
 import 'package:studion_mobile/util/theme.dart';
 import 'package:studion_mobile/widget/common/button/favourite_button.dart';
 import 'package:studion_mobile/widget/common/card/medium_item_image_card.dart';
@@ -10,11 +12,13 @@ import 'package:studion_mobile/widget/common/text/small_separate_title.dart';
 
 class StudioListCard extends StatelessWidget {
   final StudioItem item;
+  final bool starred;
 
-  const StudioListCard(this.item, key) : super(key: key);
+  const StudioListCard(this.item, this.starred, key) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<StarredProvider>(context, listen: false);
     return Container(
       width: 330,
       height: 110,
@@ -30,10 +34,8 @@ class StudioListCard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             action: FavouriteButton(
-              item.popular,
-              () {
-                // TODO
-              },
+              starred,
+              () => provider.changeStarredStudio(item.id),
               size: 23,
             ),
           ),
@@ -56,7 +58,7 @@ class StudioListCard extends StatelessWidget {
                         item.price.toString(),
                         color: mainColor,
                       ),
-                      SmallSeparateTitle(
+                      const SmallSeparateTitle(
                         ' / час',
                         color: commonGrey,
                       ),

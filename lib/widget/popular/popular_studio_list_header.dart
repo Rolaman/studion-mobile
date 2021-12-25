@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:studion_mobile/screen/new_search_screen.dart';
 import 'package:studion_mobile/util/theme.dart';
 import 'package:studion_mobile/widget/common/text/small_separate_title.dart';
 
@@ -20,9 +20,14 @@ class PopularStudioListHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SmallSeparateTitle('$count студий'),
-          SmallSeparateTitle(
-            'Cмотреть все',
-            color: mainColor,
+          GestureDetector(
+            child: const SmallSeparateTitle(
+              'Смотреть все',
+              color: mainColor,
+            ),
+            onTap: () {
+              Navigator.of(context).pushNamed(NewSearchScreen.routeName);
+            }
           ),
         ],
       ),

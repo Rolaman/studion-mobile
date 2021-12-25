@@ -52,67 +52,54 @@ class StarredScreen extends StatelessWidget {
 class StarredStudioTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<StarredProvider>(builder: (ctx, provider, _) {
-      return FutureBuilder(
-          future: provider.getStarredStudios(),
-          builder: (ctx, AsyncSnapshot<List<String>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Loader();
-            }
-            final studioProvider =
-                Provider.of<StudioListProvider>(context, listen: false);
-            if (snapshot.data!.isEmpty) {
-              return const Center(
-                child: Text(
-                  'Нет избранных студий',
-                  style: TextStyle(
-                    fontSize: 17,
-                  ),
-                ),
-              );
-            }
-            return ListView(
-              children: [
-                ...snapshot.data!.map((e) {
-                  return StudioCard(studioProvider.getOne(e), Key(e));
-                }).toList()
-              ],
-            );
-          });
-    });
+    final provider = Provider.of<StarredProvider>(context, listen: false);
+    final studios = provider.studioIds;
+    final studioProvider =
+        Provider.of<StudioListProvider>(context, listen: false);
+    if (studios.isEmpty) {
+      return const Center(
+        child: Text(
+          'Нет избранных студий',
+          style: TextStyle(
+            fontSize: 17,
+          ),
+        ),
+      );
+    }
+    return ListView(
+      children: [
+        ...studios.map((e) {
+          return StudioCard(studioProvider.getOne(e), Key(e));
+        }).toList()
+      ],
+    );
   }
 }
 
 class StarredRoomTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<StarredProvider>(builder: (ctx, provider, _) {
-      return FutureBuilder(
-          future: provider.getStarredRooms(),
-          builder: (ctx, AsyncSnapshot<List<String>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Loader();
-            }
-            final roomProvider =
-                Provider.of<RoomListProvider>(context, listen: false);
-            if (snapshot.data!.isEmpty) {
-              return const Center(
-                child: Text(
-                  'Нет избранных залов',
-                  style: TextStyle(
-                    fontSize: 17,
-                  ),
-                ),
-              );
-            }
-            return ListView(
-              children: [
-                ...snapshot.data!.map((e) {
-                  return RoomCard(roomProvider.getOne(e), Key(e));
-                }).toList()
-              ],
-            );
-          });
-    });
+    final provider = Provider.of<StarredProvider>(context, listen: false);
+    final rooms = provider.roomIds;
+    final roomProvider = Provider.of<RoomListProvider>(context, listen: false);
+
+    if (rooms.isEmpty) {
+      return const Center(
+        child: Text(
+          'Нет избранных залов',
+          style: TextStyle(
+            fontSize: 17,
+          ),
+        ),
+      );
+    }
+
+    return ListView(
+      children: [
+        ...rooms.map((e) {
+          return RoomCard(roomProvider.getOne(e), Key(e));
+        }).toList()
+      ],
+    );
   }
 }
