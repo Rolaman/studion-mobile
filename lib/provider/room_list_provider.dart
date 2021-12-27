@@ -57,12 +57,12 @@ class RoomListProvider with ChangeNotifier {
       if (request.priceFrom == null) {
         return true;
       }
-      return request.priceFrom! < e.price;
+      return request.priceFrom! <= e.price;
     }).where((e) {
       if (request.priceTo == null) {
         return true;
       }
-      return request.priceTo! > e.price;
+      return request.priceTo! >= e.price;
     }).where((e) {
       if (request.metros.isEmpty) {
         return true;

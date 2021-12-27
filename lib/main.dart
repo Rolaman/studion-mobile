@@ -100,7 +100,6 @@ class App extends StatelessWidget {
             NewHomeScreen.routeName: (ctx) => NewHomeScreen(),
             NewSearchScreen.routeName: (ctx) => NewSearchScreen(),
             // RoomDetailScreen.routeName: (ctx) => RoomDetailScreen(),
-            // FiltersScreen.routeName: (ctx) => FiltersScreen(),
             NewStarredScreen.routeName: (ctx) => NewStarredScreen(),
             AboutScreen.routeName: (ctx) => AboutScreen(),
           },

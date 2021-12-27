@@ -6,15 +6,13 @@ class SearchTypeFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const RegularSeparateTitle('Тип помещения'),
-          const SizedBox(height: 12),
-          SearchTypeFilterItemList(),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const RegularSeparateTitle('Тип помещения'),
+        const SizedBox(height: 12),
+        SearchTypeFilterItemList(),
+      ],
     );
   }
 }

@@ -60,12 +60,12 @@ class StudioListProvider with ChangeNotifier {
       if (request.priceFrom == null) {
         return true;
       }
-      return e.price == null || request.priceFrom! < e.price!;
+      return e.price == null || request.priceFrom! <= e.price!;
     }).where((e) {
       if (request.priceTo == null) {
         return true;
       }
-      return e.price == null || request.priceTo! > e.price!;
+      return e.price == null || request.priceTo! >= e.price!;
     }).where((e) {
       if (request.metros.isEmpty) {
         return true;

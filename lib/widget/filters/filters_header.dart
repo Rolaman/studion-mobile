@@ -21,18 +21,24 @@ class FiltersHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              margin: const EdgeInsets.only(
-                right: 32,
+            GestureDetector(
+              child: const RegularSeparateTitle(
+                'Сбросить',
+                color: dismissColor,
               ),
-              child: CloseButton(() {
+              onTap: () {
                 filterProvider.discard();
                 filterPriceProvider.discard();
                 Navigator.of(context).pop();
-              }),
+              },
             ),
-            const RegularSeparateTitle(
-              'Фильтры',
+            const Padding(
+              padding: EdgeInsets.only(
+                right: 25,
+              ),
+              child: RegularSeparateTitle(
+                'Фильтры',
+              ),
             ),
             GestureDetector(
               child: const RegularSeparateTitle(

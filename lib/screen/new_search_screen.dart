@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
 import 'package:studion_mobile/provider/city_provider.dart';
+import 'package:studion_mobile/provider/filters_provider.dart';
+import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
+import 'package:studion_mobile/provider/search_text_type_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/provider/starred_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
@@ -77,7 +80,17 @@ class NewSearchScreen extends StatelessWidget {
 
 FilterRequest buildFilterRequest(BuildContext context) {
   final cityProvider = Provider.of<CityProvider>(context);
+  final filterItemsProvider = Provider.of<FiltersProvider>(context);
+  final priceProvider = Provider.of<PriceFilterProvider>(context);
+  final textProvider = Provider.of<SearchTextTypeProvider>(context);
   return FilterRequest.values(
     cityId: cityProvider.getCurrentSync().id,
+    equipments: filterItemsProvider.getEquipmentFilterIds(),
+    interiors: filterItemsProvider.getInteriorFilterIds(),
+    characteristics: filterItemsProvider.getCharacteristicFilterIds(),
+    facilities: filterItemsProvider.getFacilitiesFilterIds(),
+    priceFrom: priceProvider.values.start.toInt(),
+    priceTo: priceProvider.values.end.toInt(),
+    text: textProvider.textController.text,
   );
 }
