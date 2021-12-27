@@ -36,7 +36,7 @@ class ErrorScreen extends StatelessWidget {
                 color: Colors.indigo,
                 child: const Text('Повторить'),
                 onPressed: () {
-                  retriableListScreen(context, providerLoading);
+                  retriableHomeScreen(context, providerLoading);
                 },
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
+import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/provider/starred_provider.dart';
@@ -20,10 +21,13 @@ class NewSearchScreen extends StatelessWidget {
     final typeProvider = Provider.of<SearchTypeProvider>(context);
     final provider = Provider.of<StarredProvider>(context, listen: false);
 
+    final request = buildFilterRequest(context);
+
     List<Widget> itemList = [];
 
     if (typeProvider.getCurrent() == FilterType.room) {
-      final rooms = Provider.of<RoomListProvider>(context).items;
+      final rooms =
+          Provider.of<RoomListProvider>(context).getByRequest(request);
       itemList = rooms
           .map((e) => RoomListCard(
                 e,
@@ -32,7 +36,8 @@ class NewSearchScreen extends StatelessWidget {
               ))
           .toList();
     } else {
-      final studios = Provider.of<StudioListProvider>(context).items;
+      final studios =
+          Provider.of<StudioListProvider>(context).getByRequest(request);
       itemList = studios
           .map((e) => StudioListCard(
                 e,
@@ -68,4 +73,11 @@ class NewSearchScreen extends StatelessWidget {
       bottomNavigationBar: CommonNavigationBar(),
     );
   }
+}
+
+FilterRequest buildFilterRequest(BuildContext context) {
+  final cityProvider = Provider.of<CityProvider>(context);
+  return FilterRequest.values(
+    cityId: cityProvider.getCurrentSync().id,
+  );
 }

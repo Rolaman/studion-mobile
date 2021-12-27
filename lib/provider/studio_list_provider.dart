@@ -8,7 +8,7 @@ class StudioListProvider with ChangeNotifier {
   List<StudioItem> _allItems = [];
   bool loading = true;
 
-  Future<void> changeFilters(FilterRequest request) async {
+  List<StudioItem> getByRequest(FilterRequest request) {
     _items = _allItems.where((e) {
       if (request.text == null) {
         return true;
@@ -28,11 +28,13 @@ class StudioListProvider with ChangeNotifier {
         matchForAny = e.equipments.any((eq) => eq.contains('impulse'));
       }
       if (request.equipments.any((eq) => eq == 'constant-any')) {
-        matchForAny = matchForAny && e.equipments.any((eq) => eq.contains('constant'));
+        matchForAny =
+            matchForAny && e.equipments.any((eq) => eq.contains('constant'));
       }
       return request.equipments.where((eq) => !eq.contains('-any')).every((eq) {
-        return e.equipments.contains(eq);
-      }) && matchForAny;
+            return e.equipments.contains(eq);
+          }) &&
+          matchForAny;
     }).where((e) {
       if (request.interiors.isEmpty) {
         return true;
@@ -70,7 +72,7 @@ class StudioListProvider with ChangeNotifier {
       }
       return request.metros.any((metro) => e.metros.contains(metro));
     }).toList();
-    notifyListeners();
+    return _items;
   }
 
   Future<void> fetch() async {
@@ -80,14 +82,11 @@ class StudioListProvider with ChangeNotifier {
     _allItems = snapshot.docs.map((e) {
       Map<String, dynamic> firestoreData = e.data() as Map<String, dynamic>;
       List<String> images = firestoreData['imageUrls'].cast<String>();
-      List<String> equipments = firestoreData['equipments']
-          .cast<String>();
-      List<String> interiors = firestoreData['interiors']
-          .cast<String>();
-      List<String> characteristics = firestoreData['characteristics']
-          .cast<String>();
-      List<String> facilities = firestoreData['facilities']
-          .cast<String>();
+      List<String> equipments = firestoreData['equipments'].cast<String>();
+      List<String> interiors = firestoreData['interiors'].cast<String>();
+      List<String> characteristics =
+          firestoreData['characteristics'].cast<String>();
+      List<String> facilities = firestoreData['facilities'].cast<String>();
       List<String> metros = firestoreData['metros'].cast<String>();
       return StudioItem(
         id: e.id,
@@ -125,10 +124,8 @@ class StudioListProvider with ChangeNotifier {
   }
 
   List<StudioItem> get popular {
-    return [
-      ...items.where((e) => e.popular)
-  ];
-}
+    return [...items.where((e) => e.popular)];
+  }
 
   StudioItem getOne(String id) {
     return _allItems.firstWhere((e) => id == e.id);

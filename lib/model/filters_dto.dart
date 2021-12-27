@@ -49,7 +49,6 @@ class FilterRequest {
   final int? priceTo;
   String? cityId;
   String? text;
-  FilterType type;
   final List<String> metros;
 
   FilterRequest(
@@ -61,7 +60,6 @@ class FilterRequest {
     this.priceTo,
     this.cityId,
     this.text,
-    this.type,
     this.metros,
   );
 
@@ -74,7 +72,6 @@ class FilterRequest {
     this.priceFrom,
     this.priceTo,
     this.text,
-    required this.type,
     this.metros = const [],
   });
 }

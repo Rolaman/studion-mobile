@@ -7,7 +7,7 @@ class RoomListProvider with ChangeNotifier {
   List<RoomItem> _items = [];
   List<RoomItem> _allItems = [];
 
-  void changeFilters(FilterRequest request) {
+  List<RoomItem> getByRequest(FilterRequest request) {
     _items = _allItems.where((e) {
       if (request.text == null) {
         return true;
@@ -69,7 +69,7 @@ class RoomListProvider with ChangeNotifier {
       }
       return request.metros.any((metro) => e.metros.contains(metro));
     }).toList();
-    notifyListeners();
+    return _items;
   }
 
   List<RoomItem> getCurrents() {

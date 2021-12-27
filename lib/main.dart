@@ -26,10 +26,6 @@ import 'package:studion_mobile/screen/about_screen.dart';
 import 'package:studion_mobile/screen/new_home_screen.dart';
 import 'package:studion_mobile/screen/new_search_screen.dart';
 import 'package:studion_mobile/screen/new_starred_screen.dart';
-import 'package:studion_mobile/screen/room_detail_screen.dart';
-import 'package:studion_mobile/screen/list_screen.dart';
-import 'package:studion_mobile/screen/starred_screen.dart';
-import 'package:studion_mobile/screen/studio_detail_screen.dart';
 import 'package:studion_mobile/util/theme.dart';
 
 void main() async {
@@ -118,24 +114,8 @@ class App extends StatelessWidget {
 
   void _handleMessage(BuildContext context, RemoteMessage message) {
     Navigator.pushNamedAndRemoveUntil(
-        context, ListScreen.routeName, (r) => false);
+        context, NewHomeScreen.routeName, (r) => false);
   }
-}
-
-Widget retriableListScreen(BuildContext ctx, FutureFunction futureFunction) {
-  return FutureBuilder(
-      future: futureFunction(ctx),
-      builder: (ctx, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return LoaderScreen();
-        }
-        if (snapshot.hasError) {
-          FirebaseCrashlytics.instance
-              .recordError(snapshot.error, snapshot.stackTrace);
-          return ErrorScreen();
-        }
-        return NewHomeScreen();
-      });
 }
 
 Widget retriableHomeScreen(BuildContext ctx, FutureFunction futureFunction) {
@@ -150,7 +130,7 @@ Widget retriableHomeScreen(BuildContext ctx, FutureFunction futureFunction) {
               .recordError(snapshot.error, snapshot.stackTrace);
           return ErrorScreen();
         }
-        return NewSearchScreen();
+        return NewHomeScreen();
       });
 }
 
