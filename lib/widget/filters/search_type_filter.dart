@@ -9,7 +9,7 @@ class SearchTypeFilter extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const RegularSeparateTitle('Тип помещения'),
+        const RegularSeparateTitle('Тип поиска'),
         const SizedBox(height: 12),
         SearchTypeFilterItemList(),
       ],
