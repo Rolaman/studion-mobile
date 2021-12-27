@@ -40,7 +40,10 @@ SliverAppBar searchAppBar(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SearchInput(),
-                const FiltersButton(48),
+                const Padding(
+                  padding: EdgeInsets.only(right: 15),
+                  child: FiltersButton(48),
+                ),
               ],
             ),
             SideMarginDecorator(FilterTypeSwitcher()),

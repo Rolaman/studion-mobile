@@ -6,7 +6,7 @@ import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
 import 'package:studion_mobile/screen/about_screen.dart';
 import 'package:studion_mobile/screen/new_home_screen.dart';
 import 'package:studion_mobile/screen/new_search_screen.dart';
-import 'package:studion_mobile/screen/starred_screen.dart';
+import 'package:studion_mobile/screen/new_starred_screen.dart';
 import 'package:studion_mobile/util/theme.dart';
 
 class CommonNavigationBar extends StatefulWidget {
@@ -42,7 +42,7 @@ class _CommonNavigationBarState extends State<CommonNavigationBar> {
 final Map<int, String> navigationRules = {
   0: NewHomeScreen.routeName,
   1: NewSearchScreen.routeName,
-  2: StarredScreen.routeName,
+  2: NewStarredScreen.routeName,
   3: AboutScreen.routeName,
 };
 
@@ -82,7 +82,8 @@ void toAboutScreen(BuildContext ctx) {
 }
 
 void _toScreen(BuildContext ctx, int index) {
-  final provider = Provider.of<BottomNavigationIndexProvider>(ctx, listen: false);
+  final provider =
+      Provider.of<BottomNavigationIndexProvider>(ctx, listen: false);
   bool isNewRouteSameAsCurrent = false;
   Navigator.popUntil(ctx, (route) {
     if (route.settings.name == navigationRules[index]) {

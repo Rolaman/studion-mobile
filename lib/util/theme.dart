@@ -21,7 +21,9 @@ const int _bluePrimaryValue = 0xFF2196F3;
 
 const Color mainColor = Color(0xFF316BFF);
 
-const Color backgroundColor = Color(0xFFFCFCFC);
+const Color backgroundColor = Color(0xFFFAFAFA);
+
+const Color cleanWhite = Colors.white;
 
 const Color commonGrey = Color(0xFF9E9E9E);
 

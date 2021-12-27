@@ -18,8 +18,8 @@ class SearchInput extends StatelessWidget {
       ),
       alignment: AlignmentDirectional.topStart,
       margin: const EdgeInsets.only(
-        left: 12,
-        right: 12,
+        left: 25,
+        right: 5,
       ),
       height: 54,
       width: MediaQuery.of(context).size.width - 120,
@@ -38,7 +38,7 @@ class SearchInput extends StatelessWidget {
             top: 5,
             bottom: 5,
           ),
-          fillColor: Colors.white,
+          fillColor: cleanWhite,
           filled: true,
           hintText: 'Что вы хотите найти?',
           border: OutlineInputBorder(

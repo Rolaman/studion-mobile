@@ -18,12 +18,14 @@ import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/search_text_type_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/provider/starred_provider.dart';
+import 'package:studion_mobile/provider/starred_type_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/screen/error_screen.dart';
 import 'package:studion_mobile/screen/loader_screen.dart';
 import 'package:studion_mobile/screen/about_screen.dart';
 import 'package:studion_mobile/screen/new_home_screen.dart';
 import 'package:studion_mobile/screen/new_search_screen.dart';
+import 'package:studion_mobile/screen/new_starred_screen.dart';
 import 'package:studion_mobile/screen/room_detail_screen.dart';
 import 'package:studion_mobile/screen/filters_screen.dart';
 import 'package:studion_mobile/screen/list_screen.dart';
@@ -90,6 +92,9 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => StarredProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => StarredTypeProvider(),
+        ),
       ],
       builder: (ctx, _) {
         return MaterialApp(
@@ -101,7 +106,7 @@ class App extends StatelessWidget {
             NewSearchScreen.routeName: (ctx) => NewSearchScreen(),
             // RoomDetailScreen.routeName: (ctx) => RoomDetailScreen(),
             // FiltersScreen.routeName: (ctx) => FiltersScreen(),
-            StarredScreen.routeName: (ctx) => StarredScreen(),
+            NewStarredScreen.routeName: (ctx) => NewStarredScreen(),
             AboutScreen.routeName: (ctx) => AboutScreen(),
           },
           navigatorObservers: [
