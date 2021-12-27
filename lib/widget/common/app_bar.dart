@@ -8,7 +8,6 @@ import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/search_text_type_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
-import 'package:studion_mobile/screen/filters_screen.dart';
 import 'package:studion_mobile/widget/common/city_selector.dart';
 
 Widget searchAppBar() {
@@ -216,7 +215,6 @@ class SearchFilters extends StatelessWidget {
 }
 
 void showFilters(BuildContext context) {
-  Navigator.of(context).pushNamed(FiltersScreen.routeName);
 }
 
 void closeSearchByText(BuildContext context, SearchTextTypeProvider provider) {

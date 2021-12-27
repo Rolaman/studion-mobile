@@ -5,10 +5,7 @@ import 'package:studion_mobile/model/filters_dto.dart';
 class InteriorProvider extends ChangeNotifier {
   List<InteriorItem> _items = [];
 
-  Future<List<InteriorItem>> get() async {
-    if (_items.isEmpty) {
-      await fetch();
-    }
+  List<InteriorItem> get() {
     return [..._items];
   }
 

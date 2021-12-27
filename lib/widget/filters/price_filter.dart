@@ -17,6 +17,7 @@ class PriceFilter extends StatelessWidget {
           const SmallSeparateComment('Выберите необходимый диапазон'),
           const SizedBox(height: 12),
           PriceFilterCurrent(),
+          const SizedBox(height: 10),
           PriceFilterSlider(),
         ],
       ),

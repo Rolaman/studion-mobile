@@ -29,7 +29,7 @@ class FilterList extends StatelessWidget {
           const SizedBox(height: 20),
           const MainFilterItem('Оборудование', showEquipmentFiltersScreen),
           const SizedBox(height: 30),
-          const MainFilterItem('Интерьер', showInteriorFiltersScreen),
+          const MainFilterItem('Интерьеры', showInteriorFiltersScreen),
           const SizedBox(height: 30),
           const MainFilterItem(
               'Характеристики', showCharacteristicFiltersScreen),

@@ -25,6 +25,8 @@ const Color backgroundColor = Color(0xFFFAFAFA);
 
 const Color cleanWhite = Colors.white;
 
+const Color cleanBlack = Colors.black;
+
 const Color commonGrey = Color(0xFF9E9E9E);
 
 const Color disabledColor = Color(0xFFF4F4F6);

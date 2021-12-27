@@ -5,10 +5,7 @@ import 'package:studion_mobile/model/filters_dto.dart';
 class CharacteristicProvider extends ChangeNotifier {
   List<CharacteristicItem> _items = [];
 
-  Future<List<CharacteristicItem>> get() async {
-    if (_items.isEmpty) {
-      await fetch();
-    }
+  List<CharacteristicItem> get() {
     return [..._items];
   }
 

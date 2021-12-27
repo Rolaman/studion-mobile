@@ -12,10 +12,10 @@ class PriceFilterSlider extends StatefulWidget {
 }
 
 class _PriceFilterSliderState extends State<PriceFilterSlider> {
-  SfRangeValues _values = const SfRangeValues(100.0, 10000.0);
-
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<PriceFilterProvider>(context);
+
     return SfRangeSliderTheme(
       data: SfRangeSliderThemeData(
         activeTrackColor: mainColor,
@@ -30,22 +30,14 @@ class _PriceFilterSliderState extends State<PriceFilterSlider> {
         ),
       ),
       child: SfRangeSlider(
-        values: _values,
+        values: provider.values,
         min: 0,
         max: 10000,
         stepSize: 100,
         onChanged: (value) {
-          change(value, context);
+          provider.change(value);
         },
       ),
     );
-  }
-
-  void change(SfRangeValues value, BuildContext context) {
-    setState(() {
-      _values = value;
-    });
-    Provider.of<PriceFilterProvider>(context, listen: false)
-        .change(value.start, value.end);
   }
 }

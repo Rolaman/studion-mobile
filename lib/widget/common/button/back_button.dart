@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:line_icons/line_icons.dart';
 
-class BackButton extends StatelessWidget {
+class ScreenBackButton extends StatelessWidget {
   final double size;
 
-  const BackButton({this.size = 25});
+  const ScreenBackButton({this.size = 25});
 
   @override
   Widget build(BuildContext context) {

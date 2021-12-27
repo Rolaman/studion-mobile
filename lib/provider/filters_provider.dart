@@ -108,6 +108,26 @@ class FiltersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void discardEquipment() {
+    _equipments.clear();
+    notifyListeners();
+  }
+
+  void discardInteriors() {
+    _interiors.clear();
+    notifyListeners();
+  }
+
+  void discardCharacteristics() {
+    _characteristics.clear();
+    notifyListeners();
+  }
+
+  void discardFacilities() {
+    _facilities.clear();
+    notifyListeners();
+  }
+
   void discardMetro() {
     _metros.clear();
     notifyListeners();

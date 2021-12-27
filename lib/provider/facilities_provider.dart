@@ -5,10 +5,7 @@ import 'package:studion_mobile/model/filters_dto.dart';
 class FacilitiesProvider extends ChangeNotifier {
   List<FacilityItem> _items = [];
 
-  Future<List<FacilityItem>> get() async {
-    if (_items.isEmpty) {
-      await fetch();
-    }
+  List<FacilityItem> get() {
     return [..._items];
   }
 

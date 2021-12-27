@@ -27,7 +27,6 @@ import 'package:studion_mobile/screen/new_home_screen.dart';
 import 'package:studion_mobile/screen/new_search_screen.dart';
 import 'package:studion_mobile/screen/new_starred_screen.dart';
 import 'package:studion_mobile/screen/room_detail_screen.dart';
-import 'package:studion_mobile/screen/filters_screen.dart';
 import 'package:studion_mobile/screen/list_screen.dart';
 import 'package:studion_mobile/screen/starred_screen.dart';
 import 'package:studion_mobile/screen/studio_detail_screen.dart';

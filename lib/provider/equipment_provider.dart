@@ -6,10 +6,7 @@ class EquipmentProvider extends ChangeNotifier {
   List<EquipmentItem> _items = [];
   Map<String, EquipmentGroup> _groups = {};
 
-  Future<List<EquipmentItem>> get() async {
-    if (_groups.isEmpty) {
-      await fetch();
-    }
+  List<EquipmentItem> get() {
     return [
       ..._groups['other']!.items,
       ..._groups['constant']!.items,

@@ -17,8 +17,8 @@ class _PriceFilterCurrentState extends State<PriceFilterCurrent> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          RegularSeparateTitle('${provider.minPrice}₽'),
-          RegularSeparateTitle('${provider.maxPrice}₽'),
+          RegularSeparateTitle('${provider.values.start.toInt()}₽'),
+          RegularSeparateTitle('${provider.values.end.toInt()}₽'),
         ],
       ),
     );

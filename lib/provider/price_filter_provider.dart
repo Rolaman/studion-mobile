@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class PriceFilterProvider extends ChangeNotifier {
   final priceFromController = TextEditingController();
   final priceToController = TextEditingController();
-  int minPrice = 0;
-  int maxPrice = 10000;
+  SfRangeValues values = const SfRangeValues(100.0, 10000.0);
 
   void discard() {
-    priceToController.clear();
-    priceFromController.clear();
-    minPrice = 0;
-    maxPrice = 10000;
+    values = const SfRangeValues(100.0, 10000.0);
   }
 
-  void change(double min, double max) {
-    minPrice = min.toInt();
-    maxPrice = max.toInt();
+  void change(SfRangeValues value) {
+    values = value;
     notifyListeners();
   }
 
