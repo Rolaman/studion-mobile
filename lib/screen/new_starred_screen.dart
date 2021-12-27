@@ -7,6 +7,7 @@ import 'package:studion_mobile/provider/starred_type_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
 import 'package:studion_mobile/widget/common/decorator/side_margin_decorator.dart';
 import 'package:studion_mobile/widget/common/navigation_bar.dart';
+import 'package:studion_mobile/widget/common/text/small_separate_comment.dart';
 import 'package:studion_mobile/widget/room/room_starred_list_card.dart';
 import 'package:studion_mobile/widget/search/starred_app_bar.dart';
 import 'package:studion_mobile/widget/studio/studio_starred_list_card.dart';
@@ -43,6 +44,19 @@ class NewStarredScreen extends StatelessWidget {
           .toList();
     }
 
+    Widget? emptyWidget = const SizedBox();
+
+    if (itemList.isEmpty) {
+      final text = typeProvider.getCurrent() == FilterType.room
+          ? 'Нет избранных залов'
+          : 'Нет избранных студий';
+      emptyWidget = Container(
+        height: 220,
+        alignment: AlignmentDirectional.bottomCenter,
+        child: SideMarginDecorator(SmallSeparateComment(text)),
+      );
+    }
+
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
@@ -55,6 +69,7 @@ class NewStarredScreen extends StatelessWidget {
                     height: 12,
                   ),
                   ...itemList.map((e) => SideMarginDecorator(e)),
+                  emptyWidget,
                 ],
               ),
             ),
