@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:studion_mobile/provider/search_text_type_provider.dart';
+import 'package:studion_mobile/provider/search_text_provider.dart';
 import 'package:studion_mobile/util/theme.dart';
 
 class SearchInput extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
-    final searchTextTypeProvider = Provider.of<SearchTextTypeProvider>(context, listen: false);
+    final searchTextTypeProvider =
+        Provider.of<SearchTextProvider>(context, listen: false);
 
     return Container(
       decoration: const BoxDecoration(
@@ -27,6 +25,9 @@ class SearchInput extends StatelessWidget {
         style: const TextStyle(
           fontSize: 17,
         ),
+        onChanged: (value) {
+          searchTextTypeProvider.change(true);
+        },
         textAlignVertical: TextAlignVertical.center,
         autocorrect: false,
         enableSuggestions: false,
@@ -54,6 +55,23 @@ class SearchInput extends StatelessWidget {
               color: commonGrey,
             ),
           ),
+          suffixIcon: searchTextTypeProvider.textController.value.text != ''
+              ? GestureDetector(
+                  onTap: () {
+                    searchTextTypeProvider.discard();
+                    FocusScope.of(context).unfocus();
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(
+                      left: 5,
+                    ),
+                    child: Icon(
+                      LineIcons.times,
+                      color: commonGrey,
+                    ),
+                  ),
+                )
+              : null,
         ),
       ),
     );

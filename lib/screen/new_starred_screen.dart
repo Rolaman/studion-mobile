@@ -9,7 +9,6 @@ import 'package:studion_mobile/widget/common/decorator/side_margin_decorator.dar
 import 'package:studion_mobile/widget/common/navigation_bar.dart';
 import 'package:studion_mobile/widget/room/room_starred_list_card.dart';
 import 'package:studion_mobile/widget/search/starred_app_bar.dart';
-import 'package:studion_mobile/widget/studio/studio_list_card.dart';
 import 'package:studion_mobile/widget/studio/studio_starred_list_card.dart';
 
 class NewStarredScreen extends StatelessWidget {

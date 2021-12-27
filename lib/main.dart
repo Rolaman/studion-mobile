@@ -15,7 +15,7 @@ import 'package:studion_mobile/provider/interior_provider.dart';
 import 'package:studion_mobile/provider/metro_provider.dart';
 import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
-import 'package:studion_mobile/provider/search_text_type_provider.dart';
+import 'package:studion_mobile/provider/search_text_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/provider/starred_provider.dart';
 import 'package:studion_mobile/provider/starred_type_provider.dart';
@@ -76,7 +76,7 @@ class App extends StatelessWidget {
           create: (_) => FiltersProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => SearchTextTypeProvider(),
+          create: (_) => SearchTextProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => MetroProvider(),

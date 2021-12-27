@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
-class SearchTextTypeProvider extends ChangeNotifier {
+class SearchTextProvider extends ChangeNotifier {
 
   final textController = TextEditingController();
-  bool searchText = false;
 
   void change(bool state) {
-    searchText = state;
+    notifyListeners();
+  }
+
+  void discard() {
+    textController.clear();
     notifyListeners();
   }
 

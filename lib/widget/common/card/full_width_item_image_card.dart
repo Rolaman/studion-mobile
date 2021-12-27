@@ -18,6 +18,7 @@ class FullWidthItemImageCard extends StatelessWidget {
         child: Stack(
           children: [
             SizedBox(
+              height: 170,
               width: double.infinity,
               child: image,
             ),

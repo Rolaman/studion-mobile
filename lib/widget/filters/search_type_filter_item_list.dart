@@ -44,6 +44,7 @@ class SearchTypeFilterItem extends StatelessWidget {
     final provider = Provider.of<SearchTypeProvider>(context);
     final color = enable ? Colors.white : Colors.black;
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       child: Container(
         decoration: BoxDecoration(
           color: enable ? mainColor : disabledColor,

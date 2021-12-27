@@ -5,7 +5,7 @@ import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
-import 'package:studion_mobile/provider/search_text_type_provider.dart';
+import 'package:studion_mobile/provider/search_text_provider.dart';
 import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/provider/starred_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
@@ -51,26 +51,34 @@ class NewSearchScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            searchAppBar(context),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  SideMarginDecorator(
-                      SmallSeparateTitle('${itemList.length} залов')),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  ...itemList.map((e) => SideMarginDecorator(e)),
-                ],
+      body: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              searchAppBar(context),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    SideMarginDecorator(
+                        SmallSeparateTitle('${itemList.length} залов')),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    ...itemList.map((e) => SideMarginDecorator(e)),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: CommonNavigationBar(),
@@ -82,7 +90,7 @@ FilterRequest buildFilterRequest(BuildContext context) {
   final cityProvider = Provider.of<CityProvider>(context);
   final filterItemsProvider = Provider.of<FiltersProvider>(context);
   final priceProvider = Provider.of<PriceFilterProvider>(context);
-  final textProvider = Provider.of<SearchTextTypeProvider>(context);
+  final textProvider = Provider.of<SearchTextProvider>(context);
   return FilterRequest.values(
     cityId: cityProvider.getCurrentSync().id,
     equipments: filterItemsProvider.getEquipmentFilterIds(),

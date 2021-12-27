@@ -51,7 +51,8 @@ class FilterTypeSwitchItem extends StatelessWidget {
     final provider = Provider.of<StarredTypeProvider>(context);
 
     return GestureDetector(
-      child: Container(
+      behavior: HitTestBehavior.translucent,
+      child: SizedBox(
         height: 40,
         child: Column(
           children: [

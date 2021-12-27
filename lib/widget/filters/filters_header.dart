@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/provider/price_filter_provider.dart';
+import 'package:studion_mobile/provider/search_text_provider.dart';
+import 'package:studion_mobile/provider/search_type_provider.dart';
 import 'package:studion_mobile/util/theme.dart';
 import 'package:studion_mobile/widget/common/button/close_button.dart';
 import 'package:studion_mobile/widget/common/decorator/side_margin_decorator.dart';
@@ -13,6 +15,8 @@ class FiltersHeader extends StatelessWidget {
     final filterProvider = Provider.of<FiltersProvider>(context, listen: false);
     final filterPriceProvider =
         Provider.of<PriceFilterProvider>(context, listen: false);
+    final filterTextProvider =
+        Provider.of<SearchTextProvider>(context, listen: false);
     return Container(
       margin: const EdgeInsets.only(
         top: 25,
@@ -29,6 +33,7 @@ class FiltersHeader extends StatelessWidget {
               onTap: () {
                 filterProvider.discard();
                 filterPriceProvider.discard();
+                filterTextProvider.discard();
                 Navigator.of(context).pop();
               },
             ),
