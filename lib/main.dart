@@ -6,12 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/bottom_navigation_index_provider.dart';
-import 'package:studion_mobile/provider/characteristics_provider.dart';
-import 'package:studion_mobile/provider/city_provider.dart';
-import 'package:studion_mobile/provider/equipment_provider.dart';
-import 'package:studion_mobile/provider/facilities_provider.dart';
+import 'package:studion_mobile/provider/app_config_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
-import 'package:studion_mobile/provider/interior_provider.dart';
 import 'package:studion_mobile/provider/metro_provider.dart';
 import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
@@ -46,6 +42,9 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (_) => AppConfigProvider(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => StudioListProvider(),
         ),
         ChangeNotifierProvider(
@@ -55,19 +54,7 @@ class App extends StatelessWidget {
           create: (_) => BottomNavigationIndexProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => CityProvider(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => SearchTypeProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => EquipmentProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => InteriorProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => CharacteristicProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => PriceFilterProvider(),
@@ -80,9 +67,6 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => MetroProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => FacilitiesProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => StarredProvider(),
@@ -134,27 +118,18 @@ Widget retriableHomeScreen(BuildContext ctx, FutureFunction futureFunction) {
 }
 
 Future<void> providerLoading(BuildContext ctx) {
-  final cityProvider = Provider.of<CityProvider>(ctx, listen: false);
+  final appConfigProvider = Provider.of<AppConfigProvider>(ctx, listen: false);
   final roomsProvider = Provider.of<RoomListProvider>(ctx, listen: false);
   final studiosProvider = Provider.of<StudioListProvider>(ctx, listen: false);
   final metroProvider = Provider.of<MetroProvider>(ctx, listen: false);
-  final interiorProvider = Provider.of<InteriorProvider>(ctx, listen: false);
-  final equipmentProvider = Provider.of<EquipmentProvider>(ctx, listen: false);
-  final characteristicProvider =
-      Provider.of<CharacteristicProvider>(ctx, listen: false);
-  final facilitiesProvider =
-      Provider.of<FacilitiesProvider>(ctx, listen: false);
   final starredProvider = Provider.of<StarredProvider>(ctx, listen: false);
 
-  return cityProvider
+  return appConfigProvider
       .fetch()
       .then((_) => roomsProvider.fetch())
       .then((_) => studiosProvider.fetch())
-      .then((_) => metroProvider.fetch(['moscow', 'spb']))
-      .then((_) => interiorProvider.fetch())
-      .then((_) => equipmentProvider.fetch())
-      .then((_) => characteristicProvider.fetch())
-      .then((_) => facilitiesProvider.fetch())
+      // TODO: remove moscow hardcode
+      .then((_) => metroProvider.fetch("moscow"))
       .then((_) => starredProvider.fetch());
 }
 

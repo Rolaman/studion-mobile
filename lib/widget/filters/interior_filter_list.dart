@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
+import 'package:studion_mobile/provider/app_config_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
-import 'package:studion_mobile/provider/interior_provider.dart';
 import 'package:studion_mobile/widget/common/button/filter_checkbox.dart';
 import 'package:studion_mobile/widget/common/text/regular_list_title.dart';
 
 class InteriorFilterList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<InteriorProvider>(context, listen: false);
+    final provider = Provider.of<AppConfigProvider>(context, listen: false);
     Provider.of<FiltersProvider>(context);
-    final items = provider.get();
+    final items = provider.config.interiors;
 
     return Container(
       alignment: AlignmentDirectional.topCenter,
@@ -25,7 +25,7 @@ class InteriorFilterList extends StatelessWidget {
           final item = items[i];
           return Column(
             children: [
-              InteriorItemPicker(item, Key("picker_interior" + item.id)),
+              InteriorItemPicker(item, Key("picker_interior${item.id}")),
               i != items.length - 1
                   ? const Divider(
                       thickness: 1,

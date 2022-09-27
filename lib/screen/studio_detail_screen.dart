@@ -1,5 +1,4 @@
 import 'package:expandable_text/expandable_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
@@ -23,33 +22,33 @@ class StudioDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final studioId = ModalRoute.of(context)!.settings.arguments as String;
-    final studio = Provider.of<StudioListProvider>(context).getOne(studioId);
+    final studio = Provider.of<StudioListProvider>(context).byId(studioId);
     final roomProvider = Provider.of<RoomListProvider>(context, listen: false);
-    final rooms = roomProvider.getByStudioId(studioId);
+    final rooms = roomProvider.byStudioId(studioId);
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            imageCarousel(studio.imageUrls),
+            imageCarousel(studio.images),
             studio.address != null
                 ? AddressInfo(studio.address!)
                 : const SizedBox(
                     height: 5,
                   ),
-            WorkingHourInfo(studio.startHour, studio.endHour),
+            WorkingHourInfo(studio.openHour, studio.closeHour),
             studio.mobile != null
                 ? ContactInfo(
                     studio.mobile!,
-                    siteUrl: studio.siteUrl,
-                    vkUrl: studio.vkUrl,
-                    instagramUrl: studio.instagramUrl,
+                    siteUrl: studio.url,
+                    vkUrl: studio.vk,
+                    instagramUrl: studio.instagram,
                   )
                 : const SizedBox(),
-            studio.calendarUrl != null
+            studio.calendar != null
                 ? SizedBox(
                     width: double.infinity,
-                    child: StudioCalendarButton(studio.calendarUrl!))
+                    child: StudioCalendarButton(studio.calendar!))
                 : const SizedBox(),
             const Divider(
               thickness: 2,
@@ -89,14 +88,14 @@ class StudioDetailScreen extends StatelessWidget {
               ),
               child: FacilitiesInfo(studio.facilities),
             ),
-            studio.pathInstruction != null
+            studio.instruction != null
                 ? Container(
                     margin: const EdgeInsets.only(
                       left: 15,
                       right: 15,
                       bottom: 20,
                     ),
-                    child: StudioPathInstruction(studio.pathInstruction!),
+                    child: StudioPathInstruction(studio.instruction!),
                   )
                 : const SizedBox(),
           ],

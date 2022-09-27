@@ -1,8 +1,8 @@
 class StudioItem {
   final String id;
   final String name;
-  final String? imageUrl;
-  final List<String> imageUrls;
+  final String? image;
+  final List<String> images;
   final String? description;
   final String? address;
   final int area;
@@ -12,44 +12,85 @@ class StudioItem {
   final List<String> equipments;
   final List<String> interiors;
   final List<String> characteristics;
-  final int startHour;
-  final int endHour;
-  final String? calendarUrl;
-  final String? mobile;
   final List<String> facilities;
-  final String? siteUrl;
-  final String? vkUrl;
-  final String? instagramUrl;
+  final int openHour;
+  final int closeHour;
+  final String? calendar;
+  final String? mobile;
+  final String? url;
+  final String? vk;
+  final String? instagram;
+  // TODO add facebook to screen
+  final String? facebook;
   final List<String> metros;
-  final String? pathInstruction;
+  final String? instruction;
   final double rating;
   final bool popular;
 
   StudioItem({
     required this.id,
     required this.name,
-    this.imageUrl,
-    this.imageUrls = const [],
+    this.image,
+    this.images = const [],
     this.description,
     required this.address,
-    this.equipments = const [],
     required this.area,
     required this.height,
     required this.price,
     required this.cityId,
+    this.equipments = const [],
     this.interiors = const [],
     this.characteristics = const [],
-    required this.startHour,
-    required this.endHour,
-    this.calendarUrl,
-    this.mobile,
     this.facilities = const [],
-    this.siteUrl,
-    this.vkUrl,
-    this.instagramUrl,
+    required this.openHour,
+    required this.closeHour,
+    this.calendar,
+    this.mobile,
+    this.url,
+    this.vk,
+    this.instagram,
+    this.facebook,
     this.metros = const [],
-    this.pathInstruction,
+    this.instruction,
+    // TODO: add rating
     this.rating = 4.5,
     this.popular = true,
   });
+
+  factory StudioItem.fromJson(Map<String, dynamic> json) {
+    List<String> images = json['images'].cast<String>();
+    List<String> equipments = json['equipments'].cast<String>();
+    List<String> interiors = json['interiors'].cast<String>();
+    List<String> characteristics = json['characteristics'].cast<String>();
+    List<String> facilities = json['facilities'].cast<String>();
+    return StudioItem(
+      id: json['id'],
+      name: json['name'],
+      image: json['image'],
+      images: images,
+      description: json['description'],
+      address: json['address'],
+      area: json['area'],
+      height: json['height'],
+      price: json['price'],
+      cityId: json['cityId'],
+      interiors: interiors,
+      characteristics: characteristics,
+      equipments: equipments,
+      facilities: facilities,
+      openHour: json['openHour'],
+      closeHour: json['closeHour'],
+      calendar: json['calendar'],
+      mobile: json['mobile'],
+      url: json['url'],
+      instagram: json['instagram'],
+      vk: json['vk'],
+      // TODO: add metro
+      metros: [],
+      instruction: json['instruction'],
+      rating: json['rating'],
+      popular: json['popular'],
+      facebook: json['facebook'],
+    );
+  }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
-import 'package:studion_mobile/provider/equipment_provider.dart';
+import 'package:studion_mobile/provider/app_config_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/util/theme.dart';
 import 'package:studion_mobile/widget/common/button/filter_checkbox.dart';
@@ -17,10 +17,9 @@ class EquipmentFilterList extends StatefulWidget {
 class _EquipmentFilterListState extends State<EquipmentFilterList> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<EquipmentProvider>(context, listen: false);
-    Provider.of<FiltersProvider>(context);
+    final provider = Provider.of<AppConfigProvider>(context, listen: false);
 
-    final items = provider.get();
+    final items = provider.config.equipments;
 
     return Container(
       alignment: AlignmentDirectional.topCenter,
@@ -50,7 +49,7 @@ class _EquipmentFilterListState extends State<EquipmentFilterList> {
         ),
         itemBuilder: (context, EquipmentItem e) => Column(
           children: [
-            EquipmentItemPicker(e, Key("picker_equipment" + e.id)),
+            EquipmentItemPicker(e, Key("picker_equipment${e.id}")),
           ],
         ),
       ),

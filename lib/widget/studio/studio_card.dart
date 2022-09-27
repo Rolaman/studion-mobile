@@ -3,7 +3,6 @@ import 'package:line_icons/line_icon.dart';
 import 'package:provider/provider.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'package:studion_mobile/model/studio_dto.dart';
-import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/metro_provider.dart';
 import 'package:studion_mobile/screen/studio_detail_screen.dart';
 import 'package:studion_mobile/widget/common/current_metros_bar.dart';
@@ -15,10 +14,8 @@ class StudioCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final city =
-        Provider.of<CityProvider>(context, listen: false).getCurrentSync();
-    final metros = Provider.of<MetroProvider>(context, listen: false)
-        .getByIds(city.id, studio.metros);
+    final metros =
+        Provider.of<MetroProvider>(context, listen: false).byIds(studio.metros);
     return InkWell(
       onTap: () => toDetailPage(context),
       child: Container(
@@ -32,22 +29,21 @@ class StudioCard extends StatelessWidget {
               height: 200,
               child: Stack(
                 children: [
-                  studio.imageUrl != null
+                  studio.image != null
                       ? SizedBox(
                           height: 200,
                           width: double.infinity,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: Image.network(
-                              studio.imageUrl!,
+                              studio.image!,
                               fit: BoxFit.fill,
                               errorBuilder: (ctx, exception, _) {
                                 return Container(
                                   color: Colors.black12,
                                   alignment: AlignmentDirectional.center,
                                   child: const Text(
-                                      'Не удалось загрузить изображение'
-                                  ),
+                                      'Не удалось загрузить изображение'),
                                 );
                               },
                               loadingBuilder: (ctx, ch, loadingProgress) {
@@ -97,18 +93,19 @@ class StudioCard extends StatelessWidget {
                       child: Column(
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
+                                margin: const EdgeInsets.only(
+                                  left: 15,
+                                  top: 10,
+                                ),
                                 child: Text(
                                   studio.name,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                                margin: const EdgeInsets.only(
-                                  left: 15,
-                                  top: 10,
                                 ),
                               ),
                               Container(
@@ -118,7 +115,6 @@ class StudioCard extends StatelessWidget {
                                 ),
                               ),
                             ],
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           ),
                         ],
                       ),
@@ -141,7 +137,7 @@ class StudioCard extends StatelessWidget {
                       ),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             Container(
               margin: const EdgeInsets.only(
                 top: 1,
@@ -162,7 +158,7 @@ class StudioCard extends StatelessWidget {
                           right: 10,
                         ),
                         child: Text(
-                          studio.area.toString() + " м\u00B2",
+                          "${studio.area} м\u00B2",
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -179,7 +175,7 @@ class StudioCard extends StatelessWidget {
                           right: 30,
                         ),
                         child: Text(
-                          (studio.height / 10).toString() + " м",
+                          "${studio.height / 10} м",
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,

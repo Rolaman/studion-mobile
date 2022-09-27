@@ -4,7 +4,7 @@ import 'package:line_icons/line_icon.dart';
 import 'package:provider/provider.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'package:studion_mobile/model/room_dto.dart';
-import 'package:studion_mobile/provider/city_provider.dart';
+import 'package:studion_mobile/provider/current_city_provider.dart';
 import 'package:studion_mobile/provider/metro_provider.dart';
 import 'package:studion_mobile/screen/room_detail_screen.dart';
 import 'package:studion_mobile/widget/common/current_metros_bar.dart';
@@ -16,10 +16,7 @@ class RoomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final city =
-        Provider.of<CityProvider>(context, listen: false).getCurrentSync();
-    final metros = Provider.of<MetroProvider>(context, listen: false)
-        .getByIds(city.id, room.metros);
+    final metros = Provider.of<MetroProvider>(context, listen: false).get();
     return InkWell(
       onTap: () => toDetailPage(context),
       child: Container(
@@ -33,14 +30,14 @@ class RoomCard extends StatelessWidget {
               height: 200,
               child: Stack(
                 children: [
-                  room.imageUrl != null
+                  room.image != null
                       ? SizedBox(
                           height: 200,
                           width: double.infinity,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: Image.network(
-                              room.imageUrl!,
+                              room.image!,
                               fit: BoxFit.fill,
                               errorBuilder: (ctx, exception, _) {
                                 return Container(
@@ -91,18 +88,19 @@ class RoomCard extends StatelessWidget {
                       child: Column(
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
+                                margin: const EdgeInsets.only(
+                                  left: 15,
+                                  top: 10,
+                                ),
                                 child: Text(
                                   room.name,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                                margin: const EdgeInsets.only(
-                                  left: 15,
-                                  top: 10,
                                 ),
                               ),
                               Container(
@@ -112,7 +110,6 @@ class RoomCard extends StatelessWidget {
                                 ),
                               ),
                             ],
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           ),
                         ],
                       ),
@@ -154,7 +151,7 @@ class RoomCard extends StatelessWidget {
                           right: 10,
                         ),
                         child: Text(
-                          room.area.toString() + " м\u00B2",
+                          "${room.area} м\u00B2",
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -171,7 +168,7 @@ class RoomCard extends StatelessWidget {
                           right: 30,
                         ),
                         child: Text(
-                          (room.height / 10).toString() + " м",
+                          "${room.height / 10} м",
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,

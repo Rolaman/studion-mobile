@@ -5,40 +5,24 @@ import 'package:studion_mobile/model/metro_dto.dart';
 import 'package:http/http.dart' as http;
 
 class MetroProvider extends ChangeNotifier {
-  final Map<String, List<MetroStationItem>> _cityStations = {};
+  List<MetroStationItem> _stations = [];
 
-  Future<void> fetch(List<String> cityIds) async {
-    for (var cityId in cityIds) {
-      final cityMetroId = cityMetroIds[cityId];
-      final response =
-          await http.get(Uri.parse('https://api.hh.ru/metro/$cityMetroId'));
-      var decodedResponse = jsonDecode(response.body) as Map<String, dynamic>;
-      final lines = decodedResponse['lines'] as List<dynamic>;
-      List<MetroStationItem> result = [];
-      for (var line in lines) {
-        final color = Color(int.parse(line['hex_color'], radix: 16) + 4278190080);
-        final stations = line['stations'] as List<dynamic>;
-        for (var station in stations) {
-          result.add(MetroStationItem(
-              id: station['id'], color: color, name: station['name']));
-        }
-      }
-      _cityStations[cityId] = result;
-    }
+  Future<void> fetch(String cityId) async {
+    // TODO: url from env var
+    final response = await http.get(
+      Uri.parse("http://localhost:8080/api/metro/$cityId"),
+    );
+    _stations =
+        (jsonDecode(response.body)['items'] as List<dynamic>)
+            .map((e) => MetroStationItem.fromJson(e))
+            .toList();
   }
 
-  List<MetroStationItem> getByCityId(String cityId) {
-    return [..._cityStations[cityId]!];
+  List<MetroStationItem> get() {
+    return [..._stations];
   }
 
-  List<MetroStationItem> getByIds(String cityId, List<String> ids) {
-    return _cityStations[cityId]!
-        .where((e) => ids.contains(e.id))
-        .toList();
+  List<MetroStationItem> byIds(List<String> stationIds) {
+    return _stations.where((e) => stationIds.contains(e.id)).toList();
   }
 }
-
-const cityMetroIds = {
-  'moscow': 1,
-  'spb': 2,
-};

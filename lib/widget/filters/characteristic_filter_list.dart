@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
-import 'package:studion_mobile/provider/characteristics_provider.dart';
+import 'package:studion_mobile/provider/app_config_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/widget/common/button/filter_checkbox.dart';
 import 'package:studion_mobile/widget/common/text/regular_list_title.dart';
@@ -10,9 +10,9 @@ class CharacteristicFilterList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider =
-        Provider.of<CharacteristicProvider>(context, listen: false);
+        Provider.of<AppConfigProvider>(context, listen: false);
     Provider.of<FiltersProvider>(context);
-    final items = provider.get();
+    final items = provider.config.characteristics;
 
     return Container(
       alignment: AlignmentDirectional.topCenter,
@@ -27,7 +27,7 @@ class CharacteristicFilterList extends StatelessWidget {
           return Column(
             children: [
               CharacteristicItemPicker(
-                  item, Key("picker_characteristic" + item.id)),
+                  item, Key("picker_characteristic${item.id}")),
               i != items.length - 1
                   ? const Divider(
                       thickness: 1,

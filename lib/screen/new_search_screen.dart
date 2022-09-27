@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
-import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/provider/price_filter_provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
@@ -30,7 +29,7 @@ class NewSearchScreen extends StatelessWidget {
 
     if (typeProvider.getCurrent() == FilterType.room) {
       final rooms =
-          Provider.of<RoomListProvider>(context).getByRequest(request);
+          Provider.of<RoomListProvider>(context).byRequest(request);
       itemList = rooms
           .map((e) => RoomListCard(
                 e,
@@ -40,7 +39,7 @@ class NewSearchScreen extends StatelessWidget {
           .toList();
     } else {
       final studios =
-          Provider.of<StudioListProvider>(context).getByRequest(request);
+          Provider.of<StudioListProvider>(context).byRequest(request);
       itemList = studios
           .map((e) => StudioListCard(
                 e,
@@ -87,12 +86,12 @@ class NewSearchScreen extends StatelessWidget {
 }
 
 FilterRequest buildFilterRequest(BuildContext context) {
-  final cityProvider = Provider.of<CityProvider>(context);
   final filterItemsProvider = Provider.of<FiltersProvider>(context);
   final priceProvider = Provider.of<PriceFilterProvider>(context);
   final textProvider = Provider.of<SearchTextProvider>(context);
   return FilterRequest.values(
-    cityId: cityProvider.getCurrentSync().id,
+    // TODO remove moscow hardcode
+    cityId: "moscow",
     equipments: filterItemsProvider.getEquipmentFilterIds(),
     interiors: filterItemsProvider.getInteriorFilterIds(),
     characteristics: filterItemsProvider.getCharacteristicFilterIds(),

@@ -18,12 +18,12 @@ class RoomDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final roomId = ModalRoute.of(context)!.settings.arguments as String;
-    final room = Provider.of<RoomListProvider>(context).getOne(roomId);
+    final room = Provider.of<RoomListProvider>(context).byId(roomId);
 
     return Scaffold(
       body: ListView(
         children: [
-          imageCarousel(room.imageUrls),
+          imageCarousel(room.images),
           AddressInfo(room.address),
           WorkingHourInfo(room.startHour, room.endHour),
           Flex(
@@ -43,8 +43,8 @@ class RoomDetailScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              room.calendarUrl != null
-                  ? Expanded(child: CalendarButton(room.calendarUrl!))
+              room.calendar != null
+                  ? Expanded(child: CalendarButton(room.calendar!))
                   : const SizedBox(),
             ],
           ),

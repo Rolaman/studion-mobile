@@ -2,14 +2,23 @@ class EquipmentItem {
   final String id;
   final String name;
   final String type;
-  final String? imageUrl;
+  final String? image;
 
   EquipmentItem({
     required this.id,
     required this.name,
     required this.type,
-    this.imageUrl,
+    this.image,
   });
+
+  factory EquipmentItem.fromJson(Map<String, dynamic> json) {
+    return EquipmentItem(
+      id: json['id'],
+      name: json['name'],
+      type: json['type'],
+      image: json['image'],
+    );
+  }
 }
 
 class EquipmentGroup {
@@ -24,14 +33,34 @@ class InteriorItem {
   final String id;
   final String name;
 
-  InteriorItem(this.id, this.name);
+  InteriorItem({
+    required this.id,
+    required this.name,
+  });
+
+  factory InteriorItem.fromJson(Map<String, dynamic> json) {
+    return InteriorItem(
+      id: json['id'],
+      name: json['name'],
+    );
+  }
 }
 
 class CharacteristicItem {
   final String id;
   final String name;
 
-  CharacteristicItem(this.id, this.name);
+  CharacteristicItem({
+    required this.id,
+    required this.name,
+  });
+
+  factory CharacteristicItem.fromJson(Map<String, dynamic> json) {
+    return CharacteristicItem(
+      id: json['id'],
+      name: json['name'],
+    );
+  }
 }
 
 const equipmentGroups = {
@@ -81,10 +110,19 @@ enum FilterType {
   room,
 }
 
-
 class FacilityItem {
   final String id;
   final String name;
 
-  FacilityItem(this.id, this.name);
+  FacilityItem({
+    required this.id,
+    required this.name,
+  });
+
+  factory FacilityItem.fromJson(Map<String, dynamic> json) {
+    return FacilityItem(
+      id: json['id'],
+      name: json['name'],
+    );
+  }
 }

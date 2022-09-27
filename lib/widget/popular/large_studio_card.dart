@@ -26,7 +26,7 @@ class LargeStudioCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(30),
               child: Image.network(
-                studio.imageUrl!,
+                studio.image!,
                 fit: BoxFit.cover,
               ),
             ),

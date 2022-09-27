@@ -70,7 +70,7 @@ class StudioDetailRoomItem extends StatelessWidget {
                 width: double.infinity,
                 height: 250,
                 child: Image.network(
-                  room.imageUrl!,
+                  room.image!,
                   fit: BoxFit.fill,
                   errorBuilder: (ctx, exception, _) {
                     return Container(

@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:studion_mobile/provider/room_list_provider.dart';
 import 'package:studion_mobile/provider/starred_provider.dart';
 import 'package:studion_mobile/provider/studio_list_provider.dart';
-import 'package:studion_mobile/widget/common/loader.dart';
 import 'package:studion_mobile/widget/common/navigation_bar.dart';
 import 'package:studion_mobile/widget/room/room_card.dart';
 import 'package:studion_mobile/widget/studio/studio_card.dart';
@@ -14,6 +13,7 @@ class StarredScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      length: 2,
       child: Scaffold(
         bottomNavigationBar: CommonNavigationBar(),
         appBar: AppBar(
@@ -44,7 +44,6 @@ class StarredScreen extends StatelessWidget {
           ],
         ),
       ),
-      length: 2,
     );
   }
 }
@@ -69,7 +68,7 @@ class StarredStudioTabView extends StatelessWidget {
     return ListView(
       children: [
         ...studios.map((e) {
-          return StudioCard(studioProvider.getOne(e), Key(e));
+          return StudioCard(studioProvider.byId(e), Key(e));
         }).toList()
       ],
     );
@@ -80,10 +79,10 @@ class StarredRoomTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<StarredProvider>(context, listen: false);
-    final rooms = provider.roomIds;
+    final roomIds = provider.roomIds;
     final roomProvider = Provider.of<RoomListProvider>(context, listen: false);
 
-    if (rooms.isEmpty) {
+    if (roomIds.isEmpty) {
       return const Center(
         child: Text(
           'Нет избранных залов',
@@ -96,8 +95,8 @@ class StarredRoomTabView extends StatelessWidget {
 
     return ListView(
       children: [
-        ...rooms.map((e) {
-          return RoomCard(roomProvider.getOne(e), Key(e));
+        ...roomIds.map((e) {
+          return RoomCard(roomProvider.byId(e), Key(e));
         }).toList()
       ],
     );

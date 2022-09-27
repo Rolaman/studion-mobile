@@ -23,7 +23,7 @@ class NewStarredScreen extends StatelessWidget {
     List<Widget> itemList = [];
 
     if (typeProvider.getCurrent() == FilterType.room) {
-      final rooms = Provider.of<RoomListProvider>(context).items;
+      final rooms = Provider.of<RoomListProvider>(context).currents;
       itemList = rooms
           .where((e) => provider.roomIds.contains(e.id))
           .map((e) => RoomStarredListCard(
@@ -33,7 +33,7 @@ class NewStarredScreen extends StatelessWidget {
               ))
           .toList();
     } else {
-      final studios = Provider.of<StudioListProvider>(context).items;
+      final studios = Provider.of<StudioListProvider>(context).currents;
       itemList = studios
           .where((e) => provider.studioIds.contains(e.id))
           .map((e) => StudioStarredListCard(

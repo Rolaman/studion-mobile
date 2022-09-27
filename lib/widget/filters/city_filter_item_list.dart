@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:studion_mobile/provider/city_provider.dart';
+import 'package:studion_mobile/model/city_dto.dart';
+import 'package:studion_mobile/provider/app_config_provider.dart';
 import 'package:studion_mobile/util/theme.dart';
 import 'package:studion_mobile/widget/common/text/small_separate_title.dart';
 
-class CityFilterItemList extends StatelessWidget {
+import '../../provider/current_city_provider.dart';
 
+class CityFilterItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CityProvider>(context);
-    final currentCity = provider.getCurrentSync();
+    final provider = Provider.of<AppConfigProvider>(context, listen: false);
+    final currentCityProvider = Provider.of<CurrentCityProvider>(context);
+    final currentCity = currentCityProvider.currentCity;
     return Row(
       children: [
-        ...provider.items.map((e) {
+        ...provider.config.cities.map((e) {
           return Container(
             margin: const EdgeInsets.only(right: 16),
             child: CityFilterItem(
@@ -41,7 +43,7 @@ class CityFilterItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CityProvider>(context);
+    final provider = Provider.of<CurrentCityProvider>(context);
     final color = enable ? Colors.white : Colors.black;
     return GestureDetector(
       child: Container(
@@ -59,7 +61,10 @@ class CityFilterItem extends StatelessWidget {
         ),
       ),
       onTap: () {
-        provider.change(id);
+        provider.change(CityItem(
+          id: id,
+          name: name,
+        ));
       },
     );
   }

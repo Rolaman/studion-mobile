@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/filters_dto.dart';
-import 'package:studion_mobile/provider/facilities_provider.dart';
+import 'package:studion_mobile/provider/app_config_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/widget/common/button/filter_checkbox.dart';
 import 'package:studion_mobile/widget/common/text/regular_list_title.dart';
@@ -9,10 +9,9 @@ import 'package:studion_mobile/widget/common/text/regular_list_title.dart';
 class FacilityFilterList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final provider =
-        Provider.of<FacilitiesProvider>(context, listen: false);
+    final provider = Provider.of<AppConfigProvider>(context, listen: false);
     Provider.of<FiltersProvider>(context);
-    final items = provider.get();
+    final items = provider.config.facilities;
 
     return Container(
       alignment: AlignmentDirectional.topCenter,
@@ -26,8 +25,7 @@ class FacilityFilterList extends StatelessWidget {
           final item = items[i];
           return Column(
             children: [
-              FacilityItemPicker(
-                  item, Key("picker_facility" + item.id)),
+              FacilityItemPicker(item, Key("picker_facility${item.id}")),
               i != items.length - 1
                   ? const Divider(
                       thickness: 1,

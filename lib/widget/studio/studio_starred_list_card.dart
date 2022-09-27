@@ -37,7 +37,7 @@ class StudioStarredListCard extends StatelessWidget {
         children: [
           FullWidthItemImageCard(
             image: Image.network(
-              item.imageUrl!,
+              item.image!,
               fit: BoxFit.cover,
             ),
             action: FavouriteButton(

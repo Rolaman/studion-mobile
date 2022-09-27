@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studion_mobile/model/metro_dto.dart';
-import 'package:studion_mobile/provider/city_provider.dart';
 import 'package:studion_mobile/provider/filters_provider.dart';
 import 'package:studion_mobile/provider/metro_provider.dart';
 
@@ -20,10 +19,8 @@ class _MetroFiltersModalState extends State<MetroFiltersModal> {
   @override
   void didChangeDependencies() {
     if (!_inited) {
-      final city =
-          Provider.of<CityProvider>(context, listen: false).getCurrentSync();
       _allMetros = Provider.of<MetroProvider>(context, listen: false)
-          .getByCityId(city.id);
+          .get();
       setState(() {
         _shownMetros = [..._allMetros];
         _checked = Provider.of<FiltersProvider>(context, listen: false)
@@ -157,7 +154,7 @@ class _MetroFiltersModalState extends State<MetroFiltersModal> {
                               },
                             )),
                         Container(
-                          margin: EdgeInsets.only(right: 10),
+                          margin: const EdgeInsets.only(right: 10),
                           width: 15,
                           height: 15,
                           decoration: BoxDecoration(

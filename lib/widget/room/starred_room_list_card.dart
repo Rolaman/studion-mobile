@@ -30,7 +30,7 @@ class StarredRoomListCard extends StatelessWidget {
         children: [
           MediumItemImageCard(
             image: Image.network(
-              item.imageUrl!,
+              item.image!,
               fit: BoxFit.cover,
             ),
             action: FavouriteButton(
