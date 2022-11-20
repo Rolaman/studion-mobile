@@ -27,13 +27,18 @@ import 'package:studion_mobile/util/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-      overlays: SystemUiOverlay.values);
+  await SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: SystemUiOverlay.values
+  );
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
+
+  const App({super.key});
+
   @override
   Widget build(BuildContext context) {
     FirebaseMessaging.instance.subscribeToTopic('common');
